@@ -1,0 +1,83 @@
+* 設定檔
+
+Emacs是個非常吃重設定檔的編輯器，這一篇會為您解答最常遇到的一些問題。
+
+** 基本問題
+*** 我裝好 Emacs 了，但我沒看到使用者設定檔啊？ 
+
+    很多系統不會為使用者事先建立設定檔，要自己手動建立。 方法是在 ~/ （家目錄）下建立一個叫.emacs.d 的目錄，並在裡面開一個叫 init.el 的檔案。 建議把一切 Emacs 相關目錄檔案存放在.emacs.d 中。
+
+*** 但 Windows 下， =~/= 的實際目錄到底在哪裡？」 
+
+    這也是個曾經讓我很困惑的問題。總之，最簡單的得知方法是 =M-x customize= 後，按"Apply and Save"，你會看到畫面下方的 minibuffer 寫著一串路徑，就是那個了。
+
+*** 我該使用 =~/.emacs= 當作我的設定檔，還是 =~/.emacs.d/init.el= ？」
+
+    Emacs 會優先讀取前者。然而在某些系統中會預設建立這個檔案，同時存在的話可能會發生設定衝突問題。 我是建議把前者刪掉，只使用後者，也方便使用版本控制系統管理你的設定檔。
+
+** 測試新設定
+
+網路上找到不錯的設定時，加入設定檔前可以先測試一下：
+
+    - 把設定貼到任何一個 buffer 中，最好是 =emacs-lisp-mode= 或者 =lisp-interaction-mode= 的 buffer（例如一啟動 Emacs 後看到的 =*scratch*= ）因為進一步修改比較容易，也有 syntax highlight
+    - 把游標移動到括弧最尾端後，按 =C-x C-e= ，設定就立即生效了。
+
+#+BEGIN_QUOTE
+因為 Emacs 本身就是一個完整的 Lisp 環境/直譯器，除了 Lisp 直譯器自己本身與一些低階命令外，其餘部份全是使用 Emacs Lisp 所建構而成。 =C-x C-e= 的動作代表「執行（eval）該 Lisp 表達式」，執行的結果（或更精確地說，執行該表達式後的 *副作用* ）也就會直接立刻影響整個 Emacs。
+
+由於 Emacs 就是個直譯器，你甚至可以拿 Emacs Lisp 當作 script language 在 shell 下面執行，就像 python 或 ruby 一樣
+#+END_QUOTE
+
+    - 如果發生錯誤（會顯示一個叫做 =*Backtrace*= 的 buffer，內容大致是 =Debugger entered--Lisp error: (wrong-number-of-arguments (2 . 2) 0)= 之類的），這時按 =q= 關閉 =*Backtrace*= buffer，看哪裡出錯了再修改。
+
+** 快速鍵綁定 Key-binding
+
+只要是 =M-x= 呼叫得出的 function，你都可以重新綁定成你自己喜歡的按鍵，稱作 *key-binding* 。分成兩種，一種是全域 Global-key，一種是 mode 自訂的 Local-key。
+
+    - 使用 =C-h f= 查詢某 function 的用途、文件與該 function 所有的 key-binding 等資訊。
+    - 使用 =C-h k= 查詢某 key-binding 在目前 buffer 下所綁定到的 function。
+    - 使用 =C-h m= 查詢目前的 buffer 下、啟動了哪一個 major-mode、哪些 minor-modes、以及所有可用的 key-bindings。
+    - 使用 =C-h v= 查詢某個 variable 的值：
+      - 例如可以查詢 =major-mode= 這個變數的值，以得知目前的 major-mode 實際上叫做什麼（ *在設定 key-binding 和 hook 時需要用到這個值* ）
+
+*** Global key
+
+    假如我覺得 =C-z= （在終端機下是暫停 Emacs）實在很沒有屁用還常常按錯，想把他改成「選取文字」（set-mark-command，原本只有綁到 =C-@= ），可以這樣做：
+
+    #+BEGIN_SRC elisp
+     (global-set-key (kbd "C-z") ’ set-mark-command     
+    #+END_SRC
+
+    你也可以只是把 C-z 取消成沒有用的鍵（但這樣很浪費捏）：
+
+    #+BEGIN_SRC elisp
+    (global-unset-key (kbd "C-z"))     
+    #+END_SRC
+
+*** Local key
+
+    不管是 Major 或 Minor mode，都有自己的 local key (keymap)。Local-key 只在你指定的 mode 下有用。
+    例如，你希望在 Twitter 的 Emacs client =Twittering-mode= 下，按大寫 U 可以顯示自己的 timeline，可以使用 =define-key= ：
+
+    #+BEGIN_SRC elisp
+    (define-key twittering-mode-map (kbd "U") ’ twittering-user-timeline)     
+    #+END_SRC     
+
+    mode 名稱叫 =twittering-mode= ，他的 key-map 就是 =twittering-mode-map= 。這是規則，記下來就對了。
+
+    Key 的設定是 *新的會直接覆蓋舊的* ，在 init.el 有時要注意這點，否則會發現為何自己的 global-key 設定沒有生效，才發現自己原來之前設定過同樣設定。（因為 Emacs Lisp 是直譯式，init.el 的設定是從第一行一行一行執行到檔案尾端，所以後面的設定會蓋掉前面的。例如你改了兩次的 =C-@= 就會發生這種情形）
+
+** 自動啟動 Add-hook
+
+    需要在啟動某個 mode 後，自動啟動你想要的 minor-mode 或者各種設定？ 請使用 =add-hook=。方法是：
+
+
+: (add-hook 'xxxxx-mode-hook 'function-name)  
+
+    範例：  
+    
+#+BEGIN_SRC elisp
+    (add-hook 'python-mode-hook 'highlight-symbol-mode)
+#+END_SRC
+
+=prog-mode= 是 programming 相關的所有 major-mode 的 parent mode（例如 =python-mode= , =perl-mode=, =ruby-mode= ...等等都是屬於 =prog-mode= ），所以你可以使用 =(add-hook  'prog-mode-hook ...)= 之類的方式來自訂你想要的東西，而不用分別自訂各種程式語言的 mode，各種 mode 會自己繼承設定。

@@ -1,0 +1,36 @@
+* 下一步？
+
+你現在應該已經有一點基本的 Emacs 操作與使用概念了，但這樣當然還是不夠的。
+
+** 累積設定檔
+
+設定檔是要花些時間折騰的，當然除了直接用現成的 [[https://github.com/emacs-tw/awesome-emacs#starter-kit][Starter-kit]] 外，最好的起步方法就是「抄別人的設定檔」！可以參考以下幾位台灣 Emacser 的設定：
+
+- [[https://github.com/coldnew/coldnew-emacs][coldnew/coldnew-emacs · GitHub]]
+- [[https://github.com/kanru/.emacs.d][kanru/.emacs.d · GitHub]]
+- [[https://github.com/kuanyui/.emacs.d][kuanyui/.emacs.d]]
+
+
+#+BEGIN_QUOTE
+從前有一個人原本用 Emacs，但後來卻跑去用 Vim 了，原因是他搞丟了他的 Emacs 設定檔 ，那個人叫做 Tim O'Reilly...
+#+END_QUOTE
+
+設定檔是每個 Emacser 最重要的寶物，記得備份千萬不要搞丟了，或者可以的話把整個 =.emacs.d= 給版本控制然後丟到 Github 最好！
+
+** Packages 擴充套件
+
+Emacs 最重要的靈魂除了設定檔外，就是「擴充套件」了。
+
+但 Emacs 已經有三、四十年的歷史，累積了成千上萬個套件，該到哪裡找到我想要的套件呢？Emacs.tw 社群有整理了一個頗為完整的清單 [[https://github.com/emacs-tw/awesome-emacs][Awesome Emacs]] ，讓你很容易就能找到一些目前最受歡迎、常用、且符合自身需求的套件。
+
+** 該學 Lisp 嗎？
+ 
+到後來也許你會越用越上癮，開始對於現有 Packages 與操作方式不滿，可能會開始想要動手寫自己想要的功能，甚至 Package、major/minor mode，這時就得學一點 Emacs Lisp 了。會很難嗎？我可以說基本的部份並不困難，其實我自己開始用 Emacs 時根本完全不會寫程式，學會的第一個程式語言就是 Emacs Lisp。
+
+如果你想學 Emacs Lisp，我推薦可以先讀過 [[http://acl.readthedocs.org/en/latest/][ANSI Common Lisp]] 的第二章（建立起 Lisp 的基礎概念）後，再看 Xah Lee 的一些 Emacs Lisp 實用範例（[[http://ergoemacs.org/emacs/elisp_basics.html][Emacs Lisp Tutorial by Example]]、[[http://ergoemacs.org/emacs/elisp_editing_basics.html][Programing: Overview of Text-Processing in Emacs Lisp]], [[http://ergoemacs.org/emacs/elisp_examples.html][Emacs Lisp Examples]] ...etc），就可以開始試著寫自己想要的東西了，尤其如果你已經有其他 script language 的基礎，那學起來應該蠻快才對。而且遇到問題也有 #emacs.tw 或 #emacs 的 IRC 能問。
+
+** 結語
+
+我認為使用 Emacs 最大的價值是：「 *這是一個學一次，就可以用一輩子的編輯器* 」open source，又是 GNU 的重點項目之一，又以目前社群的活躍程度來看，你根本不必擔心沒人維護、遇到問題沒有解答，或者哪天跟你收錢。而且可能也是唯一一個不用擔心功能不足的編輯器，可以擴充到天荒地老海枯石爛～
+
+Vim也是很棒的編輯器，不過這點前面已經敘述過，這是青菜蘿蔔各有所好了。

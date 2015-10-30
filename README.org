@@ -1,0 +1,10 @@
+* Emacs 101
+Emacs 新手求生指南
+
+* 授權
+Emacs 101 採用 CC-0 授權釋出，屬公有領域。
+
+歡迎任何人丟 pull request 來參與撰寫、修正。
+
+* 貢獻者
+- [[https://kuanyui.github.io/][kuanyui]]

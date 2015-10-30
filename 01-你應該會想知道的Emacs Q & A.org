@@ -1,0 +1,77 @@
+* 常見問題
+我們從一些大家最常問的問題開始：
+
+** 什麼？還有人在用 Emacs 這種古董喔？
+很不幸的，還有。只是似乎越來越少...
+
+  [[file:pic/trend1.png]]
+  [[file:pic/trend.png]]
+
+  但如果你看 MELPA（Emacs 的第三方外掛套件庫）的成長速度與活躍程度，應大可放心，Emacs 仍是個使用者群廣大的軟體，不用怕遇到問題沒有解答。
+
+** Emacs 要很多很麻煩的設定用起來才會順手？
+  這要看你要求 Emacs *做到多少事情。*
+
+  Emacs 已經有為各種語言內建基本的編輯功能與 Syntax highlight，通常不用額外設定，然而如果你要為各種程式語言設定 auto completion 就是個瑣碎的煩人事。
+
+#+BEGIN_QUOTE
+  我個人非常挑剔 UX，所以就會覺得 Emacs 沒有設定過簡直不能用。\\
+  不過像 Emacs 台灣社群裡的 kanru 說 Emacs 預設值他就覺得很好用了。甚至有人只有不到 100 行的設定也用得很開心，然而我光 Dired 的設定就超過 100 行了。\\
+  是有不少新手包，據說幾乎不用自己寫什麼設定，不過我有強迫症會覺得髒髒的所以從來沒用過。\\
+  -- kuanyui
+#+END_QUOTE
+
+** Emacs 很肥啟動很慢？
+ 有什麼關係，反正 Emacs 一啟動後根本就不關的。
+
+ 不過啟動速度慢也有很容易的解決方案，後面再提。
+
+  不要拿 Vim 的使用邏輯放在 Emacs 上，兩者設計理念差太多了。Vim 一開始就是要做編輯器，但 Emacs 一開始是想做個 Lisp 環境。
+
+#+BEGIN_QUOTE
+如果你是使用 Vim 的 programmer，你可能不會每天開 Vim 寫程式；\\
+是如果你是 Emacser，你每天都會把 Emacs 開著放在桌面上。
+#+END_QUOTE
+
+** 據說一直壓 Ctrl 很容易受傷？
+#+BEGIN_QUOTE
+其實我沒特別感覺，長時間使用也沒怎樣。\\
+有個很常被提出的解決方案是把 Ctrl 跟 CapsLock 鍵交換，但我個人沒這樣做，因為一般 Ctrl 位置我按了三年半了也沒受傷。所以我無法告訴你這種方法是否真的比較順手。
+
+-- kuanyui
+#+END_QUOTE
+
+** 一定要學 Lisp 嗎？
+一樣，看你期望讓 Emacs 做哪些事。
+
+如果只是一般使用，不會 Lisp 也沒太大關係。安裝/設定各種外掛也只要按照他們的 README 複製貼上設定檔就行了。
+
+然而如果你想讓 Emacs 完全聽你的話，當個 Emacs 魔法師、寫你需要的外掛的話，當然就要學 Lisp 了。後面會提到入門方法。
+
+
+* 優缺點整理
+  既然已經有那麼多其他 editors 了，請給我一些非用 Emacs 不可的理由？
+
+0. Org-mode, Dired 這兩個功能打趴其他所有編輯器。
+1. Org-mode 是至今我心目中無人能敵的超變態的筆記 + GTD + 出版軟體。（這是我當初學 Emacs 而不是 Vim 的主要理由之一）
+2. 學一套，幾乎什麼平台都能用。
+3. 可純鍵盤操作，出門沒帶滑鼠也不覺得少了什麼。
+4. 有純 CLI 界面，遠端 ssh 操作或 tty 也完全沒問題。
+5. 很多 UNIX 工具也是採用 Emacs-flavored 的 key-binding，尤其是 GNU 出品的。例如  =info= 、 =less= 、甚至  =bash= / =zsh=  的預設操作方式也都是 Emacs-flavored 的，用起來很熟悉。
+6. 歷史悠久，所以很多你想得到、想不到的方便功能幾乎都有人做過。舉凡一套完整的 Terminal Emulator、[[http://kuanyui.github.io/2014/06/21/dired-tutorial-and-essential-configs/][檔案管理員]]、 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Serial-Terminal.html][Serial Terminal]]到 [[https://github.com/hayamiz/twittering-mode][Twitter 的 client]]、[[https://github.com/skeeto/elfeed][RSS reader]]。
+7. Emacs Lisp 是個頗為完整的語言，還可以順便學 Lisp。拿來代替其他腳本語言做一些常用的文字處理功能或拋棄式程式挺方便，隨時覺得什麼編輯操作不順手就順手寫一個，不需要再弄什麼外部程式，例如我常常拿它來：
+
+    - 在貼上網址後，自動去抓網頁的標題加上去。
+    - 貼上 Flickr 網址後，直接去抓圖片的 raw link。
+    - [[https://github.com/kuanyui/moedict.el][查《萌典》]]。
+
+8. 免費又 Open Source，不用擔心被專有軟體綁住，這是個學一次就可以用一輩子的編輯器。
+
+** 缺點
+Emacs 的劣勢是：
+
+1. 要花時間搞弄設定檔（不過前面也提過了，這點見仁見智）
+2. Ctrl、Alt 鍵磨損的速度相當快，而且好像有不少人說 Ctrl 常按會傷手。
+3. Emacs 比 Vim 肥很多，不過這是相較之下，跟 Sublime Text 和 Atom 比的話應該輕量很多。
+4. 幾乎所有主機上都有 Vim（再怎樣也有 Vi），但不一定會有 Emacs。
+   

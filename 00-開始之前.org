@@ -1,0 +1,33 @@
+
+* 前言
+Emacs 是史上最古老的編輯器之一，然而因為許多原因，入門並不是太容易。這個 Emacs 101 希望能讓你了解一些基本知識，無痛開始使用 Emacs。
+
+看完這一系列文章，你 *會* 知道：
+
+  1. Emacs 適合什麼人、能拿來做什麼、優點與缺點。
+  2. Emacs 的基本觀念與操作。
+  3. 打造屬於自己的 Emacs。
+  4. Emacs Lisp 的學習方向與開發技巧。
+  5. 下一步的學習方向。
+
+* 社群幫助
+
+  一定要先提這個。有問題想問？遇到困難不知如何解決？Emacs 的社群相當活躍，大膽開口問吧。
+
+** StackExchange
+
+StackExchange 現在有 [[https://emacs.stackexchange.com/][Emacs 專版]]，相當活躍，問題很快都能找到解答。
+
+** IRC
+
+  這應該是目前最活躍的、也最即時的發問管道。channel 皆位於 Freenode IRC server 上：
+  - 台灣（正體中文）： =#emacs.tw=
+  - 國際（英文）： =#emacs=
+
+** SNS
+
+   也有 Google+ 與 Twitter：
+  - [[https://plus.google.com/u/0/communities/115469134289640648214][Google+ 中文社群]]
+  - [[https://plus.google.com/u/0/communities/114815898697665598016][Google+ 國際社群]]
+  - [[https://twitter.com/EmacsTW][Emacs 台灣 (@EmacsTW) | Twitter]]
+
