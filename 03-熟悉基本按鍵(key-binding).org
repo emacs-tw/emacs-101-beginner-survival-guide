@@ -6,6 +6,21 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 
 這是一個玩笑話，不過 Emacs 確實有許多 key-binding。熟悉以後能夠有效增加你的編輯效率。以下做一些整理。
 
+** 基本
+- =C-x C-f= 開檔。
+- =C-x C-c= 離開Emacs。
+
+*** Buffer相關
+- =C-x k= 關掉目前buffer。
+- =C-x C-←= 切換到上一個buffer。
+- =C-x C-→= 切換到下一個buffer。
+
+*** Window相關
+- =C-x 0= 關掉目前Window
+- =C-x 1= 將目前Window以外的所有Window關掉。
+- =C-x 2= 水平分割Window
+- =C-x 3= 垂直分割Window
+
 ** 游標移動
 - =C-a= 跳到行首
 - =C-e= 跳到行尾
@@ -22,7 +37,6 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 -- kuanyui
 #+END_QUOTE
 
-*** 文件
 - =M-g M-g= 跳到第N行。
 - =M-<= 跳到文件最頂端。
 - =M->= 跳到文件最尾端。
@@ -64,7 +78,8 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 -- kuanyui
 #+END_QUOTE
 
-** 英文大小寫
+** 特殊編輯功能
+*** 英文大小寫
 - =M-l= 單字轉成全小寫。
 - =M-u= 單字轉成全大寫。
 - =M-c= 單字轉首字大寫。 
@@ -76,4 +91,12 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 
 -- kuanyui
 #+END_QUOTE
+*** 交換
+- =C-t= 前後字元交換。
+- =M-t= 前後單字交換。
 
+#+BEGIN_QUOTE
+規則很難解釋，自己多試用幾次看看就會懂了。熟悉後我發現這個功能出乎意料的實用。
+
+-- kuanyui
+#+END_QUOTE
