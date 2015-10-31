@@ -8,6 +8,8 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 
 ** 基本
 - =C-x C-f= 開檔。
+- =C-x C-s= 存檔。
+- =C-x C-w= 另存新檔。
 - =C-x C-c= 離開Emacs。
 
 *** Buffer相關
@@ -59,6 +61,7 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 *** 選取區域操作
 
 - =C-@= 標記選取範圍。
+- =C-x C-x= 跳到選取範圍的開頭/尾端。
 - =M-w= 複製目前選取區域。
 - =C-w= 剪下目前選取區域。
 
