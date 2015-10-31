@@ -1,0 +1,79 @@
+* 熟悉基本按鍵綁定(key-binding)
+
+#+BEGIN_QUOTE
+Emacs = Esc + Meta + Alt + Ctrl + Super
+#+END_QUOTE
+
+這是一個玩笑話，不過 Emacs 確實有許多 key-binding。熟悉以後能夠有效增加你的編輯效率。以下做一些整理。
+
+** 游標移動
+- =C-a= 跳到行首
+- =C-e= 跳到行尾
+- =M-f= 跳到下一個英文單字(f表示forward)
+- =M-b= 跳到前一個英文單字(b表示backward)
+
+#+BEGIN_QUOTE
+與Vim一樣，這種針對「單字」的操作指的都是歐洲語系國家的單字，因為他們有空白來分割每個單字。
+
+然而對中文來說，Emacs並沒有辦法針對中文斷詞，所以 =M-f= 會 *直接跳到下一句話* ，因為每句話之間有標點符號分隔著。
+
+同理，編輯日文時，Emacs只會按照平假名/片假名/漢字來「斷詞」。
+
+-- kuanyui
+#+END_QUOTE
+
+*** 文件
+- =M-g M-g= 跳到第N行。
+- =M-<= 跳到文件最頂端。
+- =M->= 跳到文件最尾端。
+
+*** Lisp相關
+如果你常寫Lisp，記住這個還蠻好用的。
+
+- =C-M-f= 跳到下一個S-expression
+- =C-M-b= 跳到前一個S-expression
+
+** Kill-ring相關
+
+*** 刪除（Kill）
+- =C-k= 從目前游標kill到行尾（並將被kill掉的部份丟入kill-ring） 
+- =M-k= 從目前游標kill到一句話的尾端。
+
+- =C-d= kill目前游標下的字元
+- =M-d= 從目前游標kill到下一個 空格or標點符號or 行尾
+
+*** 選取區域操作
+
+- =C-@= 標記選取範圍。
+- =M-w= 複製目前選取區域。
+- =C-w= 剪下目前選取區域。
+
+*** 貼上（Yank）
+- 按 =C-y= 可以把最近一次被 Kill 掉的文字從 Kill-ring 給「拉 (Yank) 」出來。
+- 再按 N 下 =M-y= 可以把前 N 次被 Kill 掉的文字從 Kill-ring 中「拉」出來。
+
+
+** Undo/Redo
+- =C-/= 或 =C-_= : 復原（Undo）。
+
+#+BEGIN_QUOTE
+這是每個Emacs初學者一開始都會被搞混的概念。但Emacs的Undo/Redo非常強大，但邏輯很怪，我不太會解釋，請強者大大們補完這段吧 <(_ _)>
+
+我推薦使用 =undo-tree.el= 這個外掛，可以視覺化編輯/undo/redo。我很常用 =undo-tree= ，但也聽過別人說他們覺得這沒什麼使用時機，真的好難解釋喔。
+
+-- kuanyui
+#+END_QUOTE
+
+** 英文大小寫
+- =M-l= 單字轉成全小寫。
+- =M-u= 單字轉成全大寫。
+- =M-c= 單字轉首字大寫。 
+
+#+BEGIN_QUOTE
+這個功能看似雞肋，不過我還蠻常用的。
+
+因為這個大小寫轉換是從目前游標開始算起，所以請搭配前面提到過的 =M-b= 來使用。例如 =M-b M-u= 就可以把目前單字轉成全大寫。
+
+-- kuanyui
+#+END_QUOTE
+

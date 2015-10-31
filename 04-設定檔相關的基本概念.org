@@ -1,11 +1,19 @@
 * 設定檔
 
-Emacs是個非常吃重設定檔的編輯器，這一篇會為您解答最常遇到的一些問題。
+Emacs 是個非常吃重設定檔的編輯器，這一篇會為您解答最常遇到的一些問題。
 
 ** 基本問題
 *** 我裝好 Emacs 了，但我沒看到使用者設定檔啊？ 
 
-    很多系統不會為使用者事先建立設定檔，要自己手動建立。 方法是在 ~/ （家目錄）下建立一個叫.emacs.d 的目錄，並在裡面開一個叫 init.el 的檔案。 建議把一切 Emacs 相關目錄檔案存放在.emacs.d 中。
+    很多系統不會為使用者事先建立設定檔，要自己手動建立。 方法是在 =~/= （家目錄）下建立一個叫 =.emacs.d= 的目錄，並在裡面開一個叫 =init.el= 的檔案。 
+
+#+BEGIN_QUOTE
+建議把一切 Emacs 相關設定分門別類整理好存放在 =.emacs.d= 中，盡量不要全部擠到 =.emacs.d/init.el= ，因為整理起來會很麻煩。
+
+可以參考 [[https://github.com/kanru/.emacs.d][kanru]] 與 [[https://github.com/kuanyui/.emacs.d][kuanyui]] 的 =.emacs.d= 目錄結構來整理。
+
+-- kuanyui
+#+END_QUOTE
 
 *** 但 Windows 下， =~/= 的實際目錄到底在哪裡？」 
 
@@ -35,17 +43,21 @@ Emacs是個非常吃重設定檔的編輯器，這一篇會為您解答最常遇
 只要是 =M-x= 呼叫得出的 function，你都可以重新綁定成你自己喜歡的按鍵，稱作 *key-binding* 。分成兩種，一種是全域 Global-key，一種是 mode 自訂的 Local-key。
 
     - 使用 =C-h f= 查詢某 function 的用途、文件與該 function 所有的 key-binding 等資訊。
-    - 使用 =C-h k= 查詢某 key-binding 在目前 buffer 下所綁定到的 function。
+    - 使用 =C-h k= 、再按下任意 key-binding，可以查詢其 key-binding 在目前 buffer 下所綁定到的 function。
     - 使用 =C-h m= 查詢目前的 buffer 下、啟動了哪一個 major-mode、哪些 minor-modes、以及所有可用的 key-bindings。
     - 使用 =C-h v= 查詢某個 variable 的值：
-      - 例如可以查詢 =major-mode= 這個變數的值，以得知目前的 major-mode 實際上叫做什麼（ *在設定 key-binding 和 hook 時需要用到這個值* ）
+      - 例如可以查詢 =major-mode= 這個變數的值，以得知目前的 major-mode 實際上的 symbol 名稱（ *在設定 key-binding 和 hook 時需要用到這個值* ）
+
+#+BEGIN_QUOTE
+Symbol 是 Lisp、Ruby、Erlang 等語言中有的一種資料型態，現在不懂也沒關係，我們現在只是要弄設定檔。。
+#+END_QUOTE
 
 *** Global key
 
     假如我覺得 =C-z= （在終端機下是暫停 Emacs）實在很沒有屁用還常常按錯，想把他改成「選取文字」（set-mark-command，原本只有綁到 =C-@= ），可以這樣做：
 
     #+BEGIN_SRC elisp
-     (global-set-key (kbd "C-z") ’ set-mark-command     
+    (global-set-key (kbd "C-z") 'set-mark-command)
     #+END_SRC
 
     你也可以只是把 C-z 取消成沒有用的鍵（但這樣很浪費捏）：
@@ -57,7 +69,7 @@ Emacs是個非常吃重設定檔的編輯器，這一篇會為您解答最常遇
 *** Local key
 
     不管是 Major 或 Minor mode，都有自己的 local key (keymap)。Local-key 只在你指定的 mode 下有用。
-    例如，你希望在 Twitter 的 Emacs client =Twittering-mode= 下，按大寫 U 可以顯示自己的 timeline，可以使用 =define-key= ：
+    例如，你希望在 Twitter 的 Emacs client =Twittering-mode= 下，按大寫 =U= 可以顯示自己的 timeline，可以使用 =define-key= ：
 
     #+BEGIN_SRC elisp
     (define-key twittering-mode-map (kbd "U") ’ twittering-user-timeline)     
@@ -67,12 +79,14 @@ Emacs是個非常吃重設定檔的編輯器，這一篇會為您解答最常遇
 
     Key 的設定是 *新的會直接覆蓋舊的* ，在 init.el 有時要注意這點，否則會發現為何自己的 global-key 設定沒有生效，才發現自己原來之前設定過同樣設定。（因為 Emacs Lisp 是直譯式，init.el 的設定是從第一行一行一行執行到檔案尾端，所以後面的設定會蓋掉前面的。例如你改了兩次的 =C-@= 就會發生這種情形）
 
-** 自動啟動 Add-hook
+** 自動啟動
 
-    需要在啟動某個 mode 後，自動啟動你想要的 minor-mode 或者各種設定？ 請使用 =add-hook=。方法是：
+    需要在啟用某個 mode 後，自動執行任意 function/啟用 minor-mode /做一些設定時，請使用 =add-hook= 。方法是：
 
 
-: (add-hook 'xxxxx-mode-hook 'function-name)  
+#+BEGIN_SRC elisp
+    (add-hook 'xxxxx-mode-hook 'function-name)  
+#+END_SRC
 
     範例：  
     
