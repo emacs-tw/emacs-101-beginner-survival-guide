@@ -31,9 +31,7 @@ Emacs 是個非常吃重設定檔的編輯器，這一篇會為您解答最常�
     - 把游標移動到括弧最尾端後，按 =C-x C-e= ，設定就立即生效了。
 
 #+BEGIN_QUOTE
-因為 Emacs 本身就是一個完整的 Lisp 環境/直譯器，除了 Lisp 直譯器自己本身與一些低階命令外，其餘部份全是使用 Emacs Lisp 所建構而成。 =C-x C-e= 的動作代表「執行（eval）該 Lisp 表達式」，執行的結果（或更精確地說，執行該表達式後的 *副作用* ）也就會直接立刻影響整個 Emacs。
-
-由於 Emacs 就是個直譯器，你甚至可以拿 Emacs Lisp 當作 script language 在 shell 下面執行，就像 python 或 ruby 一樣
+前面有詳細講過，因為 Emacs 本身就是一個完整的 Lisp 環境/直譯器，除了 Lisp 直譯器自己本身與一些低階命令外，其餘部份全是使用 Emacs Lisp 所建構而成。 =C-x C-e= 的動作代表「執行（eval）該 Lisp 表達式」，執行的結果（或更精確地說，執行該表達式後的 *副作用* ）也就會直接立刻影響整個 Emacs。
 #+END_QUOTE
 
     - 如果發生錯誤（會顯示一個叫做 =*Backtrace*= 的 buffer，內容大致是 =Debugger entered--Lisp error: (wrong-number-of-arguments (2 . 2) 0)= 之類的），這時按 =q= 關閉 =*Backtrace*= buffer，看哪裡出錯了再修改。
