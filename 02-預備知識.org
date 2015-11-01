@@ -1,16 +1,42 @@
 * 預備知識
 這一篇會講解 Emacs 的必備預備知識， *請務必詳讀，後面不會再解釋。*
 
-以前你可能聽過 Emacs，但可能因為各種原因而沒用過或學不下去，例如網路上的教學又凌亂不連貫、有問題不知從何問起？下面整理了幾乎所有初學者都會遇到的最常見問題。聽了上面介紹想試試嗎？在你的系統上裝好 Emacs 後準備開始吧：
+以前你可能聽過 Emacs，但可能因為各種原因而沒用過或學不下去，例如網路上的教學又凌亂不連貫、有問題不知從何問起？下面整理了幾乎所有初學者都會遇到的最常見問題。
+
+然而首先我想從這個問題開始：「到底 Emacs 是什麼東西？」在這之前，先打開你系統上的 Emacs：
 
 #+BEGIN_QUOTE
-該怎麼使用終端機版的 Emacs？
-
-    加上 =-nw= 參數：
+- Q: 該怎麼使用終端機版的 Emacs？
+- A: 加上 =-nw= 參數：
 
 : $ emacs -nw
-
 #+END_QUOTE
+
+你會見到一個歡迎畫面，按 =q= 關掉它，會看到 =*scratch*= 這個空空如也的畫面配著三行字。這個 =*scratch*= 可以看作是個無特別意義的塗鴉紙，可以在上面亂打一些字。好啦，就這樣開始吧：
+
+** Emacs 是什麼？
+
+這個問題聽起來很蠢，但其實我認為非常重要，因為當你領悟了這點，你在學習 Emacs 時腦中會少掉很多問號與 WTF，並越用越豁然開朗。
+
+我的理解是這樣的： *Emacs 是一個剛好具有文字編輯功能的 Lisp 環境*
+
+什麼意思呢？Emacs 本身是一個完整的 Lisp 環境/直譯器，除了 Lisp 直譯器自己本身與一些低階命令外，其餘部份全是使用 Emacs Lisp 所建構而成。
+
+動手試試看，在上面提到的 =*scratch*= 畫面中輸入 =(message "Hello World!")= ，然後游標移動到括弧後方並按下 =C-x C-e= ，你會發現下方的 minibuffer 訊息列就會顯示出 =Hello World!= 。
+
+發生了什麼事？ =C-x C-e= 的動作代表「執行（eval）該 Lisp 表達式」， =message= 是一個 Emacs 內建的 Lisp function，用途就是在 minibuffer 中顯示字串。或更精確地說，「執行 =message= 這個 Lisp function 的 *副作用* 就是在 minibuffer 中顯示字串。」 =(message "Hello World!")= 是一個完整的 Lisp 表達式，所以你 eval 它，就能在 minibuffer 中顯示 =Hello World!= 這個字串。
+
+Emacs 就是成千上萬個 Lisp function 跟一堆 variable 所構成， 並靠著執行這些 function 的副作用而構成一個文字編輯環境的。
+
+因為 Lisp 表達式如果有副作用，執行的結果就會直接立刻影響整個 Emacs。所以我們常透過 =setq= 這個 function 來 assign variable 達成自訂 Emacs 的目的。
+
+例如執行 =(setq read-file-name-completion-ignore-case t)= 將會把 =read-file-name-completion-ignore-case= 這個 variable 的值設為 =t= ，以後在 =C-x C-f= 就能忽略路徑檔名的大小寫。
+
+#+BEGIN_QUOTE
+如果你不懂 Lisp， =(setq VAR_NAME VALUE)= 是 Lisp 中設定 variable 的意思，等同 Python 中的 ~VAR_NAME = VALUE~ 。 =t= 是 Lisp 中的 =True= ， =nil= 則是 =False= 之意。
+#+END_QUOTE
+
+當你清楚意識並理解到這點後，往後很多 Emacs 的行為你會豁然開朗，尤其是你在學 Emacs Lisp 時，這是很重要的概念。這也是一個蠻實用的特性，因為你可以極為容易地寫出一些臨時需要的 function 做出一些快速的編輯功能。
 
 ** C-x, M-f 這些東西代表什麼意思？
 
@@ -25,11 +51,13 @@
     - =C-u= 是給命令加上參數時在使用的，初學不需要知道這個，以後再說 XD
 
 #+BEGIN_QUOTE
-其實你按的每一個按鍵，對 Emacs 來說都是在呼叫函數。例如：
-- 方向鍵右 -> =函數：(right-char)=
-- 方向鍵上 -> =函數：(previous-line)=
+前面提到的，Emacs 是個 Lisp 環境，而你按的每一個按鍵，對 Emacs 來說實際上其實就是在 *呼叫函數* 。例如：
+- 方向鍵右 -> 執行函數 =(right-char)= ，它的副作用是讓游標向右移動一個字元。
+- 方向鍵上 -> 執行函數 =(previous-line)= ，它的副作用是讓游標向上移動一行。
+
 因此，只要是 =M-x= 呼叫得出的函數，你都可以重新綁定成你自己喜歡的按鍵。（方法後述）
 #+END_QUOTE
+
 
 ** 我剛剛不知動到什麼操作了，要怎麼退出？
 
