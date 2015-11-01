@@ -1,0 +1,18 @@
+* 不成文的 key-binding 慣例
+一開始你應該會覺得 Emacs 的 key-binding 很難記，怎麼各種 mode 都有不同按鍵。然而其實有很多常見功能是有慣例可尋的。以下舉出幾個範例：
+
+| 按鍵      | 功能                         | 範例                                            |
+|-----------+------------------------------+-------------------------------------------------|
+| =q=       | 關閉 buffer                  | Dired, Package, IBuffer, Magit                  |
+| =g=       | 畫面重新整理/更新            | Dired, Package, IBuffer, Magit                  |
+| =^=       | 回到上一層目錄               | Dired, Info,                                    |
+|-----------+------------------------------+-------------------------------------------------|
+| =D=       | 刪除                         | Dired, Package, IBuffer                         |
+| =d=       | 標記為刪除（但尚未真的刪除） | Dired, Package, IBuffer                         |
+| =x=       | 將標記為刪除的項目刪掉       | Dired, Package, IBuffer                         |
+| =m=       | 標記項目                     | Dired, IBuffer                                  |
+| =u=       | 取消標記項目                 | Dired, IBuffer                                  |
+|-----------+------------------------------+-------------------------------------------------|
+| =C-c C-c= | 編譯/執行                    | python-mode, lisp-mode, haskell-mode            |
+|           | 套用編輯/送出                | Magit, Message, twittering-mode                 |
+| =C-c C-z= | 開一個 interpreter           | python-mode, ruby-mode, lisp-mode, haskell-mode |

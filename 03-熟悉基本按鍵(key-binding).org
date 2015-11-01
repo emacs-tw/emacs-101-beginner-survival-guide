@@ -10,71 +10,90 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 - =C-x C-f= 開檔。
 - =C-x C-s= 存檔。
 - =C-x C-w= 另存新檔。
-- =C-x C-c= 離開Emacs。
+- =C-x C-c= 離開 Emacs。
 
-*** Buffer相關
-- =C-x k= 關掉目前buffer。
-- =C-x C-←= 切換到上一個buffer。
-- =C-x C-→= 切換到下一個buffer。
+*** Buffer 相關
+- =C-x k= 關掉目前 buffer。
+- =C-x C-←= 切換到上一個 buffer。
+- =C-x C-→= 切換到下一個 buffer。
 
-*** Window相關
-- =C-x 0= 關掉目前Window
-- =C-x 1= 將目前Window以外的所有Window關掉。
-- =C-x 2= 水平分割Window
-- =C-x 3= 垂直分割Window
+*** Window 相關
+- =C-x 0= 關掉目前 Window
+- =C-x 1= 將目前 Window 以外的所有 Window 關掉。
+- =C-x 2= 水平分割 Window
+- =C-x 3= 垂直分割 Window
 
-** 游標移動
+*** 游標移動
 - =C-a= 跳到行首
 - =C-e= 跳到行尾
-- =M-f= 跳到下一個英文單字(f表示forward)
-- =M-b= 跳到前一個英文單字(b表示backward)
+- =M-f= 跳到下一個英文單字(f 表示 forward)
+- =M-b= 跳到前一個英文單字(b 表示 backward)
 
 #+BEGIN_QUOTE
-與Vim一樣，這種針對「單字」的操作指的都是歐洲語系國家的單字，因為他們有空白來分割每個單字。
+與 Vim 一樣，這種針對「單字」的操作指的都是歐洲語系國家的單字，因為他們有空白來分割每個單字。
 
-然而對中文來說，Emacs並沒有辦法針對中文斷詞，所以 =M-f= 會 *直接跳到下一句話* ，因為每句話之間有標點符號分隔著。
+然而對中文來說，Emacs 並沒有辦法針對中文斷詞，所以 =M-f= 會 *直接跳到下一句話* ，因為每句話之間有標點符號分隔著。
 
-同理，編輯日文時，Emacs只會按照平假名/片假名/漢字來「斷詞」。
+同理，編輯日文時，Emacs 只會按照平假名/片假名/漢字來「斷詞」。
 
 -- kuanyui
 #+END_QUOTE
 
-- =M-g M-g= 跳到第N行。
+- =M-g M-g= 跳到第 N 行。
 - =M-<= 跳到文件最頂端。
 - =M->= 跳到文件最尾端。
 
-*** Lisp相關
-如果你常寫Lisp，記住這個還蠻好用的。
+*** 畫面捲動
+- =C-v= 向下捲動一頁
+- =M-v= 向上捲動一頁
+- =M-Page Down= 隔壁的 window 向下捲動一頁
+- =M-Page Up= 隔壁的 window 向上捲動一頁
+- =C-l= 畫面與游標位置對齊（重複按可對齊三種位置）
 
-- =C-M-f= 跳到下一個S-expression
-- =C-M-b= 跳到前一個S-expression
+*** 搜尋
+- =C-s= 普通字串搜尋（繼續按 =C-s= 搜尋下一個）
+- =C-M-s= Regexp 搜尋 （一樣，也是繼續按 =C-s= 搜尋下一個）
+- =M-%= 字串搜尋並取代
 
-** Kill-ring相關
+** 執行外部命令
+注意，目前 buffer 的工作目錄就是指令執行時的 =pwd= 位置。
 
+- =M-!= 執行外部指令(synchronously)
+- =M-&= 執行外部指令(asynchronously)
+- =M-|= 將選取起來的區域(使用 =C-@=)透過 pipe 傳送給外部命令
+
+#+BEGIN_QUOTE
+這幾個玩意在臨時需要下指令時非常方便，其中最常用的應該是 =M-!= ，我常常拿它來下諸如 =git init=, =git clone=, =mkdir= 等指令，而不用另外開個 console。
+
+-- kuanyui
+#+END_QUOTE
+
+** Kill-ring 相關
+   
 *** 刪除（Kill）
-- =C-k= 從目前游標kill到行尾（並將被kill掉的部份丟入kill-ring） 
-- =M-k= 從目前游標kill到一句話的尾端。
+- =C-k= 從目前游標 kill 到行尾（並將被 kill 掉的部份丟入 kill-ring） 
+- =M-k= 從目前游標 kill 到一句話的尾端。
 
-- =C-d= kill目前游標下的字元
-- =M-d= 從目前游標kill到下一個 空格or標點符號or 行尾
-
+- =C-d= kill 目前游標下的字元
+- =M-d= 從目前游標 kill 到下一個 空格 or 標點符號 or 行尾
+  
 *** 選取區域操作
-
+    
 - =C-@= 標記選取範圍。
 - =C-x C-x= 跳到選取範圍的開頭/尾端。
 - =M-w= 複製目前選取區域。
 - =C-w= 剪下目前選取區域。
-
+  
 *** 貼上（Yank）
 - 按 =C-y= 可以把最近一次被 Kill 掉的文字從 Kill-ring 給「拉 (Yank) 」出來。
 - 再按 N 下 =M-y= 可以把前 N 次被 Kill 掉的文字從 Kill-ring 中「拉」出來。
-
-
+  
+  
 ** Undo/Redo
 - =C-/= 或 =C-_= : 復原（Undo）。
 
 #+BEGIN_QUOTE
-這是每個Emacs初學者一開始都會被搞混的概念。但Emacs的Undo/Redo非常強大，但邏輯很怪，我不太會解釋，請強者大大們補完這段吧 <(_ _)>
+這是每個 Emacs 初學者一開始都會被搞混的概念。但 Emacs 的 Undo/Redo 非常強大，但邏輯很怪，我不太會解釋，請強者大大們補完這段吧 <(_ _)>
 
 我推薦使用 =undo-tree.el= 這個外掛，可以視覺化編輯/undo/redo。我很常用 =undo-tree= ，但也聽過別人說他們覺得這沒什麼使用時機，真的好難解釋喔。
 
@@ -86,7 +105,7 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 - =M-l= 單字轉成全小寫。
 - =M-u= 單字轉成全大寫。
 - =M-c= 單字轉首字大寫。 
-
+  
 #+BEGIN_QUOTE
 這個功能看似雞肋，不過我還蠻常用的。
 
@@ -97,9 +116,17 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 *** 交換
 - =C-t= 前後字元交換。
 - =M-t= 前後單字交換。
-
+  
 #+BEGIN_QUOTE
 規則很難解釋，自己多試用幾次看看就會懂了。熟悉後我發現這個功能出乎意料的實用。
 
 -- kuanyui
 #+END_QUOTE
+
+
+
+** Lisp 相關
+如果你常寫 Lisp，記住這個還蠻好用的。
+
+- =C-M-f= 跳到下一個 S-expression
+- =C-M-b= 跳到前一個 S-expression
