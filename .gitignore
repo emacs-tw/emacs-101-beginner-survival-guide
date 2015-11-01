@@ -1,0 +1,13 @@
+auto-save-list
+custom.el
+.org-id-locations
+\#*
+org-mode-config.el
+*~
+.#*
+\#*\#
+*.log
+.DS_Store
+org-clock-save.el
+emacs-config.el
+*.org_archive
