@@ -74,7 +74,8 @@ Emacs 就是成千上萬個 Lisp function 跟一堆 variable 所構成， 並靠
     - Frame（現在比較常稱做 Window）的功能則是 *將 Buffer 的內容顯示在螢幕上，說白了就是「視窗」的概念。* 在 Emacs 你可以把螢幕切成多個區域，例如上下各一個、或左右各一個，每一塊就是一個 Frame。
 
 #+BEGIN_QUOTE
-其實會有 Buffer 這麼奇怪的詞完全是歷史因素，因為 Vi 與 Emacs 發明時的 70 年代，大家都還在用 =ed= 之類的行編輯器在編輯檔案，還沒有這種「輸入什麼東西、即時就可以在螢幕上見到修正」的編輯器，所以才會把編輯區叫做 Buffer。\\
+其實會有 Buffer 這麼奇怪的詞完全是歷史因素，因為 Vi 與 Emacs 發明時的 70 年代，大家都還在用 =ed= 之類的行編輯器在編輯檔案，還沒有這種「輸入什麼東西、即時就可以在螢幕上見到修正」的編輯器，所以才會把編輯區叫做 Buffer。
+
 而 Frame 一詞當然也是那時 GUI 都還沒發明，才沒有用我們現在比較熟悉的 Window 一詞。
 -- kuanyui
 #+END_QUOTE
@@ -103,7 +104,7 @@ Emacs 就是成千上萬個 Lisp function 跟一堆 variable 所構成， 並靠
 
 其實 Kill-ring 就是現在大家常說的剪貼簿（clipboard）啦，跟 Frame = Window 一樣，只是換個名詞而已。
 
-在 Emacs 中，刪除文字的指令（例如 =C-k=, =M-d-= ）其實通常不會把文字真的刪除掉，而是預設會丟入 Kill-ring。
+在 Emacs 中，刪除文字的指令（例如 =C-k=, =M-d= ）其實通常不會把文字真的刪除掉，而是預設會丟入 Kill-ring。
 
 - 按 =C-y= 可以把最近一次被 Kill 掉的文字從 Kill-ring 給「拉 (Yank) 」出來。
 - 再按 N 下 =M-y= 可以把前 N 次被 Kill 掉的文字從 Kill-ring 中「拉」出來。
