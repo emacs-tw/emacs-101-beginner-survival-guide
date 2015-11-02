@@ -1,0 +1,31 @@
+Emacs 一般使用應該已經可以符合你的需求了，然而如果你想要自己實現一些自己要的功能，那只得學 Emacs Lisp。學了 Lisp 以後用 Emacs 真的方便很多很多，也才開始開始實際掌握到 Emacs 的威力。
+
+網路上教 Emacs 的文章已經太多太多了，但要學 Emacs Lisp 就有點困難了，因為不知該從何下手。
+
+#+BEGIN_QUOTE
+個人覺得學 Emacs Lisp 其實不一定要靠 GNU 提供的那厚厚一堆文件，對我來說我就沒啥耐心看那個...下面整理了一些 Emacs Lisp 的學習資源，不多但都非常值得參考。
+#+END_QUOTE
+
+** 聖經
+適合慢慢當書來翻
+
+- *[[http://acl.readthedocs.org/en/latest/][ANSI Common Lisp 中文版]]*
+#+BEGIN_QUOTE
+這是本寫得相當清楚易懂的 Common Lisp 教學，包含了非常多的範例。雖然是 Common Lisp 而不是 Emacs Lisp，但如果你完全不懂 Lisp，我個人很推薦這本，有了這些基礎 Lisp 概念對於學習 Emacs Lisp 依舊是非常好的入門方式。我當初完全不會寫程式時就是讀這本而學會 Emacs Lisp，非常推薦！
+#+END_QUOTE
+
+- *[[http://ergoemacs.org/emacs/emacs.html][Xah Emacs Tutorial]]* 與 *[[http://ergoemacs.org/emacs/elisp.html][Xah Emacs Lisp Tutorial]]* : Xah Lee 的 Emacs 教學，應該已經成為很多初學者的學習指南。整理了超多 Emacs Lisp 的範例與實戰經驗，例如要怎麼用 elisp 把一個網站中的 HTML 標籤替換掉等等。
+- *[[http://www.emacswiki.org/emacs/ElispCookbook][ElispCookbook]]* : Emacs wiki 上的超棒條目，有很多很常見的文字處理用法整理。
+
+** 搜尋用
+
+- *[[http://www.gnu.org/software/emacs/manual/html_node/elisp/index.html][GNU 文件]]*  沒事基本上不會拿起來翻的東西，但完整性沒話說。查詢一些 Emacs Lisp 獨有用法時（例如 =save-excursion= ），GNU 文件就非常非常有用。
+- *Emacs 內建文件* ： 不要忘記這個，忘記 function 用法時他非常有用（例如我老是記不得 =match-string= 跟 =string-match= 的差別）。
+
+#+BEGIN_QUOTE
+雖然前面提過但還是再強調一次：查詢 function 是 =C-h f= ，查詢 variable 是 =C-h v= 。
+#+END_QUOTE
+
+- *[[http://www.emacswiki.org/emacs-zh][Emacs Wiki]]* 龐大的社群，很多知名的 .el 在上面都找得到，但這主要也是用搜尋引擎找內容。
+
+

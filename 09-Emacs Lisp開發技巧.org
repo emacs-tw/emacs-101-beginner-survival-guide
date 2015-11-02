@@ -1,0 +1,102 @@
+這篇並不是Emacs Lisp教學，而是一些瑣碎筆記。當初不知道這種問題該怎麼問人或問誰，所以一開始寫eEmacs Lisp 時覺得很痛苦。
+
+在這裡分享一些能讓你在開發 Emacs Lisp 時更輕鬆方便的小技巧，需要的人許可以參考。
+
+* Eval
+
+- 在任何 mode 下， =C-x C-e= 可以將 *游標之前* 的 S-expression（就是 Lisp 運算式，常簡寫成 *sexp*）eval (求值) 並在 minibuffer 中顯示結果。
+
+  - 前面加一個 =C-u= prefix 的話會把結果插入目前游標位置。（所以高興的話可以在 Emacs 裡任何地方寫 Lisp 式子來當計算機。）
+  - 如果你在 =emacs-lisp-mode= 下， =C-M-x=  (=eval-defun=) 則能夠 eval 目前的 =defun= 。
+  - 因為覺得內建的 eval 快速鍵要拿來作其他用途有點不方便（例如拿來當作臨時的計算機），所以我自己是另外弄了設定讓他更方便：
+
+  1. Eval 目前的 sexp，輸出其 eval 結果後，直接自動刪除該 sexp。
+  2. 加上一個 =C-u= prefix 就是先按 =C-u= 再按 key-binding 的話，不刪除 sexp，而且會先插入一個箭頭 ~==>~ 再插入 eval 結果。例如 =(+ 1 5) => 6= 。
+#+BEGIN_SRC elisp
+;; Makes eval elisp sexp more convenient
+(defun eval-elisp-sexp ()
+  "Eval Elisp code at the point, and remove current s-exp
+With one `C-u' prefix, insert output following an arrow"
+  (interactive)
+  (cond ((equal current-prefix-arg nil)      ;if no prefix
+         (let ((OUTPUT (eval (preceding-sexp))))
+           (kill-sexp -1)
+           (insert (format "%S" OUTPUT))))
+        ((equal current-prefix-arg '(4)) ;one C-u prefix
+         (save-excursion
+           (let ((OUTPUT (eval (preceding-sexp))))
+             (insert (format "%s%S" " => " OUTPUT)))))))
+
+(global-set-key (kbd "C-c C-x C-e") 'eval-elisp-sexp)
+;; avoid key-binding conflict with org
+(define-key org-mode-map (kbd "C-c C-x C-e") 'org-clock-modify-effort-estimate)
+#+END_SRC
+
+- 在 lisp-interaction-mode 中 (例如 =*Scratch*= ) ，可以在一個運算式的最後一個括弧後面按下 =C-j= 直接 eval 並直接將 eval 結果插入當前游標後面。
+
+- 建議可以把 =eval-buffer= 設定一個快速鍵，可以直接 eval 整個 buffer 方便測試。如：
+
+#+BEGIN_SRC elisp
+  (global-set-key (kbd "C-c C-e") 'eval-buffer)
+  (add-hook 'org-mode-hook
+          (lambda ()
+            (define-key org-mode-map (kbd "C-c C-e") 'org-export)))
+#+END_SRC
+
+* Indent
+    - =C-j= (=newline-and-indent=)可以換行並自動縮排（但 =lisp-interaction-mode= 中除外，因為會被解釋成 eval 並輸出結果）。
+    - 在 *運算式的最後一個括弧* 處 =M-C-\= 可以將整個運算式自動縮排。
+    - 覺得自己縮排很麻煩的話，是有個套件叫做 =auto-indent-mode= 可以很方便的自動縮排就不用手動縮，只是我用起來問題很多就移掉了...想試試看的可以從 MELPA 安裝。
+
+* Paren
+
+- 務必設定括號突顯；「 *沒有這個你根本不可能寫 Lisp* 」，語出 Paul Graham。
+
+#+BEGIN_SRC elisp
+  (show-paren-mode t)
+  (setq show-paren-style 'expression)
+#+END_SRC
+
+-  我非常推薦安裝 =rainbow-delimiters-mode= ，能夠把位在同一層的括號上相同的顏色，再也不會覺得括號很難對齊。（縮排不正確時括弧顏色會出錯，記得 =C-M-\= 。）
+-  初學 Lisp 時老是有哪裡忘記加括號，eval 時遇到錯誤訊息 =End of file during parsing= 通常代表你有哪裡括號沒對好， =M-x check-parens= 可以找到漏掉括弧的地方（前兩者有設定的話，基本上不會遇到這種問題；應該說初學時比較會遇到）。
+-  有個終極的 Lisp 括號編輯工具叫做 =paredit= ，需另外安裝，熟悉的話可以使編輯括號變得更有效率，[[http://youtu.be/D6h5dFyyUX0][操作起來就跟變魔術一樣]]。 似乎有很多人喜歡用這個，只是不好學。我自己是沒在用，詳情可自行 Google。
+
+#+BEGIN_QUOTE
+到目前為止嘗試了不少 Eacs 外掛，我發現我自己是不太偏好「聰明過頭」了的設計...例如 helm, ido, icicles, auto-indent 這類的。 
+-- kuanyui
+#+END_QUOTE
+
+* RegExp
+
+-  在 Emacs 裡寫 regexp 時一般應該是沒有問題，但是當你在 Lisp code 裡需要用 regexp 時，例如 =(re-search-forward "PATTERN")= ，會發現 ="PATTERN"=  裡反斜線看起來好像無法正常運作。這是因為在 eval 時，裡面整個  ="PATTERN"=  因為被 double quote 包起來了， *裡面的 regexp 會先被當成是 string 而先解析過一次* 。也就是說，平常只需要一個反斜的話， *在 Lisp code 裡要寫兩個反斜* ...
+
+另外，大中小括弧全部都得escape掉，不然會被解釋成普通文字而沒有任何regexp上的特殊意義。（我不知道為什麼Emacs Lisp的regexp要這樣設計） 以Python為例，我們在要 group match 時原本是寫成 =(.+?)= ，在Emacs Lisp中就得寫成 =\\(.+?\\)= （之前就是不知道這點，浪費了很多時間和腦細胞）
+
+-  要寫 Emacs 的 Regexp 時，務必嘗試看看  =M-x re-builder=  ，即時比對 pattern 非常方便。
+
+* Needs Self-Document?
+
+-  有時寫一寫突然要查 function 用法與文件時，請按 =C-h f= 。要查詢 variable 定義與文件，請按 =C-h v= 。
+
+#+BEGIN_QUOTE
+   注意，如果目前游標下剛好有一串字串符合 function/variable 名稱，會以該字串為預設值，這時只要按 Enter 就可以直接查詢了。
+#+END_QUOTE
+
+
+* Other
+
+-  如果你跟我一樣手殘，愛開一堆 buffer，卻又常常不小心按到  =C-x C-c= 
+   ，所有開啟的檔案全被關掉很很囧的話，請服用：
+
+#+BEGIN_SRC lisp
+    ;;確認後再關掉 Emacs 啦
+    (defun save-buffers-kill-terminal-after-confirm ()
+      "老是不小心關掉 Emacs，揪咪。"
+      (interactive)
+      (If (yes-or-no-p "Really quit Emacs?")
+          (save-buffers-kill-terminal)
+        "好極了！"))    
+    (global-unset-key (kbd "C-x C-c"))
+    (global-set-key (kbd "C-x C-c") 'save-buffers-kill-terminal-after-confirm)
+#+END_SRC
+

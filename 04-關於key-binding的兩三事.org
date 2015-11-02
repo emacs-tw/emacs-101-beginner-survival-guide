@@ -1,0 +1,41 @@
+* 不成文的 key-binding 慣例
+一開始你應該會覺得 Emacs 的 key-binding 很難記，怎麼各種 mode 都有不同按鍵。然而其實有很多常見功能是有慣例可尋的。以下舉出幾個範例：
+
+| 按鍵      | 功能                         | 範例                                            |
+|-----------+------------------------------+-------------------------------------------------|
+| =q=       | 關閉 buffer                  | Dired, Package, IBuffer, Magit                  |
+| =g=       | 畫面重新整理/更新            | Dired, Package, IBuffer, Magit                  |
+| =^=       | 回到上一層目錄               | Dired, Info,                                    |
+|-----------+------------------------------+-------------------------------------------------|
+| =D=       | 刪除                         | Dired, Package, IBuffer                         |
+| =d=       | 標記為刪除（但尚未真的刪除） | Dired, Package, IBuffer                         |
+| =x=       | 將標記為刪除的項目刪掉       | Dired, Package, IBuffer                         |
+| =m=       | 標記項目                     | Dired, IBuffer                                  |
+| =u=       | 取消標記項目                 | Dired, IBuffer                                  |
+|-----------+------------------------------+-------------------------------------------------|
+| =C-c C-c= | 編譯/執行                    | python-mode, lisp-mode, haskell-mode            |
+|           | 套用編輯/送出                | Magit, Message, twittering-mode                 |
+| =C-c C-z= | 開一個 interpreter           | python-mode, ruby-mode, lisp-mode, haskell-mode |
+
+* Prefix Argument (=C-u=, Universal Argument)
+
+=C-u= prefix 在 Emacs 裡稱作 *universal-argument* ，又常稱為 *prefix argument* ，很多指令在呼叫前，先按一下 =C-u= ，會提供相關、但不完全相同的功能。
+
+Emacs 101 一開始，不是有提過「了解 Emacs 其實是個 Lisp 環境，對於理解 Emacs 的行為是很重要的」嗎？這裡你就可以明白為什麼了。實際上，Emacs 中有內建一個全域變數叫做 =current-prefix-arg= 。當我們按一下 =C-u= 時， =current-prefix-arg= 會變成 =(4)= ，按兩下會變成 =(16)= ，再按一次會變 =(64)= ...以此類推，所以很多 function 會利用這一點，在 function 中檢查目前 =current-prefix-arg== 的值，來達成「除了本身的功能外額外的功能」。
+
+我們已經知道 =C-x C-e= 可以 eval Lisp 運算式，並在 minibuffer 中顯示結果。然而如果前面加一個 =C-u= prefix 的話，就能把結果插入目前游標位置，而不只是顯示在 minibuffer 中。
+
+另一個例子則是 =M-;= 我們知道它可以在目前行自動插入該語言的註解。按 =C-u M-;= 的話 ，則可以把該行註解刪掉、並加入 kill-ring。
+
+再一個例子。在 Org-mode 中，按按 =C-c C-l= 可以插入各種不同的連結連結，但如果多加一個 =C-u= prefix 可以直接插入「檔案」連結。會這樣設計的原因很簡單，因為在 Org-mode 中我們最常需要插入的連結通常就是檔案連結。
+
+
+#+BEGIN_QUOTE
+在 Vim 中，我們常會先按數字鍵 N 再按指令，代表執行該指令 N 次。
+
+Emacs裡面也可以這樣，其實就是透過 =C-u= prefix。當命令並沒有設計 prefix argument 的對應方式時， =C-u= prefix 預設的意義則會變成「重複該命令 4 次」； =C-u N= 再呼叫指令，則是重複該指令 N 次
+
+不過我覺得這樣很難按，其實我都是按 =Esc N= 再按指令，跟 =C-u N= 的效果完全相同。
+
+-- kuanyui
+#+END_QUOTE

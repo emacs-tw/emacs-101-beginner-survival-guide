@@ -12,7 +12,7 @@
 ** Emacs 要很多很麻煩的設定用起來才會順手？
   這要看你要求 Emacs *做到多少事情。*
 
-  例如 Emacs 已經有為各種語言內建基本的編輯功能與 Syntax highlight，通常不用額外設定就可以直接使用。然而如果你需要 auto completion （例如 Python 的 Jedi），設定就常常會很煩人。這是 Emacs 的弱項，不像IDE那樣一裝好連 completion 都有了。雖然Emacs本來就只是編輯器。
+  例如 Emacs 已經有為各種語言內建基本的編輯功能與 Syntax highlight，通常不用額外設定就可以直接使用。然而如果你需要 auto completion（例如 Python 的 Jedi），設定就常常會很煩人。這是 Emacs 的弱項，不像 IDE 那樣一裝好連 completion 都有了。雖然 Emacs 本來就只是編輯器。
 
 #+BEGIN_QUOTE
   我個人非常挑剔 UX，所以就會覺得 Emacs 沒有設定過簡直不能用。
@@ -44,8 +44,10 @@
 -- kuanyui
 #+END_QUOTE
 
-** 一定要學 Lisp 嗎？
+** 一定要先學會 Emacs Lisp 或什麼語言嗎？
 一樣，看你期望讓 Emacs 做哪些事。
+
+其實說真的，先把英文學好可能比先學會 Lisp 重要得多。先不說 Emacs 自帶的文件全是英文，目前網路上的 Emacs 資源、教學、文件 85% 也都是英文，剩下 14.9% 則是日文，所以努力把英文唸好吧。
 
 如果只是一般使用，不會 Lisp 也沒太大關係。安裝/設定各種外掛也只要按照他們的 README 複製貼上設定檔就行了。
 

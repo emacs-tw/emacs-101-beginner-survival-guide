@@ -101,6 +101,12 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 #+END_QUOTE
 
 ** 特殊編輯功能
+- =M-^= 把目前行的縮排拿掉後，接到上一行。
+
+*** Programming
+- =M-;= 插入目前語言的註解（如Python就是 =# comment= ，Haskell 就是 =-- comment= ）
+- =C-M-\= 立刻自動縮排
+
 *** 英文大小寫
 - =M-l= 單字轉成全小寫。
 - =M-u= 單字轉成全大寫。
