@@ -39,3 +39,38 @@ Emacs裡面也可以這樣，其實就是透過 =C-u= prefix。當命令並沒�
 
 -- kuanyui
 #+END_QUOTE
+
+* TTY / Terminal / Console 中的 Key-binding 有問題？
+
+#+BEGIN_QUOTE
+因為我自己都是在Tmux中使用Emacs，為此，我寫過一篇文章在詳細講這部份。有興趣的人請參考： [[https://kuanyui.github.io/2013/11/26/emacs-with-tmux/][Emacs & Tmux 折騰筆記 | 東北角的小徑]]
+
+-- kuanyui
+#+END_QUOTE
+
+換到文字界面的 Emacs 後，會發現有部份原本可以使用的 key-binding 突然變得不能用了，尤其是最複雜的 Org-mode（例如 =Shift+[Arrow]= 、 =Ctrl+[0-9]= ），因為這些按鍵終端機是抓不到的。
+
+** =C-M-= 開頭的 Emacs 抓不到啦！
+Terminal中，Emacs可以抓到 =C-x= ，也可以抓到 =M-x= ，但就是抓不到 =C-M-x= （確認方法是先按 =C-h k= 再按 =C-M-x= 你會發現Emacs毫無反應，因為這個按鍵訊號完全沒有成功傳給Emacs），怎麼辦呢？
+
+其實 =ESC= 鍵等同於 =M-= ，所以當你要按 =C-M-s= 時，你可以先按一下 =ESC= 再按 =C-s= ，就等同於 =C-M-s= 了！
+
+#+BEGIN_QUOTE
+那Ctrl + 數字怎麼辦？我也不知道。
+
+-- kuanyui
+#+END_QUOTE
+
+** Org-mode
+Org-mode 在設計時有考慮到這問題，所以有設計了許多在終端機裡也能用的替代按鍵，可以參考 [[http://orgmode.org/manual/TTY-keys.html][TTY Keys]]。
+
+** Super Key
+=Super= 鍵（就是常說的 =Win= 鍵）是在 X11 裡定義的，除非經過一些特殊設定，不然 tty 或 terminal 都無法辨識這個鍵，我自己是沒去折騰這個，因為太麻煩。如果你堅持要用，詳情可以查一下 StackOverflow，有人問過。
+
+** 其他
+遇到其他之前在 GUI 版可以使用、但終端機抓不到的 key-binding 時，基本上你有幾種選擇：
+
+1. =C-h f= 直接查那個 function 是否本來就還有其他按法。
+2. 開 GUI 版， =C-h k= 查詢你平常按的那個 key-binding 是綁到哪個 function，再自己自訂一個 CLI 版下能用的 key-binding。
+3. 土法煉鋼 =M-x=
+
