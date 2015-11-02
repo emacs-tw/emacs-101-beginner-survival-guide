@@ -50,8 +50,8 @@ Emacs裡面也可以這樣，其實就是透過 =C-u= prefix。當命令並沒�
 
 換到文字界面的 Emacs 後，會發現有部份原本可以使用的 key-binding 突然變得不能用了，尤其是最複雜的 Org-mode（例如 =Shift+[Arrow]= 、 =Ctrl+[0-9]= ），因為這些按鍵終端機是抓不到的。
 
-** =C-M-= 開頭的 Emacs 抓不到啦！
-Terminal中，Emacs可以抓到 =C-x= ，也可以抓到 =M-x= ，但就是抓不到 =C-M-x= （確認方法是先按 =C-h k= 再按 =C-M-x= 你會發現Emacs毫無反應，因為這個按鍵訊號完全沒有成功傳給Emacs），怎麼辦呢？
+** 一大堆 =C-M-= 開頭的 Emacs 抓不到啦！
+Terminal中，Emacs可以抓到 =C-x= ，也可以抓到 =M-x= ，但就是抓不到 =C-M-x= （這不是Emacs的錯。確認方法是先按 =C-h k= 再按 =C-M-x= 你會發現Emacs毫無反應，因為這個按鍵訊號完全沒有成功傳給Emacs），怎麼辦呢？
 
 其實 =ESC= 鍵等同於 =M-= ，所以當你要按 =C-M-s= 時，你可以先按一下 =ESC= 再按 =C-s= ，就等同於 =C-M-s= 了！
 
@@ -73,4 +73,4 @@ Org-mode 在設計時有考慮到這問題，所以有設計了許多在終端�
 1. =C-h f= 直接查那個 function 是否本來就還有其他按法。
 2. 開 GUI 版， =C-h k= 查詢你平常按的那個 key-binding 是綁到哪個 function，再自己自訂一個 CLI 版下能用的 key-binding。
 3. 土法煉鋼 =M-x=
-
+4. 大絕招：不要用 =emacs -nw= ，直接用 GUI 版。
