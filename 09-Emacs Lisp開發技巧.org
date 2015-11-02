@@ -83,20 +83,4 @@ With one `C-u' prefix, insert output following an arrow"
 #+END_QUOTE
 
 
-* Other
-
--  如果你跟我一樣手殘，愛開一堆 buffer，卻又常常不小心按到  =C-x C-c= 
-   ，所有開啟的檔案全被關掉很很囧的話，請服用：
-
-#+BEGIN_SRC lisp
-    ;;確認後再關掉 Emacs 啦
-    (defun save-buffers-kill-terminal-after-confirm ()
-      "老是不小心關掉 Emacs，揪咪。"
-      (interactive)
-      (If (yes-or-no-p "Really quit Emacs?")
-          (save-buffers-kill-terminal)
-        "好極了！"))    
-    (global-unset-key (kbd "C-x C-c"))
-    (global-set-key (kbd "C-x C-c") 'save-buffers-kill-terminal-after-confirm)
-#+END_SRC
 
