@@ -68,9 +68,9 @@ With one `C-u' prefix, insert output following an arrow"
 
 * RegExp
 
--  在 Emacs 裡寫 regexp 時一般應該是沒有問題，但是當你在 Lisp code 裡需要用 regexp 時，例如 =(re-search-forward "PATTERN")= ，會發現 ="PATTERN"=  裡反斜線看起來好像無法正常運作。這是因為在 eval 時，裡面整個  ="PATTERN"=  因為被 double quote 包起來了， *裡面的 regexp 會先被當成是 string 而先解析過一次* 。也就是說，平常只需要一個反斜的話， *在 Lisp code 裡要寫兩個反斜* ...
+-  在 Emacs 裡寫 regexp 時一般應該是沒有問題，但是當你在 Lisp code 裡需要用 regexp 時，例如 =(re-search-forward "PATTERN")= ，會發現 =PATTERN=  裡反斜線看起來好像無法正常運作。這是因為在 eval 時，裡面整個  =PATTERN=  因為被 double quote 包起來了， *裡面的 regexp 會先被當成是 string 而先解析過一次* （Emacs Lisp並沒有像是Python那種的raw string）。也就是說，平常只需要一個反斜的話， *在 Lisp code 裡要寫兩個反斜* ...
 
-另外，大中小括弧全部都得escape掉，不然會被解釋成普通文字而沒有任何regexp上的特殊意義。（我不知道為什麼Emacs Lisp的regexp要這樣設計） 以Python為例，我們在要 group match 時原本是寫成 =(.+?)= ，在Emacs Lisp中就得寫成 =\\(.+?\\)= （之前就是不知道這點，浪費了很多時間和腦細胞）
+另外，大中小括弧，還有pipe =|= 全部都得escape掉，不然會被解釋成普通文字而沒有任何regexp上的特殊意義。（我不知道為什麼Emacs Lisp的regexp要這樣設計） 以Python為例，我們在要 group match 時原本是寫成 =(.+?)= ，在Emacs Lisp中就得寫成 =\\(.+?\\)= （之前就是不知道這點，浪費了很多時間和腦細胞），
 
 -  要寫 Emacs 的 Regexp 時，務必嘗試看看  =M-x re-builder=  ，即時比對 pattern 非常方便。
 
