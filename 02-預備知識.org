@@ -38,6 +38,24 @@ Emacs 就是成千上萬個 Lisp function 跟一堆 variable 所構成， 並靠
 
 當你清楚意識並理解到這點後，往後很多 Emacs 的行為你會豁然開朗，尤其是你在學 Emacs Lisp 時，這是很重要的概念。這也是一個蠻實用的特性，因為你可以極為容易地寫出一些臨時需要的 function 做出一些快速的編輯功能。
 
+之前看到一篇文章，很好的解釋了為什麼Emacs會演化成今天這個樣子，在此摘錄一段：
+
+#+BEGIN_QUOTE
+在所有攻击Emacs的言论中，我最赞同也最具有杀伤力的一条是「Emacs违背了UNIX的设计哲学」。
+
+这当然一针见血,Emacs做了太多的事情,与采用搭积木哲学的UNIX格格不入。但事实上，「违背了UNIX的哲学」恰好是Emacs的价值所在，因为它的血统本身就在UNIX之外：它传承自MIT实验室的Lisp Machine。
+
+「用过 LISP 机器的人自然不习惯 UNIX 这种看上去“低级”的操作系统。结果是，用过 LISP Machine 的用户除了抱怨 UNIX 外，只能寻求在 UNIX 上构建一个新的层，来弥补 UNIX 的不足。
+
+这事情的一个结果就是造就了Emacs 这个怪兽，到最后几乎所有能在 UNIX 里做的事情，都能在 Emacs 里完成。这样，除了操作系统内核外，Emacs 完全取代了 UNIX 环境。
+
+Emacs 功能强大到大家都同意 Emacs 是个万能软件，而 vi 用户则开玩笑说 Emacs 是个缺少一个好编辑器的操作系统。大家都知道，Emacs 的作者正是从 MIT 出来的 Richard Stallman」
+
+-- [[http://emacsist.com/10221][从图灵机到 Emacs 乃至 FPGA - Emacs & Emacsist]]
+#+END_QUOTE
+
+
+
 ** C-x, M-f 這些東西代表什麼意思？
 
     - Emacs 使用 *簡寫* 表示鍵盤組合鍵。如：
