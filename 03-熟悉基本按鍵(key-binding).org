@@ -87,7 +87,14 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 *** 貼上（Yank）
 - 按 =C-y= 可以把最近一次被 Kill 掉的文字從 Kill-ring 給「拉 (Yank) 」出來。
 - 再按 N 下 =M-y= 可以把前 N 次被 Kill 掉的文字從 Kill-ring 中「拉」出來。
-  
+
+#+BEGIN_QUOTE
+前面提過，學Emacs的優勢之一，就是「FLOSS界中，很多軟體都會用Emacs-flavored key-binding的」。
+
+我個人覺得最神奇的，就是在我用 Emacs 一段時間後，赫然發現 *「Bash 和 Zsh 中是可以使用 kill-ring 的！」* 試試看就知道我在說什麼了，真的非常方便。尤其如果你已經很熟悉 Emacs 的操作，那往後在使用 Bash/Zsh 時你會發現比以往更如魚得水。
+
+-- kuanyui
+#+END_QUOTE  
   
 ** Undo/Redo
 - =C-/= 或 =C-_= : 復原（Undo）。
