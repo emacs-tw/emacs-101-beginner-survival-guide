@@ -37,4 +37,5 @@ StackExchange 現在有 [[https://emacs.stackexchange.com/][Emacs 專版]]，相
   - [[https://plus.google.com/u/0/communities/115469134289640648214][Google+ 中文社群]]
   - [[https://plus.google.com/u/0/communities/114815898697665598016][Google+ 國際社群]]
   - [[https://twitter.com/EmacsTW][Emacs 台灣 (@EmacsTW) | Twitter]]
+  - [[https://www.reddit.com/r/emacs/][Reddit 國際社群]]
 
