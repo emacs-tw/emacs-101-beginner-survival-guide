@@ -44,6 +44,13 @@
 -- kuanyui
 #+END_QUOTE
 
+#+BEGIN_QUOTE
+其實要看個人感受喔.... \\
+我使用 emacs 7 年後開始發現小拇指有點點不太舒服，所以就將 Ctrl 和 CapsLock 交換了。不過其實我覺得 CapsLock 比較好按就是了 ~
+
+-- coldnew
+#+END_QUOTE
+
 ** 一定要先學會 Emacs Lisp 或什麼語言嗎？
 一樣，看你期望讓 Emacs 做哪些事。
 
