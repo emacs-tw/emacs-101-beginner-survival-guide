@@ -38,16 +38,16 @@ Emacs 就是成千上萬個 Lisp function 跟一堆 variable 所構成， 並靠
 
 當你清楚意識並理解到這點後，往後很多 Emacs 的行為你會豁然開朗，尤其是你在學 Emacs Lisp 時，這是很重要的概念。這也是一個蠻實用的特性，因為你可以極為容易地寫出一些臨時需要的 function 做出一些快速的編輯功能。
 
-之前看到一篇文章，很好的解釋了為什麼Emacs會演化成今天這個樣子，在此摘錄一段：
+之前看到一篇文章，很好的解釋了為什麼 Emacs 會演化成今天這個樣子，在此摘錄一段：
 
 #+BEGIN_QUOTE
-在所有攻击Emacs的言论中，我最赞同也最具有杀伤力的一条是「Emacs违背了UNIX的设计哲学」。
+在所有攻击 Emacs 的言论中，我最赞同也最具有杀伤力的一条是「Emacs 违背了 UNIX 的设计哲学」。
 
-这当然一针见血,Emacs做了太多的事情,与采用搭积木哲学的UNIX格格不入。但事实上，「违背了UNIX的哲学」恰好是Emacs的价值所在，因为它的血统本身就在UNIX之外：它传承自MIT实验室的Lisp Machine。
+这当然一针见血,Emacs 做了太多的事情,与采用搭积木哲学的 UNIX 格格不入。但事实上，「违背了 UNIX 的哲学」恰好是 Emacs 的价值所在，因为它的血统本身就在 UNIX 之外：它传承自 MIT 实验室的 Lisp Machine。
 
 「用过 LISP 机器的人自然不习惯 UNIX 这种看上去“低级”的操作系统。结果是，用过 LISP Machine 的用户除了抱怨 UNIX 外，只能寻求在 UNIX 上构建一个新的层，来弥补 UNIX 的不足。
 
-这事情的一个结果就是造就了Emacs 这个怪兽，到最后几乎所有能在 UNIX 里做的事情，都能在 Emacs 里完成。这样，除了操作系统内核外，Emacs 完全取代了 UNIX 环境。
+这事情的一个结果就是造就了 Emacs 这个怪兽，到最后几乎所有能在 UNIX 里做的事情，都能在 Emacs 里完成。这样，除了操作系统内核外，Emacs 完全取代了 UNIX 环境。
 
 Emacs 功能强大到大家都同意 Emacs 是个万能软件，而 vi 用户则开玩笑说 Emacs 是个缺少一个好编辑器的操作系统。大家都知道，Emacs 的作者正是从 MIT 出来的 Richard Stallman」
 
@@ -83,18 +83,27 @@ Emacs 功能强大到大家都同意 Emacs 是个万能软件，而 vi 用户则
 
    如果你是不小心編輯到檔案內容了，按 =C-/= 或 =C-_= 可以復原（Undo）。
 
-** Buffer 與 Frame（Window） 到底差在哪裡？
+** Buffer 與 Frame、Window 到底差在哪裡？
 
-注意，這兩個東西的概念完全不同；
+注意，這幾個東西的概念完全不同；
 
     - Buffer 就是你用 Emacs 時， *開啟檔案後、拿來編輯檔案的地方* 。編輯就編輯，為什麼會叫「Buffer（緩衝區）」這麼奇怪的名子呢？因為你在緩衝區裡面做的任何編輯都還不會被立刻實際寫入檔案，直到按 =C-x C-s= 存檔為止，這就是「緩衝區」的概念。
       - 順帶一題， *Minibuffer* 指的是 Emacs 視窗最下方、用來顯示訊息或者互動式操作中輸入資料的那一條。
-    - Frame（現在比較常稱做 Window）的功能則是 *將 Buffer 的內容顯示在螢幕上，說白了就是「視窗」的概念。* 在 Emacs 你可以把螢幕切成多個區域，例如上下各一個、或左右各一個，每一塊就是一個 Frame。
+    - Frame 的概念有點像我們一般說的視窗，整個 Emacs 你所看到的範圍就是 Frame： *Frame 的功能就是將 Buffer 的內容顯示在螢幕上* 。
+    - Window 就是被切割的 Frame，也就是。你可以把 Frame 切成好幾塊，例如上下各一個、或左右各一個， *每一塊就是一個 Window* ，這樣你就可以同時看好幾個 buffer 的內容，有點像 tiling window manager 那樣。
 
 #+BEGIN_QUOTE
-其實會有 Buffer 這麼奇怪的詞完全是歷史因素，因為 Vi 與 Emacs 發明時的 70 年代，大家都還在用 =ed= 之類的行編輯器在編輯檔案，還沒有這種「輸入什麼東西、即時就可以在螢幕上見到修正」的編輯器，所以才會把編輯區叫做 Buffer。
+拿 MVC 架構來比喻的話：
+- buffer 有點像 model 的角色，暫存了你正在編輯的檔案內容；
+- frame/window 有點像 view 的角色，從 buffer 中讀出文字，並顯示出來。
+#+END_QUOTE
 
-而 Frame 一詞當然也是那時 GUI 都還沒發明，才沒有用我們現在比較熟悉的 Window 一詞。
+圖解就是這樣：
+[[file:pic/DrewsEmacsWindowCallouts.jpg]]
+
+#+BEGIN_QUOTE
+其實會有 Buffer 這麼奇怪的詞完全是歷史因素，因為 Vi 與 Emacs 發明時的 70 年代，大家都還在用 =ed= 之類的行編輯器在編輯檔案，還沒有這種「輸入什麼東西、即時就可以在螢幕上見到修正」的編輯器，所以才會把編輯區叫做 Buffer。在那時這種功能可是創新的呢。
+
 -- kuanyui
 #+END_QUOTE
 
@@ -114,9 +123,6 @@ Emacs 功能强大到大家都同意 Emacs 是个万能软件，而 vi 用户则
 #+BEGIN_QUOTE
 為什麼要搞得那麼複雜？其實這種特性非常好用也非常常用，由於 Frame 與 Buffer 的概念是分開的，所以可以 *開多個 Frame，且每個 Frame 都顯示同個 Buffer* ，代表你可以同時開多個 Frame，同時看「一個檔案的不同部份」，不管是寫文章或寫程式時都非常方便。
 #+END_QUOTE
-
-
-
 
 ** 什麼是 Kill-ring？
 
