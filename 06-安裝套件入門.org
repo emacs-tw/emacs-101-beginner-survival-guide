@@ -2,10 +2,42 @@
 安裝第三方各式套件可說是 Emacs 的精隨，Emacs 發展到現在有成千上萬各式不同的套件，讓你擴充 Emacs 到手軟。安裝套件主要有兩種最簡單的方法，一是透過 Emacs 24 以後開始內建的 =package.el= ，二是手動安裝。以下分別介紹。
 
 ** =package.el= 與 MELPA
-推薦用這種方法，安裝套件不用再自己 =(require 'balabala)= ，非常方便。
+這是 Emacs 內建的一套套件管理系統，我們推薦新手用這種方法安裝套件，安裝套件不用再自己手動抓 el，而且也不用自己寫 =(require '套件名)= 非常方便。
 
 *** 設定 MELPA
-Emacs 預設只有設定 GNU ELPA，要加入
+Emacs 預設只有設定 GNU ELPA，這裡推薦可以加入 MELPA repository，這應該是目前最大的 Emacs package repository：
+
+#+BEGIN_SRC elisp
+;; package.el 相關設定
+(require 'package)
+(package-initialize)
+(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
+#+END_SRC
+
+#+BEGIN_QUOTE
+我自己是一般情況用 =melpa= 套件比較多也比較新，當單一套件出問題時才改用 =melpa-stable= 。例如 =web-mode= 我就是用 stable 的，因為他新版常常爆炸。
+
+-- kuanyui
+#+END_QUOTE
+
+
+*** 操作方法
+套用上面的設定後， =M-x package-list-packages= 就可以看到套件管理畫面了。
+
+- =C-s= 搜尋套件名稱
+- =i= 標記為安裝
+- =d= 標記為移除
+- =u= 取消標記
+- =x= 套用
+
+#+BEGIN_QUOTE
+*我沒有提到 =U= ，因為我非常不推薦使用這指令。這個一按下去會自動把所有安裝的套件更新，並把舊的移掉，但這種行為非常容易讓你搞定好的環境爛掉。*
+
+如果只按 =i= 來個別升級套件的話，這樣該套件的舊版的只會被標記成 =obsolete= （遺棄），當升級該套件後出問題，可以很容易的把新版 =u= 移除掉， =obsolete= 則可以補回原本的位置繼續用。
+
+-- kuanyui
+#+END_QUOTE
 
 ** 手動安裝
 有少數套件在 ELPA 中找不到，這時才會需要用到手動安裝。
