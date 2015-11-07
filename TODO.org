@@ -1,2 +1,10 @@
 * TODO 寫一個 TOC generator ，並在每篇文章頂端加上TOC。
 ** TODO 用Makefile做到一次更新所有TOC的功能。
+* TODO M-x describe-* 系列
+  :LOGBOOK:  
+  - State "TODO"       from ""           [2015-11-07 土 21:04]
+  :END:      
+* TODO package.el
+  :LOGBOOK:  
+  - State "TODO"       from ""           [2015-11-07 土 21:04]
+  :END:      
