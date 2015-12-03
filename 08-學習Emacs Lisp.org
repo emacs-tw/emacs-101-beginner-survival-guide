@@ -29,3 +29,18 @@ Emacs 一般使用應該已經可以符合你的需求了，然而到後來也�
 - *[[http://www.emacswiki.org/emacs-zh][Emacs Wiki]]* 龐大的社群，很多知名的 .el 在上面都找得到，但這主要也是用搜尋引擎找內容。
 
 
+** 太多啦真的要看完嗎？
+其實不用，就跟前面講的一樣，我們不需要讀完整本字典才能開始開口說英文。我們現在就假設你已經完全理解之前所講的所有東西，然後開始來從無到有試著用 Elisp 寫出一點你想要的功能試試。
+
+在這之前，如果你在這之前完全不懂 Lisp，建議請先讀完 [[https://acl.readthedocs.org/en/latest/zhTW/ch2.html][ANSI Common Lisp 第二章：歡迎來到 Lisp]]，如果你已經有程式基礎那應該蠻快能掌握一點 Lisp 的基本概念。如果你在這之前完全不懂程式，那更務必詳讀此篇、試試每個範例並思考原因。
+
+別忘了，你可以在 Emacs 中任何地方，用 =C-x C-e= 來試著 eval 看看 ANSI Common Lisp 一書中的範例。
+
+#+BEGIN_QUOTE
+雖然 Common Lisp 與 Emacs Lisp 有著不小的差異，但對初學者而言是不會差太多的。
+
+初學者需要知道的三個差異是：
+1. Emacs Lisp 是有區分大小寫的（Case-sensitive），Common Lisp 則無。
+2. Emacs Lisp 比較常用 =setq= 而不是 =setf= 
+3. Emacs Lisp 的 Array 是用 =[1 2 3]= 而不是 Common Lisp 的 =#(1 2 3)=
+#+END_QUOTE

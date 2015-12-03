@@ -1,0 +1,110 @@
+#+BEGIN_QUOTE
+本篇假設你已經讀過並理解前面所有內容，這裡不再囉唆解釋，直接切入正題。
+#+END_QUOTE
+
+好啦，現在來試試，要怎麼用 Emacs Lisp 寫出一點我們想要的功能吧？
+
+* 需求
+假設我現在想要 *按一鍵（例如 =F12= ），就可以直接開啟某個檔案* ，該從何下手呢？
+
+* 找出需要的 API
+當你不知道該用哪個 Emacs Lisp 的 API 時，當然可以直接 Google 查像是 "emacs lisp open file" 之類的關鍵字。但我現在要講的不是這方法，而是如何利用 Emacs 內建的 API 說明文件。
+
+** 透過 key-binding 得知
+那要怎麼辦？首先我們知道， =C-x C-f= 可以互動式地開啟某個檔案，那我想這可能有我們需要的線索吧？所以現在按下 =C-h k= 再按 =C-x C-f= ，以得知 =C-x C-f= 這個 key-binding 呼叫了哪個 function，你會看見跳出了一個如下的 buffer：
+
+#+BEGIN_EXAMPLE
+C-x C-f runs the command find-file, which is an interactive compiled
+Lisp function in `files.el'.
+
+It is bound to <open>, C-x C-f, <menu-bar> <file> <new-file>.
+
+(find-file FILENAME &optional WILDCARDS)
+
+Edit file FILENAME.
+Switch to a buffer visiting file FILENAME,
+creating one if none already exists.
+Interactively, the default if you just type RET is the current directory,
+but the visited file name is available through the minibuffer history:
+type M-n to pull it into the minibuffer.
+
+You can visit files on remote machines by specifying something
+like /ssh:SOME_REMOTE_MACHINE:FILE for the file name.  You can
+also visit local files as a different user by specifying
+/sudo::FILE for the file name.
+See the Info node `(tramp)File name Syntax' in the Tramp Info
+manual, for more about this.
+
+Interactively, or if WILDCARDS is non-nil in a call from Lisp,
+expand wildcards (if any) and visit multiple files.  You can
+suppress wildcard expansion by setting `find-file-wildcards' to nil.
+
+To visit a file without any kind of conversion and without
+automatically choosing a major mode, use M-x find-file-literally.
+#+END_EXAMPLE
+
+嗯嗯，我們得知了 =C-x C-f= 執行的是 =find-file= 這個指令，它的用途是 「Edit file FILENAME. Switch to a buffer visiting file FILENAME, creating one if none already exists.」這看起來就是我們要的東西。
+
+* eval 看看
+文件中提到， =find-file= 的語法是 =(find-file FILENAME &optional WILDCARDS)= ，看起來我們只要餵給它第一個參數 =FILENAME= ，它應該就會幫我開啟這個檔案了吧？所以我們來試試看：
+
+#+BEGIN_SRC elisp
+(find-file "~/hello.txt")
+#+END_SRC
+
+游標移動到括弧尾端、按下 =C-x C-e= 來 eval，Bingo！它真的幫我們開啟了 =~/hello.txt= 這個檔案。
+
+* 做成 function
+
+跟 Common Lisp 一樣，要 define function 時都是用 =defun= 。來試試看：
+
+#+BEGIN_SRC elisp
+(defun my-open-hello ()
+  (find-file "~/hello.txt"))
+#+END_SRC
+
+eval 後，minibuffer 會顯示 =my-open-hello= ，那就是成功定義了這個 function 啦！來呼叫看看：
+
+#+BEGIN_SRC elisp
+(my-open-hello)
+#+END_SRC
+
+嗯嗯，真的開啟了耶！
+
+* 抓 key-binding 的真正名稱
+
+來試試用前面設定檔教學時講過的 =global-set-key= 來綁定這個 function。
+
+我們想用 =F12= 這個鍵來呼叫 =my-open-hello= ，但不知道 =F12= 該怎麼寫才能讓 Emacs 認得...所以現在按下 =C-h k= 再按 =F12= ，你會看到 =<f12> is undefined= ，可以得知兩件事：
+
+1. =F12= 的寫法是 =<f12>=
+2. =F12= 還沒被使用！可以盡情自訂！
+
+#+BEGIN_QUOTE
+但如果跳出一個 buffer 顯示類似 =<f12> runs the command balah-balah, which is a Lisp function.= 的訊息，就要注意按鍵會被蓋過去的問題。
+#+END_QUOTE
+
+所以我們試試看：
+
+#+BEGIN_SRC elisp
+(global-set-key (kbd "<f12>") 'my-open-hello)
+#+END_SRC
+
+* 呼叫吧！函數！
+看起來都沒問題了，eval 後，現在按下 =F12= ....這這這怎麼爆炸惹：
+
+#+BEGIN_EXAMPLE
+command-execute: Wrong type argument: commandp, my-open-hello
+#+END_EXAMPLE
+
+=M-x= 也會發現無法呼叫這個 function，怎麼回事呢？
+
+這是初學時常犯的錯誤，因為我們忘記加上 =(interactive)= 來標記這個 function 可以被「互動式地使用」了，所謂 interactive function，就是可以透過 =M-x= ，或者綁定到按鍵上的 function。所以我們來加上：
+
+#+BEGIN_SRC elisp
+(defun my-open-hello ()
+  (interactive)
+  (find-file "~/hello.txt"))
+#+END_SRC
+
+再 eval 一次...可以了耶！這就是我們要的功能啊！啊啊啊啊啊啊嘶～～～！
