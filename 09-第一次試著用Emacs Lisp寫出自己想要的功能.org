@@ -108,3 +108,5 @@ command-execute: Wrong type argument: commandp, my-open-hello
 #+END_SRC
 
 再 eval 一次...可以了耶！這就是我們要的功能啊！啊啊啊啊啊啊嘶～～～！
+
+雖然這只是一個很簡單很簡單的例子，不過當你熟悉這個思路與流程後，再搭配 Google 搜尋，就可以很容易的堆砌出一點自己想要的小功能了。
