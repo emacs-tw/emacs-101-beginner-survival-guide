@@ -1,8 +1,15 @@
-* TODO 安裝套件
+* 安裝套件
 安裝第三方各式套件可說是 Emacs 的精隨，Emacs 發展到現在有成千上萬各式不同的套件，讓你擴充 Emacs 到手軟。安裝套件主要有兩種最簡單的方法，一是透過 Emacs 24 以後開始內建的 =package.el= ，二是手動安裝。以下分別介紹。
+
+#+BEGIN_QUOTE
+我個人喜歡以 package.el 為主，手動安裝為輔的方式。因為 package.el 太方便了，除非遇到 GNU ELPA 跟 MELPA 中都找不到的 package（現在很少了，MELPA 收錄得越來越多），否則根本不會想要手動安裝。
+
+#+END_QUOTE
 
 ** =package.el= 與 MELPA
 這是 Emacs 內建的一套套件管理系統，我們推薦新手用這種方法安裝套件，安裝套件不用再自己手動抓 el，而且也不用自己寫 =(require '套件名)= 非常方便。
+
+透過 =package.el= 安裝的套件會被放在 =~/.emacs.d/elpa/= 下。如果你用 git 管理你的 Emacs 設定檔，建議直接把 =~/.emacs.d/elpa/= 也一起放進去，先不要考慮什麼為了省空間而用 Emacs Lisp 寫個自動從網路上抓 packages 的 function 之類的，因為很容易 dependancies 爆掉，與其那麼麻煩不如先全部放。
 
 *** 設定 MELPA
 Emacs 預設只有設定 GNU ELPA，這裡推薦可以加入 MELPA repository，這應該是目前最大的 Emacs package repository：
@@ -40,4 +47,32 @@ Emacs 預設只有設定 GNU ELPA，這裡推薦可以加入 MELPA repository，
 #+END_QUOTE
 
 ** 手動安裝
-有少數套件在 ELPA 中找不到，這時才會需要用到手動安裝。
+有少數套件在 GNU ELPA 跟 MELPA 中都找不到，這時才會需要用到手動安裝。
+
+除了少數比較複雜的 packages 要照著它的 README 做外，我們這裡介紹的是最最最最最基本的手動安裝方式。
+
+我們假設要安裝一個叫做 =kanata= 的套件，下載下來後解壓縮，發現整個資料夾的名稱是 =kanata/= ，主程式放在 =kanata/kanata.el= 。
+
+1. 先在 =~/.emacs.d/= 下建立一個新的目錄（這裡以 =~/.emacs.d/packages/= 為例），以便跟 =~/.emacs.d/elpa/= 內的套件分開管理。
+2. 把整個資料夾 =kanata/= 扔進 =~/.emacs.d/packages/= 中。
+3. 在你的設定檔中加上：
+#+BEGIN_SRC elisp
+(add-to-list 'load-path "~/.emacs.d/packages/kanata")  ;; 這樣 Emacs 才 require 得到這個 package
+(require 'kanata)    ;; 載入 kanata 這個 package
+#+END_SRC
+
+4. 這樣應該就可以用了。可能有其他設定，這必須自己看一下它附帶的 README。
+
+#+BEGIN_QUOTE
+有一些細節我想還是提一下好，這在當你哪天要寫 package 時蠻重要的。
+
+當你透過 =add-to-list= 把你的新套件路徑加入 =load-path= 這個 variable 後，Emacs 在 =require= 時就會在 =load-path= 中的路徑搜尋裡面是否有擁有這個名稱的 package。也就是說，直到你 =require= 某個套件之前，該套件還不會被載入。
+
+你可以打開隨便一個 =*.el= 來看，你會發現檔案尾端都一定會有一行 =(provide 'kanata)= 之類的東西，這就是我們在 =require= 時所用的該套件名稱。
+
+不要隨意修改 =.el= 的檔名，因為當你的套件檔名 =kanata.el= 跟 =(provide 'kanata)= 所提供的名稱不一致時， =require= 載入時就會出現錯誤。
+
+更細節的部份我也不懂，希望我沒講錯 orz。
+
+-- kuanyui
+#+END_QUOTE
