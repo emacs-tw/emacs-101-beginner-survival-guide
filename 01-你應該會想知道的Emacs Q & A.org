@@ -64,26 +64,27 @@
 * 優缺點整理
   既然已經有那麼多其他 editors 了，請給我一些非用 Emacs 不可的理由？
 
-0. Org-mode, Dired 這兩個功能打趴其他所有編輯器。
-1. Org-mode 是至今我心目中無人能敵的超變態的筆記 + GTD + 出版軟體。（這是我當初學 Emacs 而不是 Vim 的主要理由之一）
-2. 學一套，幾乎什麼平台都能用。
-3. 可純鍵盤操作，出門沒帶滑鼠也不覺得少了什麼。
-4. 有純 CLI 界面，遠端 ssh 操作或 tty 也完全沒問題。
-5. 很多 UNIX 工具也是採用 Emacs-flavored 的 key-binding，尤其是 GNU 出品的。例如  =info= 、 =less= 、甚至  =bash= / =zsh=  的預設操作方式也都是 Emacs-flavored 的，用起來很熟悉。
-6. 歷史悠久，所以很多你想得到、想不到的方便功能幾乎都有人做過。舉凡一套完整的 Terminal Emulator、[[http://kuanyui.github.io/2014/06/21/dired-tutorial-and-essential-configs/][檔案管理員]]、 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Serial-Terminal.html][Serial Terminal]]到 [[https://github.com/hayamiz/twittering-mode][Twitter 的 client]]、[[https://github.com/skeeto/elfeed][RSS reader]]。
-7. Emacs Lisp 是個頗為完整的語言，還可以順便學 Lisp。拿來代替其他腳本語言做一些常用的文字處理功能或拋棄式程式挺方便，隨時覺得什麼編輯操作不順手就順手寫一個，不需要再弄什麼外部程式，例如我常常拿它來：
+1. Org-mode, Dired 這兩個功能打趴其他所有編輯器。
+2. Org-mode 是至今我心目中無人能敵的超變態的筆記 + GTD + 出版軟體。（這是我當初學 Emacs 而不是 Vim 的主要理由之一）
+3. 學一套，幾乎什麼平台都能用。
+4. 可純鍵盤操作，出門沒帶滑鼠也不覺得少了什麼。
+5. 有純 CLI 界面，遠端 ssh 操作或 tty 也完全沒問題。
+6. 很多 UNIX 工具也是採用 Emacs-flavored 的 key-binding，尤其是 GNU 出品的。例如  =info= 、 =less= 、甚至  =bash= / =zsh=  的預設操作方式也都是 Emacs-flavored 的，用起來很熟悉。
+7. 歷史悠久，所以很多你想得到、想不到的方便功能幾乎都有人做過。舉凡一套完整的 Terminal Emulator、[[http://kuanyui.github.io/2014/06/21/dired-tutorial-and-essential-configs/][檔案管理員]]、 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Serial-Terminal.html][Serial Terminal]]到 [[https://github.com/hayamiz/twittering-mode][Twitter 的 client]]、[[https://github.com/skeeto/elfeed][RSS reader]]。
+8. Emacs Lisp 是個頗為完整的語言，還可以順便學 Lisp。拿來代替其他腳本語言做一些常用的文字處理功能或拋棄式程式挺方便，隨時覺得什麼文字編輯操作不順手就順手寫一個，不需要再弄什麼外部程式，例如我自己就常常拿它來：
 
-    - 在貼上網址後，自動去抓網頁的標題加上去。
-    - 貼上 Flickr 網址後，直接去抓圖片的 raw link。
-    - [[https://github.com/kuanyui/moedict.el][查《萌典》]]。
+   - [[https://github.com/kuanyui/writing-utils.el/blob/master/page-title.el][在貼上網址後，自動去抓網頁的標題加上去。]]
+   - [[https://github.com/kuanyui/writing-utils.el/blob/master/flickr.el][貼上 Flickr 網址後，直接去抓圖片的 raw link。]]
+   - [[https://github.com/kuanyui/moedict.el][查《萌典》。]]
+   - [[https://github.com/kuanyui/ta.el][快速修改「她他它祂牠」這種同音字]]
 
-8. 免費又 Open Source，不用擔心被專有軟體綁住，這是個學一次就可以用一輩子的編輯器。
+9. 免費又 Open Source，不用擔心被專有軟體綁住，這是個學一次就可以用一輩子的編輯器。
 
 ** 缺點
 Emacs 的劣勢是：
 
 1. 要花時間搞弄設定檔（不過前面也提過了，這點見仁見智）
-2. Ctrl、Alt 鍵磨損的速度相當快，而且好像有不少人說 Ctrl 常按會傷手。
-3. Emacs 比 Vim 肥很多，不過這是相較之下，跟 Sublime Text 和 Atom 比的話應該輕量很多。
+2. Emacs 在尺寸上比 Vim 肥很多。更加上設定檔的關係，不方便放進隨身碟裡到處帶著走。
+3. Ctrl、Alt 鍵磨損的速度相當快。
 4. 幾乎所有主機上都有 Vim（再怎樣也有 Vi），但不一定會有 Emacs。
-   
+5. 參加COSCUP時說自己用Emacs會被別人用像是在看瀕臨絕種的動物的眼神看待。
