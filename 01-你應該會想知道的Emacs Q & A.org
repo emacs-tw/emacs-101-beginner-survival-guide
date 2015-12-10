@@ -11,14 +11,14 @@
 
 ** 我用Vim，該不該跳船啊
 
-#+BEGIN_QUOTE
-(01時45分25秒) caasih: 認真問，跳 editor 的陣痛期大概多長？（凡人 ver.\\
-(01時45分53秒) letoh: 雖然我還是每天用 vim，但真心覺得 vim 在寫程式這方面實在太弱....靠一堆 addon 應該勉強看得到車尾燈XD\\
-(01時46分20秒) letoh: 像我現在主要是改設定檔  看 log 會用 vim\\
-(01時46分38秒) letoh: 之前用 vim script 寫了不少看 log 和 debug 工具，懶得移植到 emacs 了XD\\
-Lee1092 letoh \\
-(01時47分52秒) letoh: 然後平常大概除了寫 c 就是寫 python，少了 c-c c-c 的 vim 實在用不下去XD\\
-#+END_QUOTE
+#+BEGIN_EXAMPLE
+(01時45分25秒) caasih: 認真問，跳 editor 的陣痛期大概多長？（凡人 ver.
+(01時45分53秒) letoh: 雖然我還是每天用 vim，但真心覺得 vim 在寫程式這方面實在太弱....靠一堆 addon 應該勉強看得到車尾燈XD
+(01時46分20秒) letoh: 像我現在主要是改設定檔  看 log 會用 vim
+(01時46分38秒) letoh: 之前用 vim script 寫了不少看 log 和 debug 工具，懶得移植到 emacs 了XD
+Lee1092 letoh 
+(01時47分52秒) letoh: 然後平常大概除了寫 c 就是寫 python，少了 c-c c-c 的 vim 實在用不下去XD
+#+END_EXAMPLE
 
 #+BEGIN_QUOTE
 我覺得不用想跳不跳的，原本(在 Vim 裡)用的做不好就想辦法弄好，或針對單一功能跳船就好。
