@@ -126,8 +126,15 @@ command-execute: Wrong type argument: commandp, my-open-hello
 
 1. =save-buffer= 其實就是 =C-x C-s= 儲存目前 buffer 啦！
 2. =buffer-file-name= 是一個內建變數，它的值就是目前 buffer 檔案的絕對路徑。
-3. 餵給 =file-name-nondirectory= 一個絕對路徑的話，回傳值是該絕對路徑的 filename，也就是相對路徑。（其實可以直接讓 =python3= 執行絕對路徑啦，只是這裡當作例子讓你看更懂）
+3. 餵給 =file-name-nondirectory= 一個絕對路徑的話，回傳值是該絕對路徑的 filename，也就是相對路徑。（其實可以直接讓 =python3= 執行絕對路徑啦，只是這裡當作例子讓你看更懂。）
 4. =format= 是有寫過程式的大家應該都很熟悉的東西，總之他在這的功能就只是造出 =python3 FILENAME= 這樣的字串而已。
-5. 最後 =shell-command= 呼叫外部 command 執行 =python3 FILENAME= 啦！執行的結果（stdout, stderr）會開一個新 buffer 顯示出來（如果內容只有兩三行則會只顯示在 minibuffer）。很方便。
+5. 最後 =shell-command= 呼叫外部 command 執行 =python3 FILENAME= 啦！執行的結果（stdout, stderr）會開一個新 buffer 顯示出來（如果內容只有兩三行則會只顯示在 minibuffer）。
+  
+
+#+BEGIN_QUOTE
+你可能會問， =shell-command= 執行命令時的 =pwd= 是在哪裡？答案就是你目前的 buffer 路徑。所以這裡可以直接餵給 =python3= 相對路徑。
+
+目前 buffer 的路徑則則則是由內建變數 =default-directory= 儲存。
+#+END_QUOTE
 
 別忘記，以上你都可以自行開個檔案 =C-x C-e= 試試。
