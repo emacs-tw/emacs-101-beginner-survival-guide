@@ -110,3 +110,24 @@ command-execute: Wrong type argument: commandp, my-open-hello
 再 eval 一次...可以了耶！這就是我們要的功能啊！啊啊啊啊啊啊嘶～～～！
 
 雖然這只是一個很簡單很簡單的例子，不過當你熟悉這個思路與流程後，再搭配 Google 搜尋，就可以很容易的堆砌出一點自己想要的小功能了。
+* 再一個簡單範例：一鍵執行
+上面的例子太沒用？那來一個應該很多人需要的範例功能：在 =python-mode= 中，一鍵 =f5= 執行目前的 Python 檔案！
+
+就不再囉唆長篇大論，直接來 code：
+
+#+BEGIN_SRC elisp
+(define-key python-mode-map (kbd "<f5>") 'run-buffer-with-python3-interpreter)
+(defun run-buffer-with-python3-interpreter ()
+  (interactive)
+  (save-buffer)
+  (shell-command (format "python3 %s" (file-name-nondirectory buffer-file-name)))
+ )
+#+END_SRC
+
+1. =save-buffer= 其實就是 =C-x C-s= 儲存目前 buffer 啦！
+2. =buffer-file-name= 是一個內建變數，它的值就是目前 buffer 檔案的絕對路徑。
+3. 餵給 =file-name-nondirectory= 一個絕對路徑的話，回傳值是該絕對路徑的 filename，也就是相對路徑。（其實可以直接讓 =python3= 執行絕對路徑啦，只是這裡當作例子讓你看更懂）
+4. =format= 是有寫過程式的大家應該都很熟悉的東西，總之他在這的功能就只是造出 =python3 FILENAME= 這樣的字串而已。
+5. 最後 =shell-command= 呼叫外部 command 執行 =python3 FILENAME= 啦！執行的結果（stdout, stderr）會開一個新 buffer 顯示出來（如果內容只有兩三行則會只顯示在 minibuffer）。很方便。
+
+別忘記，以上你都可以自行開個檔案 =C-x C-e= 試試。
