@@ -117,7 +117,13 @@ Vim 聽說也是這樣，所以 Vimmer 應該能了解。
 
 *** Programming
 - =M-;= 插入目前語言的註解（如 Python 就是 =# comment= ，Haskell 就是 =-- comment= ）
+  #+BEGIN_QUOTE
+  注意，你可以用 =C-@= 選取一段文字後，再按下 =M-;= ，這樣就可以將整個選取的範圍給註解掉。試試看就知道我在說什麼了。
+
+-- kuanyui
+  #+END_QUOTE
 - =C-M-\= 立刻自動縮排
+- =M-q= 將目前整個段落每 70 字元換行。
 
 *** 英文大小寫
 - =M-l= 單字轉成全小寫。

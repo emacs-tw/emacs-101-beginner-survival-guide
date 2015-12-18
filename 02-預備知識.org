@@ -46,7 +46,7 @@ Emacs 就是成千上萬個 Lisp function 跟一堆 variable 所構成， 並靠
       - =M-f= 表示按住 =Alt/Meta= 再按 =f= ，或者按一下 =Esc= 再按 =f= 。
       - =C-x C-f= 表示按住 =Ctrl= 後，再按 =xf= 。
       - =C-x k= 表示按了 =C-x= 後，放開 ，再按一下 =k=
-    - =C-x=, =C-c=, =C-u= 這三者是前綴(prefix)組合鍵，你不能單獨使用他們。
+    - =C-x=, =C-c=, =C-u= 這三者是前綴(prefix)組合鍵，有特殊意義，你不能單獨使用（例如你無法把某個功能綁到只按一個 =C-x= 就能達成，它會報錯）。
             例如開檔 =C-x C-f= 、存檔 =C-x C-s= 、離開 Emacs =C-x C-c=
     - =M-x= 是直接呼叫「指令名稱」。或者精確的說，「函數」(function)
     - =C-u= 是給命令加上參數時在使用的，初學不需要知道這個，以後再說 XD
@@ -66,7 +66,7 @@ Emacs 就是成千上萬個 Lisp function 跟一堆 variable 所構成， 並靠
 
    如果你是不小心編輯到檔案內容了，按 =C-/= 或 =C-_= 可以復原（Undo）。
 
-** Buffer 與 Frame、Window 到底差在哪裡？
+** Buffer 與 Frame、Window 到底差在哪裡？（務必弄清）
 
 注意，這幾個東西的概念完全不同；
 
