@@ -17,11 +17,63 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 - =C-x C-←= 切換到上一個 buffer。
 - =C-x C-→= 切換到下一個 buffer。
 
+- =C-x b= 切換到/開啟一個名為 xxx 的 buffer。
+- =C-x C-b= 開啟 buffer 管理員(不推薦使用，預設的管理員難用到爆)
+
+#+BEGIN_QUOTE
+這裡一定要特別提一下，按下 =C-x C-b= 會跳出 Emacs 預設的 buffer 管理員...這玩意簡直垃圾一般的存在，非常之難用，實在不懂為何到了 2015 年還是預設用這鬼東西 +（我猜可能是 RMS 愛用）+ 。強烈建議改用 Emacs 內建的 =ibuffer= 來代替預設的 buffer 管理員：
+
+#+BEGIN_SRC elisp
+(require 'ibuffer)
+(global-set-key (kbd "C-x C-b") 'ibuffer)
+#+END_SRC
+
+試試看，這樣就已經比預設的好用了。除此之外 =ibuffer= 還有包含給 buffer 分類的功能。例如如下設定可以將正在使用 Python、Ruby、Dired 跟 Markdown 的 buffers 分開：
+
+#+BEGIN_SRC elisp
+(setq ibuffer-saved-filter-groups
+      (quote (("default"
+               ("Dired" (mode . dired-mode))
+               ("Markdown" (or
+                            (name . "^diary$")
+                            (mode . markdown-mode)))
+               ("ReStructText" (mode . rst-mode))
+               ("Python" (or (mode . python-mode)
+                             (mode . ipython-mode)
+                             (mode . inferior-python-mode)))
+               ("Ruby" (or
+			(mode . ruby-mode)
+			(mode . enh-ruby-mode)
+			(mode . inf-ruby-mode)))))))
+#+END_SRC
+
+可以再根據自己的需要修改。如果看不懂這在幹麻請先耐下性子，後續章節會提到要怎麼看懂並修改這類玩意。
+
+-- kuanyui
+#+END_QUOTE
+
 *** Window 相關
 - =C-x 0= 關掉目前 Window
 - =C-x 1= 將目前 Window 以外的所有 Window 關掉。
 - =C-x 2= 水平分割 Window
 - =C-x 3= 垂直分割 Window
+
+- =C-x o= 切換到下一個 Window（不推薦使用，不知道誰想出來的爛設計）
+
+#+BEGIN_QUOTE
+是的不才在下我今天又要來靠北一下 Emacs 的預設操作方式了。 =C-x o= 這個設計真是難按斃了，尤其當螢幕上你切割了一大堆 window 時，得按好幾次 =C-x o= 才能切換到你要的，不過 Emacs 其實有內建一個套件叫 =windmove= ，我自己是加入這樣的設定到設定檔中：
+
+#+BEGIN_SRC elisp
+(global-set-key (kbd "M-S") 'windmove-up)
+(global-set-key (kbd "M-X") 'windmove-down)
+(global-set-key (kbd "M-C") 'windmove-right)
+(global-set-key (kbd "M-Z") 'windmove-left)
+#+END_SRC
+
+這樣就可以用 =Alt+Shift+s/z/x/c= 來向上/下/左/右切換 window，而且在標準 qwerty 鍵盤上可以單手操作。如果你有其他更偏好的 key-binding 請自行修改。
+
+-- kuanyui
+#+END_QUOTE
 
 *** 游標移動
 - =C-a= 跳到行首
