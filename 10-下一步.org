@@ -1,22 +1,40 @@
 * 下一步？
 
-你現在應該已經有一點基本的 Emacs 操作與使用概念了，但這樣當然還是不夠的。
-
 #+BEGIN_QUOTE
-你現在已經知道要如何安裝套件、做些基本的設定，然而你可能還是會需要為了一些功能折騰，例如 [[http://codingpy.com/article/emacs-the-best-python-editor/][搞定 Python 的開發環境]] 你可能需要花時間搞弄 Auto-complete + Jedi 等等事情，要寫 web 專案的 template 可能還會需要折騰 web-mode，想要在 Emacs 裡面用 git 神器 Magit，這些事情我一開始本來就不打算在這本教學中講述。像 Magit、Web-mode 這類的東西本身開發速度非常快，我不可能一個個介紹，可能教學才寫完三個月新版出來就通通過時了（網路上就看過一些舊版 Magit 的 cheet sheets）。不過現在你應該已經有足夠的基本知識與能力去看懂、並照著他們的 README 去打造出你要的 Emacs 來。
+你現在已經知道要如何安裝套件、做些基本的設定，然而你可能還是會需要為了一些功能折騰，例如為了搞定 Python 的開發環境你可能需要花時間搞弄 Auto-complete + Jedi 等等事情，要寫 web 專案的 template 可能還會需要折騰 web-mode，想要在 Emacs 裡面用 git 神器 Magit，這些事情我一開始本來就不打算在這本教學中講述。像 Magit、Web-mode 這類的東西本身開發速度非常快，我不可能一個個介紹，可能教學才寫完三個月新版出來就通通過時了（網路上就看過一些舊版 Magit 的 cheet sheets）。不過現在你應該已經有足夠的基本知識與能力去看懂、並照著他們的 README 去打造出你要的 Emacs 來。
 
 如果您認為這本教學還有什麼不足之處需補強，請在 Github 發 issue。直接發 PR 也歡迎。
 
 -- kuanyu [2015-12-18 金 01:42] @ Jinguashi
 #+END_QUOTE
 
+你現在應該已經有一點基本的 Emacs 操作與使用概念了，但這樣當然還是不夠的。
 
-** 累積設定檔
+*** 各別功能的設定
+這個 Emacs 101 就像是個「總論」。接下來的各個功能，例如最熱門的 Magit, Dired, web-mode, auto-complete, Jedi 等等則要自己視自身需求去找、看 README 慢慢打造起你自己的 Emacs。
 
-設定檔是要花些時間折騰的，當然除了直接用現成的 [[https://github.com/emacs-tw/awesome-emacs#starter-kit][Starter-kit]] 外，最好的起步方法就是「抄別人的設定檔」！可以參考以下幾位台灣 Emacser 的設定：
+這裡推薦一些介紹文章：
 
-- [[https://github.com/coldnew/coldnew-emacs][coldnew/coldnew-emacs · GitHub]]
-- [[https://github.com/kanru/.emacs.d][kanru/.emacs.d · GitHub]]
+- [[https://kuanyui.github.io/2014/06/21/dired-tutorial-and-essential-configs/][必備的 Dired 設定與簡易教學]]
+- [[http://coldnew.github.io/COSCUP2013_org-mode/slide.html][Org-mode Emacs 下的瑞士軍刀]]
+- [[http://codingpy.com/article/emacs-the-best-python-editor/][Emacs：最好的 Python 编辑器？]] 
+
+當然還有很多不可能一一列舉。
+
+*** Packages 擴充套件
+
+Emacs 最重要的靈魂除了設定檔外，就是「擴充套件」了。
+
+Emacs 已經有三、四十年的歷史，累積了成千上萬個套件，該到哪裡找到我想要的套件呢？Emacs.tw 社群有整理了一個頗為完整的清單 [[https://github.com/emacs-tw/awesome-emacs][Awesome Emacs]] ，讓你很容易就能找到一些目前最受歡迎、常用、且符合自身需求的套件。
+
+*** 參考他人的設定檔
+
+設定檔是要花些時間折騰的，當然除了直接用現成的 [[https://github.com/emacs-tw/awesome-emacs#starter-kit][Starter-kit]] 外，最好的起步方法就是「抄別人的設定檔」！就算你已經有很不錯的設定，仍常常可以在別人的設定檔中發現一些你想不到的寶物。
+
+可以參考以下幾位台灣 Emacsers 的設定：
+
+- [[https://github.com/coldnew/coldnew-emacs][coldnew/coldnew-emacs]]
+- [[https://github.com/kanru/.emacs.d][kanru/.emacs.d]]
 - [[https://github.com/kuanyui/.emacs.d][kuanyui/.emacs.d]]
 
 
@@ -26,15 +44,8 @@
 
 設定檔是每個 Emacser 最重要的寶物，記得備份千萬不要搞丟了，或者可以的話把整個 =.emacs.d= 給版本控制然後丟到 Github 最好！
 
-** Packages 擴充套件
-
-Emacs 最重要的靈魂除了設定檔外，就是「擴充套件」了。
-
-
-Emacs 已經有三、四十年的歷史，累積了成千上萬個套件，該到哪裡找到我想要的套件呢？Emacs.tw 社群有整理了一個頗為完整的清單 [[https://github.com/emacs-tw/awesome-emacs][Awesome Emacs]] ，讓你很容易就能找到一些目前最受歡迎、常用、且符合自身需求的套件。
-
 ** 結語
 
-我認為使用 Emacs 最大的價值是：「 *這是一個學一次，就可以用一輩子的編輯器* 」open source，又是 GNU 的重點項目之一，又以目前社群的活躍程度來看，你根本不必擔心沒人維護、遇到問題沒有解答，或者哪天跟你收錢。而且可能也是唯一一個不用擔心功能不足的編輯器，可以擴充到天荒地老海枯石爛～
+我認為使用 Emacs 最大的價值是：「 *這是一個學一次，就可以用一輩子的編輯器* 」open source，又是 GNU 的重點項目之一，又以目前社群的活躍程度來看，你根本不必擔心沒人維護、遇到問題沒有解答，或者哪天跟你收錢。
 
 Vim 也是很棒的編輯器，不過這點前面已經敘述過，這是青菜蘿蔔各有所好了。
