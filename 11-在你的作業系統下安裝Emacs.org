@@ -1,0 +1,119 @@
+
+
+* 安裝 GNU Emacs
+
+[[https://www.gnu.org/software/emacs/][GNU Emacs]] 在好幾個不同的作業系統上都能執行，例如：
+
+- MS Windows
+- Mac OS X
+- Linux
+- ...
+
+隨著你所使用的作業系統的不同，
+安裝 emacs 的方式會不太一樣。
+
+
+* Windows
+
+[[https://www.gnu.org/software/emacs/][在 GNU Emacs 官方首頁]] https://www.gnu.org/software/emacs/
+會找到 如何下載 Emacs 的指示。
+
+對於 Windows，官方已經準備好可執行檔，
+你只要下載最新穩定版本的壓縮檔，
+解壓縮後，找到 bin/runemacs，點兩下就能啟動 emacs。
+
+** windows ~ 目錄 emacs 設定檔擺放位置
+
+在 Linux 或 Mac 底下，
+emacs 的設定檔( .emacs, .emacs.d)　必須放在 ~ 目錄(家目錄)才會生效。
+
+對於 windows ，
+我們需要向 emacs 確認　它所認為的 ~ 目錄的所在位置。
+
+在 emacs 內輸入 C-x d ~/<RET> 就可以看到 ~ 目錄的路徑。
+
+以我使用的電腦為例 ~ 目錄就是　c:/Users/ming/AppData/Roaming
+
+
+** 檔案編碼 換行符號
+
+如果你同時使用 windows, Linux (or Mac)，
+很可能你會發現 檔案會有換行或者是亂碼的問題。
+
+你在 Linux(or Mac) 編輯的有中文的檔案，
+在 windows emacs 會出現亂碼，或是
+你在 windows 編輯內有中文的檔案，在 Linux (or Mac) 打開會出現亂碼。
+
+會出現這種情況是因為
+windows 與 Linux (or Mac) 預設所使用的檔案編碼是不一樣的。
+
+有幾種可行的處理方式
+- 在檔案的開頭，指明這份檔案的編碼(以及換行符號)
+- 要求 emacs 針對檔案的讀寫都使用 utf-8 的方式
+
+*** 指定檔案使用 utf-8 編碼
+
+在檔案的第一行或第二行加上
+
+#+BEGIN_EXAMPLE
+-*- coding: utf-8; -*-
+#+END_EXAMPLE
+
+指定 utf-8 編碼，但不指定換行符號，由所使用的作業系統決定。
+
+#+BEGIN_EXAMPLE
+-*- coding: utf-8-unix; -*-
+#+END_EXAMPLE
+
+指定 utf8 編碼，並使用 unix 換行風格。
+
+
+* Mac OS X
+
+在你的 mac 上，可能已經有比較老舊版本的 emacs 可以使用，
+雖然如此，建議你還是取得最新穩定版本的 emacs。
+
+** Way1 - GNU Emacs For Mac OS X
+
+[[http://emacsformacosx.com][GNU Emacs For Mac OS X]] 
+這個網站已準備好最新穩定版本的 GNU Emacs 的 dmg 檔
+讓我們可以下載安裝使用。
+
+** Way2 - Homebrew
+
+#+BEGIN_SRC sh
+  brew install emacs --cocoa --srgb --with-gnutls --with-x
+#+END_SRC
+
+
+* Linux
+
+如果你使用的 Linux 發行版本有套件管理程式，
+很可能你可以使用該套件管理程式安裝 emacs，這邊以 Arch Linux, Debian, Ubuntu, CentOS 為例。
+
+Arch Linux
+
+#+BEGIN_SRC sh
+  pacman -S emacs
+#+END_SRC
+
+Debian/Ubuntu
+
+#+BEGIN_SRC sh
+  apt-get install emacs
+#+END_SRC
+
+CentOS
+
+#+BEGIN_SRC sh
+  yum install emacs
+#+END_SRC
+
+
+有時候，透過套件管理程安裝的 emacs 不會是最新穩定的版本，
+在這種情形下你可以自己下載 [[https://www.gnu.org/software/emacs/][原始碼]] 自行編譯。
+
+
+
+
+
