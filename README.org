@@ -10,4 +10,5 @@ Emacs 101 採用 CC-0 授權釋出，屬公有領域。
 
 * 貢獻者
 - [[https://kuanyui.github.io/][kuanyui]]
+- [[https://github.com/jminh][jminh]]
 - [[https://coldnew.github.io/][coldnew]]
