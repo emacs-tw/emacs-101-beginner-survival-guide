@@ -60,7 +60,7 @@
 #+END_SRC
 第一行執行起來沒問題，但執行到第二行就炸掉了。因為 Emacs 會不知道你按 =C-c m= 時到底是想衝三小，到底是打算執行 =moedict= 呢，還是準備執行 =moedict/region= 按到一半呢？他是要出來嗎，還是要進去呢？真的很痛苦。所以 Emacs 乾脆不允許這種設定，直接報錯。
 
-讓我們斷開鎖鏈，斷開魂節，斷開 key-binding 的一切牽連：
+讓我們斷開鎖鏈，斷開魂結，斷開 key-binding 的一切牽連：
 #+BEGIN_SRC elisp
 (global-set-key (kbd "C-c m m") 'moedict)
 (global-set-key (kbd "C-c m r") 'moedict/region)
