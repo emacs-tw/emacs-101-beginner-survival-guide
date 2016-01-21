@@ -1,3 +1,4 @@
+自訂快速鍵前，尤其自訂遇到問題時，務必先詳讀此篇概念。
 * 不成文的 key-binding 慣例
 一開始你應該會覺得 Emacs 的 key-binding 很難記，怎麼各種 mode 都有不同按鍵。然而其實有很多常見功能是有慣例可尋的。以下舉出幾個範例：
 
@@ -17,9 +18,58 @@
 |           | 套用編輯/送出                | Magit, Message, twittering-mode                 |
 | =C-c C-z= | 開一個 interpreter           | python-mode, ruby-mode, lisp-mode, haskell-mode |
 
-* Prefix Argument (=C-u=, Universal Argument)
+* 設定按鍵的規則
+設定按鍵時有一些注意事項：
 
-=C-u= prefix 在 Emacs 裡稱作 *universal-argument* ，又常稱為 *prefix argument* ，很多指令在呼叫前，先按一下 =C-u= ，會提供相關、但不完全相同的功能。
+** 小心後者設定會蓋掉前者。
+假如你在設定檔裡面放入：
+#+BEGIN_SRC elisp
+(global-set-key (kbd "C-r") 'undo-tree-redo)
+(global-set-key (kbd "C-r") 'recentf-open-files)
+#+END_SRC
+你會發現最後 =C-r= 執行的是第二行的 =recentf-open-files= 。所以當你納悶為何定義快速鍵沒用時，檢查一下是否重複設定了。
+
+** Prefix Key (=C-x= & =C-c=)
+=C-x= 與 =C-c= 是前綴(prefix)組合鍵，有特殊意義：
+1. *你無法單獨使用 Prefix key（例如你無法把某個功能綁到只按一個 =C-x= 就能達成，當你試圖這樣綁定時它會報錯）。*
+2. 反過來說， *你也無法用這兩個以外的按鍵當作 Prefix key* ，例如把某個功能綁定到 =C-s C-k= 或 =C-d m= 。
+
+3. 靠著 Prefix key，你可以綁任意「深度」的 combo「組合技」，例如只要你爽（或者夠無聊），你也可以把查[[https://github.com/kuanyui/moedict.el][萌典]] 的命令綁到 =C-x 上 上 下 下 左 右 左 右 a b=:
+
+#+BEGIN_SRC elisp
+(global-set-key (kbd "C-x <up> <up> <down> <down> <left> <right> <left> <right> a b") 'moedict)
+#+END_SRC
+
+#+BEGIN_QUOTE
+我自己在設定快速鍵時常利用單字的第一個字母作為設定的規則，可以讓這種組合技變得很好記憶。例如我這樣設定我的 Magit (Git 的 Emacs 版前端)：
+
+#+BEGIN_SRC elisp
+(global-set-key (kbd "C-x g s") 'magit-status)
+(global-set-key (kbd "C-x g l") 'magit-log)
+#+END_SRC
+
+這樣我就可以按 =C-x g s= 來看 =git status= ，按 =C-x g l= 來看 =git log= 。
+
+-- kuanyui
+#+END_QUOTE
+** 小心 Amibigious 
+來看範例，假如你在設定檔裡放入這兩行：
+#+BEGIN_SRC elisp
+(global-set-key (kbd "C-c m") 'moedict)
+(global-set-key (kbd "C-c m r") 'moedict/region)
+#+END_SRC
+第一行執行起來沒問題，但執行到第二行就炸掉了。因為 Emacs 會不知道你按 =C-c m= 時到底是想衝三小，到底是打算執行 =moedict= 呢，還是準備執行 =moedict/region= 按到一半呢？他是要出來嗎，還是要進去呢？真的很痛苦。所以 Emacs 乾脆不允許這種設定，直接報錯。
+
+讓我們斷開鎖鏈，斷開魂節，斷開 key-binding 的一切牽連：
+#+BEGIN_SRC elisp
+(global-set-key (kbd "C-c m m") 'moedict)
+(global-set-key (kbd "C-c m r") 'moedict/region)
+#+END_SRC
+這樣寫就沒問題啦。
+
+** Prefix Argument (=C-u=, Universal Argument)
+
+=C-u= prefix 在 Emacs 裡稱作 *universal-argument* ，又常稱為 *prefix argument* ，很多指令在呼叫前，先按一下 =C-u= ，會提供 *與預設行為相關、但不完全相同的功能。*
 
 Emacs 101 一開始，不是有提過「了解 Emacs 其實是個 Lisp 環境，對於理解 Emacs 的行為是很重要的」嗎？這裡你就可以明白為什麼了。實際上，Emacs 中有內建一個全域變數叫做 =current-prefix-arg= 。當我們按一下 =C-u= 時， =current-prefix-arg= 會變成 =(4)= ，按兩下會變成 =(16)= ，再按一次會變 =(64)= ...以此類推，所以很多 function 會利用這一點，在 function 中檢查目前 =current-prefix-arg== 的值，來達成「除了本身的功能外額外的功能」。
 
