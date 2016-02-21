@@ -32,7 +32,7 @@ With one `C-u' prefix, insert output following an arrow"
 (define-key org-mode-map (kbd "C-c C-x C-e") 'org-clock-modify-effort-estimate)
 #+END_SRC
 
-- 在 lisp-interaction-mode 中 (例如 =*Scratch*= ) ，可以在一個運算式的最後一個括弧後面按下 =C-j= 直接 eval 並直接將 eval 結果插入當前游標後面。
+- 在 =lisp-interaction-mode= 中 (例如 =*Scratch*= ) ，可以在一個運算式的最後一個括弧後面按下 =C-j= 直接 eval 並直接將 eval 結果插入當前游標後面。
 
 - 建議可以把 =eval-buffer= 設定一個快速鍵，可以直接 eval 整個 buffer 方便測試。如：
 
@@ -42,6 +42,30 @@ With one `C-u' prefix, insert output following an arrow"
           (lambda ()
             (define-key org-mode-map (kbd "C-c C-e") 'org-export)))
 #+END_SRC
+
+** Eval 出的結果太醜？
+我們常常會需要 eval 一些返回值可能會很長、很混亂的運算式（例如用 Emacs 內建的 =json-read-file= 來 parse 一個 json 檔案），這時可以使用 =M-x pp-eval-last-sexp= ，使用方法同 =C-x C-e= ，但輸出會幫你自動換行、整理得比較漂亮。
+
+** 測試 Macro
+雖然如果你以前沒有寫過 Lisp 的話很可能用不到，不過這裡還是順便提一下。
+
+Emacs Lisp 中可以使用 =macroexpand= 來展開一個 macro，以 =defun= 為例 （ =defun= 在 Emacs Lisp 裡面是一個 macro）：
+
+#+BEGIN_SRC elisp
+
+  (macroexpand '(defun hello (x)
+                  (message "hello, %s" x)))
+
+  ;; Eval 結果如下：
+  (defalias (quote hello)
+    (function (lambda (x)
+                (message "hello, %s" x))))
+
+#+END_SRC
+
+#+BEGIN_QUOTE
+給懂 Lisp 的人的解說：這裡也可以順便看到， =defun= 的作用實際上是把一個匿名函數 =lambda= 給 =defalias= 到一個 =symbol= 。
+#+END_QUOTE
 
 * Debug
 ** Debugger
