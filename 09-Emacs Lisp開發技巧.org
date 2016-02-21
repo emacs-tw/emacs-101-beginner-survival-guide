@@ -1,4 +1,4 @@
-這篇並不是Emacs Lisp教學，而是一些瑣碎筆記。當初不知道這種問題該怎麼問人或問誰，所以一開始寫 Emacs Lisp 時覺得很痛苦。
+這篇並不是 Emacs Lisp 教學，而是一些瑣碎筆記。當初不知道這種問題該怎麼問人或問誰，所以一開始寫 Emacs Lisp 時覺得很痛苦。
 
 在這裡分享一些能讓你在開發 Emacs Lisp 時更輕鬆方便的小技巧，需要的人許可以參考。
 
@@ -42,6 +42,20 @@ With one `C-u' prefix, insert output following an arrow"
           (lambda ()
             (define-key org-mode-map (kbd "C-c C-e") 'org-export)))
 #+END_SRC
+* Debug
+** Debugger
+Emacs 有內建一個 Emacs Lisp debugger 叫做 =edebug= ，最常見的用法是拿來給一個 function 除錯：
+
+1. 游標移動到一個 =(defun ...)= 的結尾
+2. =M-x edebug-defun= 
+3. 在下一次執行該 function 時，該 function 將會變成一個一個 sexp 按順序執行。
+   - 按 =SPC= 來執行下一個 sexp
+   - 按 =q= 離開 =edebug= 
+4. 再次用一般方法 eval (=C-x C-e=) 該 function，即會恢復回正常狀態。
+
+** 顯示所有錯誤訊息
+有時有些錯誤只會讓 minibuffer 跳錯誤訊息，卻不會跳出 =*Backtrace*= buffer 來看到底是哪裡出了問題。
+可以使用 =M-x toggle-debug-on-error= 來強迫顯示所有錯誤訊息。
 
 * Indent
     - =C-j= (=newline-and-indent=)可以換行並自動縮排（但 =lisp-interaction-mode= 中除外，因為會被解釋成 eval 並輸出結果）。
@@ -68,9 +82,9 @@ With one `C-u' prefix, insert output following an arrow"
 
 * RegExp
 
--  在 Emacs 裡寫 regexp 時一般應該是沒有問題，但是當你在 Lisp code 裡需要用 regexp 時，例如 =(re-search-forward "PATTERN")= ，會發現 =PATTERN=  裡反斜線看起來好像無法正常運作。這是因為在 eval 時，裡面整個  =PATTERN=  因為被 double quote 包起來了， *裡面的 regexp 會先被當成是 string 而先解析過一次* （Emacs Lisp並沒有像是Python那種的raw string）。也就是說，平常只需要一個反斜的話， *在 Lisp code 裡要寫兩個反斜* ...
+-  在 Emacs 裡寫 regexp 時一般應該是沒有問題，但是當你在 Lisp code 裡需要用 regexp 時，例如 =(re-search-forward "PATTERN")= ，會發現 =PATTERN=  裡反斜線看起來好像無法正常運作。這是因為在 eval 時，裡面整個  =PATTERN=  因為被 double quote 包起來了， *裡面的 regexp 會先被當成是 string 而先解析過一次* （Emacs Lisp 並沒有像是 Python 那種的 raw string）。也就是說，平常只需要一個反斜的話， *在 Lisp code 裡要寫兩個反斜* ...
 
-另外，大中小括弧，還有pipe =|= 全部都得escape掉，不然會被解釋成普通文字而沒有任何regexp上的特殊意義。（我不知道為什麼Emacs Lisp的regexp要這樣設計） 以Python為例，我們在要 group match 時原本是寫成 =(.+?)= ，在Emacs Lisp中就得寫成 =\\(.+?\\)= （之前就是不知道這點，浪費了很多時間和腦細胞），
+另外，大中小括弧，還有 pipe =|= 全部都得 escape 掉，不然會被解釋成普通文字而沒有任何 regexp 上的特殊意義。（我不知道為什麼 Emacs Lisp 的 regexp 要這樣設計） 以 Python 為例，我們在要 group match 時原本是寫成 =(.+?)= ，在 Emacs Lisp 中就得寫成 =\\(.+?\\)= （之前就是不知道這點，浪費了很多時間和腦細胞），
 
 -  要寫 Emacs 的 Regexp 時，務必嘗試看看  =M-x re-builder=  ，即時比對 pattern 非常方便。
 
