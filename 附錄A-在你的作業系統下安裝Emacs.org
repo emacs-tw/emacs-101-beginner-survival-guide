@@ -77,8 +77,16 @@
 
 ** Way2 - Homebrew
 
+如果你想透過 homebrew 安裝 emacs 則可以這樣做
+
 #+BEGIN_SRC sh
-  brew install emacs --with-cocoa --srgb --with-gnutls --with-x11
+  brew install emacs --with-cocoa --with-rsvg  --with-gnutls --with-imagemagick
+#+END_SRC
+
+對於喜歡嚐鮮的人，我們也可以這樣去安裝最新版本的 emacs
+
+#+BEGIN_SRC sh
+  brew install emacs --HEAD --use-git-head --with-cocoa --with-gnutls --with-rsvg --with-imagemagick
 #+END_SRC
 
 
