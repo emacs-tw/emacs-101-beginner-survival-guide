@@ -4,12 +4,23 @@
 
 * Windows
 
+** GNU Emacs
+
 [[https://www.gnu.org/software/emacs/][在 GNU Emacs 官方首頁]] https://www.gnu.org/software/emacs/
 會找到 如何下載 Emacs 的指示。
 
 對於 Windows，官方已經準備好可執行檔，
 你只要下載最新穩定版本的壓縮檔，
 解壓縮後，找到 bin/runemacs，點兩下就能啟動 emacs。
+
+** emacs-w64
+
+另外 [[https://github.com/syl20bnr/spacemacs][spacemacs]] [[https://github.com/syl20bnr/spacemacs#windows][推薦]] 在 windows 下使用 [[http://emacsbinw64.sourceforge.net/][emacs-w64]]。
+
+這個非 GNU 官方編譯版本 [[http://emacsbinw64.sourceforge.net/][emacs-w64]]。
+多處理了一些事，像是 Enable GnuTLS。
+如果你想要使用 spacemacs 或是 prelude 之類預先訂製過的環境，
+使用 emacs-w64 就不會遇到 enable GnuTLS 的問題。
 
 ** Emacs 設定檔擺放位置
 
@@ -67,7 +78,7 @@
 ** Way2 - Homebrew
 
 #+BEGIN_SRC sh
-  brew install emacs --cocoa --srgb --with-gnutls --with-x
+  brew install emacs --with-cocoa --srgb --with-gnutls --with-x11
 #+END_SRC
 
 
