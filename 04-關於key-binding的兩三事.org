@@ -29,12 +29,27 @@
 #+END_SRC
 你會發現最後 =C-r= 執行的是第二行的 =recentf-open-files= 。所以當你納悶為何定義快速鍵沒用時，檢查一下是否重複設定了。
 
+** 小心 Amibigious 
+來看範例，假如你在設定檔裡放入這兩行：
+#+BEGIN_SRC elisp
+(global-set-key (kbd "C-c m") 'moedict)
+(global-set-key (kbd "C-c m r") 'moedict/region)
+#+END_SRC
+按鍵衝突發生了。第一行執行起來沒問題，但執行到第二行就炸掉了。因為 Emacs 會不知道你按 =C-c m= 時到底是想衝三小，到底是打算執行 =moedict= 呢，還是準備執行 =moedict/region= 按到一半呢？他是要出來嗎，還是要進去呢？真的很痛苦。所以 Emacs 乾脆不允許這種設定，直接報錯。
+
+讓我們斷開鎖鏈，斷開魂結，斷開 key-binding 的一切牽連：
+#+BEGIN_SRC elisp
+(global-set-key (kbd "C-c m m") 'moedict)
+(global-set-key (kbd "C-c m r") 'moedict/region)
+#+END_SRC
+這樣寫就沒問題啦。
+
 ** Prefix Key (=C-x= & =C-c=)
 =C-x= 與 =C-c= 是前綴(prefix)組合鍵，有特殊意義：
 1. *你無法單獨使用 Prefix key（例如你無法把某個功能綁到只按一個 =C-x= 就能達成，當你試圖這樣綁定時它會報錯）。*
-2. 反過來說， *你也無法用這兩個以外的按鍵當作 Prefix key* ，例如把某個功能綁定到 =C-s C-k= 或 =C-d m= 。
+2. 反過來說，「預設情況下」，你也無法用這兩個以外的按鍵當作 Prefix key ，例如把某個功能綁定到 =C-s C-k= 或 =C-d m= 。
 
-3. 靠著 Prefix key，你可以綁任意「深度」的 combo「組合技」，例如只要你爽（或者夠無聊），你也可以把查[[https://github.com/kuanyui/moedict.el][萌典]] 的命令綁到 =C-x 上 上 下 下 左 右 左 右 a b=:
+3. 靠著 Prefix key，你可以綁任意「深度」的 combo「組合技」、「連續技」，例如只要你爽（或者夠無聊），你也可以把查[[https://github.com/kuanyui/moedict.el][萌典]] 的命令綁到 =C-x 上 上 下 下 左 右 左 右 a b= ，只要他沒跟任何現有key-binding衝突即可。
 
 #+BEGIN_SRC elisp
 (global-set-key (kbd "C-x <up> <up> <down> <down> <left> <right> <left> <right> a b") 'moedict)
@@ -52,20 +67,53 @@
 
 -- kuanyui
 #+END_QUOTE
-** 小心 Amibigious 
-來看範例，假如你在設定檔裡放入這兩行：
-#+BEGIN_SRC elisp
-(global-set-key (kbd "C-c m") 'moedict)
-(global-set-key (kbd "C-c m r") 'moedict/region)
-#+END_SRC
-第一行執行起來沒問題，但執行到第二行就炸掉了。因為 Emacs 會不知道你按 =C-c m= 時到底是想衝三小，到底是打算執行 =moedict= 呢，還是準備執行 =moedict/region= 按到一半呢？他是要出來嗎，還是要進去呢？真的很痛苦。所以 Emacs 乾脆不允許這種設定，直接報錯。
 
-讓我們斷開鎖鏈，斷開魂結，斷開 key-binding 的一切牽連：
+*** 自訂 Prefix key
+
+如果我們要「組合技」，就一定要prefix key。因為所有組合技的開頭一定是一個prefix key。（否則就會直接執行該按鍵的命令了）
+
+假如我覺得只有 =C-x= 跟 =C-c= 兩個 prefix 選擇太少了，我想要更多，比如 =C-z= 可以當作prefix key嗎？
+
+其實是可以的。方法就是：把 =C-z= 給 unset-key。也就是說， *「一個沒有直接綁定到任何command的key就可以作為prefix key使用」* ：
+
 #+BEGIN_SRC elisp
-(global-set-key (kbd "C-c m m") 'moedict)
-(global-set-key (kbd "C-c m r") 'moedict/region)
+(global-unset-key (kbd "C-z"))
+(global-set-key (kbd "C-z a") 'emacs-version)
 #+END_SRC
-這樣寫就沒問題啦。
+
+這概念其實很簡單，但不太好解釋，我們以上面 =C-z= 的例子可以畫成一個流程圖來看Emacs怎麼接受使用者的key-binding連續技：
+
+#+BEGIN_SRC dot :file pic/key-binding-decide.png
+digraph {
+ "Emacs等待\n使用者輸入" -> "C-z 有直接綁定到command嗎？"[label="按下C-z"]
+ "Emacs等待\n使用者輸入"[shape=doublecircle]
+ "C-z 有直接綁定到command嗎？" -> "執行C-z所綁定的command"[label="有"]
+ "C-z 有直接綁定到command嗎？"[shape=diamond]
+ "執行C-z所綁定的command" -> "Emacs等待\n使用者輸入"
+ "執行C-z所綁定的command"[shape=box]
+ "C-z 有直接綁定到command嗎？" -> "有沒有可能是prefix key？"[label="沒有"]
+ "有沒有可能是prefix key？" -> "顯示C-z is undefined" [label="不是prefix"]
+ "有沒有可能是prefix key？" [shape=diamond]
+ "有沒有可能是prefix key？" -> "記下C-z，並等待\n使用者輸入下一按鍵" [label="是prefix"]
+ "顯示C-z is undefined" -> "Emacs等待\n使用者輸入"
+ "顯示C-z is undefined"[shape=box]
+ "記下C-z，並等待\n使用者輸入下一按鍵" -> "C-z a有直接綁定到command嗎？"[label="按下a"]
+ "C-z a有直接綁定到command嗎？" -> "執行C-z a所綁定的command" [label="有"]
+ "C-z a有直接綁定到command嗎？" [shape=diamond]
+ "執行C-z a所綁定的command" -> "Emacs等待\n使用者輸入"
+ "執行C-z a所綁定的command"[shape=box]
+ "C-z a有直接綁定到command嗎？" -> "C-z a是prefix key嗎？" [label="沒有"]
+ "C-z a是prefix key嗎？" -> "記下C-z a，並等待\n使用者輸入下一按鍵" [label="是prefix"]
+ "C-z a是prefix key嗎？" -> "顯示C-z a is undefined" [label="不是prefix"]
+ "C-z a是prefix key嗎？" [shape=diamond]
+ "顯示C-z a is undefined" -> "Emacs等待\n使用者輸入"
+ "顯示C-z a is undefined"[shape=box]
+ "記下C-z a，並等待\n使用者輸入下一按鍵" -> "持續檢查下去..."
+}
+#+END_SRC
+
+#+RESULTS:
+[[file:pic/key-binding-decide.png]]
 
 ** Prefix Argument (=C-u=, Universal Argument)
 
