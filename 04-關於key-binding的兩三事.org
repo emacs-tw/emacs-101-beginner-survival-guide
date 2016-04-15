@@ -83,6 +83,9 @@
 
 這概念其實很簡單，但不太好解釋，我們以上面 =C-z= 的例子可以畫成一個流程圖來看Emacs怎麼接受使用者的key-binding連續技：
 
+
+[[file:pic/key-binding-decide.png]]
+
 #+BEGIN_SRC dot :file pic/key-binding-decide.png
 digraph {
  "Emacs等待\n使用者輸入" -> "C-z 有直接綁定到command嗎？"[label="按下C-z"]
@@ -111,9 +114,6 @@ digraph {
  "記下C-z a，並等待\n使用者輸入下一按鍵" -> "持續檢查下去..."
 }
 #+END_SRC
-
-#+RESULTS:
-[[file:pic/key-binding-decide.png]]
 
 ** Prefix Argument (=C-u=, Universal Argument)
 
