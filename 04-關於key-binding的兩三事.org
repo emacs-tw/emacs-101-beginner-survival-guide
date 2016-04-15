@@ -86,6 +86,8 @@
 
 [[file:pic/key-binding-decide.png]]
 
+(幹我不知道該怎麼讓Github 的org-mode renderer隱藏下面這堆dot source code啦)
+
 #+BEGIN_SRC dot :file pic/key-binding-decide.png
 digraph {
  "Emacs等待\n使用者輸入" -> "C-z 有直接綁定到command嗎？"[label="按下C-z"]
