@@ -121,7 +121,7 @@ Emacs 有內建一個 Emacs Lisp debugger 叫做 =edebug= ，最常見的用法�
 -  有個終極的 Lisp 括號編輯工具叫做 =paredit= ，需另外安裝，熟悉的話可以使編輯括號變得更有效率，[[http://youtu.be/D6h5dFyyUX0][操作起來就跟變魔術一樣]]。 似乎有很多人喜歡用這個，只是不好學。我自己是沒在用，詳情可自行 Google。
 
 #+BEGIN_QUOTE
-到目前為止嘗試了不少 Eacs 外掛，我發現我自己是不太偏好「聰明過頭」了的設計...例如 helm, ido, icicles, auto-indent 這類的。 
+到目前為止嘗試了不少 Emacs 外掛，我發現我自己是不太偏好「聰明過頭」了的設計...例如 helm, ido, icicles, auto-indent 這類的。 
 -- kuanyui
 #+END_QUOTE
 
