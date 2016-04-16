@@ -86,37 +86,6 @@
 
 [[file:pic/key-binding-decide.png]]
 
-(幹我不知道該怎麼讓Github 的org-mode renderer隱藏下面這堆dot source code啦)
-
-#+BEGIN_SRC dot :file pic/key-binding-decide.png
-digraph {
- "Emacs等待\n使用者輸入" -> "C-z 有直接綁定到command嗎？"[label="按下C-z"]
- "Emacs等待\n使用者輸入"[shape=doublecircle]
- "C-z 有直接綁定到command嗎？" -> "執行C-z所綁定的command"[label="有"]
- "C-z 有直接綁定到command嗎？"[shape=diamond]
- "執行C-z所綁定的command" -> "Emacs等待\n使用者輸入"
- "執行C-z所綁定的command"[shape=box]
- "C-z 有直接綁定到command嗎？" -> "有沒有可能是prefix key？"[label="沒有"]
- "有沒有可能是prefix key？" -> "顯示C-z is undefined" [label="不是prefix"]
- "有沒有可能是prefix key？" [shape=diamond]
- "有沒有可能是prefix key？" -> "記下C-z，並等待\n使用者輸入下一按鍵" [label="是prefix"]
- "顯示C-z is undefined" -> "Emacs等待\n使用者輸入"
- "顯示C-z is undefined"[shape=box]
- "記下C-z，並等待\n使用者輸入下一按鍵" -> "C-z a有直接綁定到command嗎？"[label="按下a"]
- "C-z a有直接綁定到command嗎？" -> "執行C-z a所綁定的command" [label="有"]
- "C-z a有直接綁定到command嗎？" [shape=diamond]
- "執行C-z a所綁定的command" -> "Emacs等待\n使用者輸入"
- "執行C-z a所綁定的command"[shape=box]
- "C-z a有直接綁定到command嗎？" -> "C-z a是prefix key嗎？" [label="沒有"]
- "C-z a是prefix key嗎？" -> "記下C-z a，並等待\n使用者輸入下一按鍵" [label="是prefix"]
- "C-z a是prefix key嗎？" -> "顯示C-z a is undefined" [label="不是prefix"]
- "C-z a是prefix key嗎？" [shape=diamond]
- "顯示C-z a is undefined" -> "Emacs等待\n使用者輸入"
- "顯示C-z a is undefined"[shape=box]
- "記下C-z a，並等待\n使用者輸入下一按鍵" -> "持續檢查下去..."
-}
-#+END_SRC
-
 ** Prefix Argument (=C-u=, Universal Argument)
 
 =C-u= prefix 在 Emacs 裡稱作 *universal-argument* ，又常稱為 *prefix argument* ，很多指令在呼叫前，先按一下 =C-u= ，會提供 *與預設行為相關、但不完全相同的功能。* 
@@ -141,6 +110,38 @@ Emacs 裡面也可以這樣，其實就是透過 =C-u= prefix。當命令並沒�
 
 -- kuanyui
 #+END_QUOTE
+
+** COMMENT Should be hidden
+   (幹我不知道該怎麼讓Github 的org-mode renderer隱藏下面這堆dot source code啦)
+
+   #+BEGIN_SRC dot :file pic/key-binding-decide.png
+   digraph {
+   "Emacs等待\n使用者輸入" -> "C-z 有直接綁定到command嗎？"[label="按下C-z"]
+   "Emacs等待\n使用者輸入"[shape=doublecircle]
+   "C-z 有直接綁定到command嗎？" -> "執行C-z所綁定的command"[label="有"]
+   "C-z 有直接綁定到command嗎？"[shape=diamond]
+   "執行C-z所綁定的command" -> "Emacs等待\n使用者輸入"
+   "執行C-z所綁定的command"[shape=box]
+   "C-z 有直接綁定到command嗎？" -> "有沒有可能是prefix key？"[label="沒有"]
+   "有沒有可能是prefix key？" -> "顯示C-z is undefined" [label="不是prefix"]
+   "有沒有可能是prefix key？" [shape=diamond]
+   "有沒有可能是prefix key？" -> "記下C-z，並等待\n使用者輸入下一按鍵" [label="是prefix"]
+   "顯示C-z is undefined" -> "Emacs等待\n使用者輸入"
+   "顯示C-z is undefined"[shape=box]
+   "記下C-z，並等待\n使用者輸入下一按鍵" -> "C-z a有直接綁定到command嗎？"[label="按下a"]
+   "C-z a有直接綁定到command嗎？" -> "執行C-z a所綁定的command" [label="有"]
+   "C-z a有直接綁定到command嗎？" [shape=diamond]
+   "執行C-z a所綁定的command" -> "Emacs等待\n使用者輸入"
+   "執行C-z a所綁定的command"[shape=box]
+   "C-z a有直接綁定到command嗎？" -> "C-z a是prefix key嗎？" [label="沒有"]
+   "C-z a是prefix key嗎？" -> "記下C-z a，並等待\n使用者輸入下一按鍵" [label="是prefix"]
+   "C-z a是prefix key嗎？" -> "顯示C-z a is undefined" [label="不是prefix"]
+   "C-z a是prefix key嗎？" [shape=diamond]
+   "顯示C-z a is undefined" -> "Emacs等待\n使用者輸入"
+   "顯示C-z a is undefined"[shape=box]
+   "記下C-z a，並等待\n使用者輸入下一按鍵" -> "持續檢查下去..."
+   }
+   #+END_SRC
 
 * TTY / Terminal / Console 中的 Key-binding 有問題？
 
