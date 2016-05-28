@@ -75,6 +75,13 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 -- kuanyui
 #+END_QUOTE
 
+**** Frame
+- =C-x 5 0= 關掉目前 Frame
+- =C-x 5 1= 將目前以外的 Frame 關掉
+- =C-x 5 2= 新增 Frame
+
+- =C-x 5 o= 切換到不同的 Frame
+
 *** 游標移動
 - =C-a= 跳到行首
 - =C-e= 跳到行尾
