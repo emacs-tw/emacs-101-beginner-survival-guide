@@ -78,17 +78,35 @@ Emacs 內建的 Undo 跟一般的理解不一樣, 他也可以是 Redo. 參考 [
 
     - Buffer 就是你用 Emacs 時， *開啟檔案後、拿來編輯檔案的地方* 。編輯就編輯，為什麼會叫「Buffer（緩衝區）」這麼奇怪的名子呢？因為你在緩衝區裡面做的任何編輯都還不會被立刻實際寫入檔案，直到按 =C-x C-s= 存檔為止，這就是「緩衝區」的概念。
       - 順帶一題， *Minibuffer* 指的是 Emacs 視窗最下方、用來顯示訊息或者互動式操作中輸入資料的那一條。
-    - Frame 的概念有點像我們一般說的視窗，整個 Emacs 你所看到的範圍就是 Frame： *Frame 的功能就是將 Buffer 的內容顯示在螢幕上* 。
-    - Window 就是被切割的 Frame，也就是。你可以把 Frame 切成好幾塊，例如上下各一個、或左右各一個， *每一塊就是一個 Window* ，這樣你就可以同時看好幾個 buffer 的內容，有點像 tiling window manager 那樣。
 
-#+BEGIN_QUOTE
-拿 MVC 架構來比喻的話：
-- buffer 有點像 model 的角色，暫存了你正在編輯的檔案內容；
-- frame/window 有點像 view 的角色，從 buffer 中讀出文字，並顯示出來。
-#+END_QUOTE
+*** Frame & Window
+這兩個玩意要一起解釋：
+    - 一啟動 Emacs 時，你會看到的畫面通常就是 *「一個 Frame，裡面包著一個 Window」*
+    - Frame 裡面可以包含好幾個 Window，你可以把 Frame 切成好幾塊，例如上下各一個、或左右各一個等等各種不同的 layout， *每一塊就是一個 Window* ，這樣你就可以同時看好幾個 buffer 的內容，有點像 tiling window manager 那樣。
+    - 每個 Buffer 各自暫存著自己所存取的檔案的內容。
+    - 每個 Window 各自顯示著 Buffer 的內容。每個 Window 總是、必定會顯示著一個 Buffer。
+    - 每個 Frame 各自儲存著自己的 Window layout。
+      - 也就是說你當然可以隨時新增並切換 Frame 來看到其各自不同的 Window layout。
+      - 注意看 mode-line，檔案名稱左邊的 =F1= 意思就是你現在在第一個 Frame： [[file:pic/frame_identification.png]]
 
-圖解就是這樣：
-[[file:pic/DrewsEmacsWindowCallouts.jpg]]
+...唉呀拎老師靠北啦，還是拿兩張 screenshot 來講比較快：
+
+
+我啟動 Emacs 後，開了兩個有著不同的 Window layout 的 Frame。
+
+1. 這是第一個 *Frame* =F1= ，包含了 2 個 *Window* ，左右各一個：
+   - 左邊的 *Window* 正顯示著 =02-預備知識.org= 這個 *Buffer* （就是這篇文章的原稿檔案啦啊啊）
+   - 右邊的 *Window* 正顯示著名為 =*[萌典] 查詢結果*= 的 *Buffer* 。
+
+[[file:pic/frame1.png]]
+
+2. 這是第二個 *Frame* =F2= ，包含了 3 個 *Window*:
+
+- 上方的 *Window* 正顯示著 =rc-basic.el= 這個 *Buffer*
+- 左下的 *Window* 正顯示著 =emacs-101/= 這個目錄 (=Dired= 的 *Buffer*)
+- 右下的 *Window* 正顯示著名為 =test= 的 *Buffer* (=Org-mode=)。
+
+[[file:pic/frame2.png]]
 
 #+BEGIN_QUOTE
 其實會有 Buffer 這麼奇怪的詞完全是歷史因素，因為 Vi 與 Emacs 發明時的 70 年代，大家都還在用 =ed= 之類的行編輯器在編輯檔案，還沒有這種「輸入什麼東西、即時就可以在螢幕上見到修正」的編輯器，所以才會把編輯區叫做 Buffer。在那時這種功能可是創新的呢。
@@ -98,24 +116,32 @@ Emacs 內建的 Undo 跟一般的理解不一樣, 他也可以是 Redo. 參考 [
 
 *** 操作方式
 
-    - 關掉目前的 Frame 是 =C-x 0= ， *但這個動作並不會把 Buffer 也一起關掉！* 即使關掉 frame，buffer 其實還活在背景中、隨時可以叫出。這一點與現在一般常見的編輯器不同，並不是關掉視窗後、檔案也會一起關閉。
-      - 切換到不同的 Frame： =C-x o=
-      - 將目前以外的所有 Frame 關掉： =C-x 1=
-      - 將目前的 Frame 分成上下兩塊： =C-x 2=
-      - 將目前的 Frame 分成左右兩塊： =C-x 3=
-
+**** Buffer
     - 關掉 Buffer 是 =C-x k= ， *將會真正地把檔案關掉* (kill-buffer)
       - 切換到下一個/前一個 buffer： =C-x C-<right>/<left>= （方向鍵）
       - 直接切到某個 buffer： =C-x b= （可以用 =tab= 鍵補全）
       - 開啟 buffer 管理員： =C-x C-b= （強力推薦改用 =Ibuffer= ，因為預設的非常難用）
+**** Window
+    - 關掉目前的 Window 是 =C-x 0= ， *但這個動作並不會把 Buffer 也一起關掉！* 即使關掉 window，buffer 其實還活在背景中、隨時可以叫出。這一點與現在一般常見的編輯器不同，並不是關掉視窗後、檔案也會一起關閉。
+      - 切換到不同的 Window： =C-x o=
+      - 將目前以外的所有 Window 關掉： =C-x 1=
+      - 將目前的 Window 分成上下兩塊： =C-x 2=
+      - 將目前的 Window 分成左右兩塊： =C-x 3=
+
+**** Frame
+    - 切換到不同的 Frame： =C-x 5 o=
+    - 關掉目前 Frame: =C-x 5 0=
+    - 將目前以外的 Frame 關掉: =C-x 5 1=
+    - 新增 Frame: =C-x 5 2=
+ 
 
 #+BEGIN_QUOTE
-為什麼要搞得那麼複雜？其實這種特性非常好用也非常常用，由於 Frame 與 Buffer 的概念是分開的，所以可以 *開多個 Frame，且每個 Frame 都顯示同個 Buffer* ，代表你可以同時開多個 Frame，同時看「一個檔案的不同部份」，不管是寫文章或寫程式時都非常方便。
+用 Frame 存著 Window layout 也就算了，為什麼還要設計 Buffer 這種東西搞得那麼複雜？其實這種特性非常好用也非常常用，由於 Frame 與 Buffer 的概念是分開的，所以可以 *開多個 Frame，且每個 Frame 都顯示同個 Buffer* ，代表你可以同時開多個 Frame，同時看「一個檔案的不同部份」，不管是寫文章或寫程式時都非常方便。
 #+END_QUOTE
 
 ** 什麼是 Kill-ring？
 
-其實 Kill-ring 就是現在大家常說的剪貼簿（clipboard）啦，跟 Frame = Window 一樣，只是換個名詞而已。
+其實 Kill-ring 就是現在大家常說的剪貼簿（clipboard）啦。
 
 在 Emacs 中，刪除文字的指令（例如 =C-k=, =M-d= ）其實通常不會把文字真的刪除掉，而是預設會丟入 Kill-ring。
 
