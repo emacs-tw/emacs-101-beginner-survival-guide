@@ -160,7 +160,23 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 - 先按 =C-g= 再按 undo：Redo。
 
 #+BEGIN_QUOTE
-這是每個 Emacs 初學者一開始都會被搞混的概念。但 Emacs 的 Undo/Redo 非常強大，但邏輯很難懂。在這裡簡單的說，就是 *在 Emacs 中，包含 undo 這個動作本身都是可以 undo 的* ，也就是 undo 本身也會被紀錄在整個編輯歷史中，而不會被其他 undo/redo 動作給消除（直到你關閉這個檔案為止）。
+這是每個 Emacs 初學者一開始都會被搞混的概念。但 Emacs 的 Undo/Redo 非常強大，但邏輯很難懂。在這裡簡單的說，就是 *在 Emacs 中，包含 undo 這個動作本身都是可以 undo 的* ，也就是 undo 本身也會被紀錄在整個編輯歷史中，而不會被其他 undo/redo 動作給消除（直到你關閉這個檔案為止）。「一切你的編輯行為都是可以undo的」，而「編輯行為」也包含undo自己。
+
+其實我自己也解釋不太清楚這個概念，雖然很常用但解釋真的不太容易...
+
+希望我沒解釋錯（請各位大大指正）例如開一個全新的buffer 後:
+
+#+BEGIN_EXAMPLE
+  0. [空白buffer狀態]
+  1. 輸入一串字(A)
+  2. 按undo把(A)消乾淨[回到0.的空白buffer狀態，無法再undo]
+  3. 再輸入另一串字(B)
+  4. 按undo把(B)消乾淨
+  5. 再按一次undo，會發現(A)跑回來了，因為他undo了你在2.時所作的undo
+  6. 再按一次undo，又回到最一開始的0.[空白buffer無法再undo]
+#+END_EXAMPLE
+
+重點在步驟 =5.= 
 
 Vim 聽說也是這樣，所以 Vimmer 應該能了解。
 
