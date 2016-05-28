@@ -94,17 +94,17 @@ Emacs 內建的 Undo 跟一般的理解不一樣, 他也可以是 Redo. 參考 [
 
 我啟動 Emacs 後，開了兩個有著不同的 Window layout 的 Frame。
 
-1. 這是第一個 *Frame* =F1= ，包含了 2 個 *Window* ，左右各一個：
+- 這是第一個 *Frame* =F1= ，包含了 2 個 *Window* ，左右各一個：
    - 左邊的 *Window* 正顯示著 =02-預備知識.org= 這個 *Buffer* （就是這篇文章的原稿檔案啦啊啊）
    - 右邊的 *Window* 正顯示著名為 =*[萌典] 查詢結果*= 的 *Buffer* 。
 
 [[file:pic/frame1.png]]
 
-2. 這是第二個 *Frame* =F2= ，包含了 3 個 *Window*:
+- 這是第二個 *Frame* =F2= ，包含了 3 個 *Window*:
 
-- 上方的 *Window* 正顯示著 =rc-basic.el= 這個 *Buffer*
-- 左下的 *Window* 正顯示著 =emacs-101/= 這個目錄 (=Dired= 的 *Buffer*)
-- 右下的 *Window* 正顯示著名為 =test= 的 *Buffer* (=Org-mode=)。
+  - 上方的 *Window* 正顯示著 =rc-basic.el= 這個 *Buffer*
+  - 左下的 *Window* 正顯示著 =emacs-101/= 這個目錄 (=Dired= 的 *Buffer*)
+  - 右下的 *Window* 正顯示著名為 =test= 的 *Buffer* (=Org-mode=)。
 
 [[file:pic/frame2.png]]
 
@@ -122,17 +122,17 @@ Emacs 內建的 Undo 跟一般的理解不一樣, 他也可以是 Redo. 參考 [
       - 直接切到某個 buffer： =C-x b= （可以用 =tab= 鍵補全）
       - 開啟 buffer 管理員： =C-x C-b= （強力推薦改用 =Ibuffer= ，因為預設的非常難用）
 **** Window
-    - 關掉目前的 Window 是 =C-x 0= ， *但這個動作並不會把 Buffer 也一起關掉！* 即使關掉 window，buffer 其實還活在背景中、隨時可以叫出。這一點與現在一般常見的編輯器不同，並不是關掉視窗後、檔案也會一起關閉。
+    - 關掉目前的 Window 是 =C-x 0= ， *但這個動作並不會把 Buffer 也一起關掉！* 即使關掉 window，buffer 其實還活在背景中、隨時可以叫出。這一點與現在一般常見的編輯器不同，並不是關掉視窗後、檔案也會一起關閉。因為 Window 本身並不存任何內容，只是拿來顯示 Buffer 用。
       - 切換到不同的 Window： =C-x o=
       - 將目前以外的所有 Window 關掉： =C-x 1=
       - 將目前的 Window 分成上下兩塊： =C-x 2=
       - 將目前的 Window 分成左右兩塊： =C-x 3=
 
 **** Frame
-    - 切換到不同的 Frame： =C-x 5 o=
-    - 關掉目前 Frame: =C-x 5 0=
-    - 將目前以外的 Frame 關掉: =C-x 5 1=
-    - 新增 Frame: =C-x 5 2=
+    - 關掉目前 Frame: =C-x 5 0= ，跟 Window 一樣，關掉 Frame 並不會把 Buffer 一起關掉，因為 Frame 本身只是用來存 Window 的 layout 而已。關了 Frame 也只是把這個 Window layout 扔掉。
+      - 切換到不同的 Frame： =C-x 5 o=
+      - 將目前以外的 Frame 關掉: =C-x 5 1=
+      - 新增 Frame: =C-x 5 2=
  
 
 #+BEGIN_QUOTE
