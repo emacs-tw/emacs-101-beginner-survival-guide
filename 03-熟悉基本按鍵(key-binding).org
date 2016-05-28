@@ -167,13 +167,13 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 希望我沒解釋錯（請各位大大指正）例如開一個全新的buffer 後:
 
 #+BEGIN_EXAMPLE
-  0. [空白buffer狀態]
-  1. 輸入一串字(A)
-  2. 按undo把(A)消乾淨[回到0.的空白buffer狀態，無法再undo]
-  3. 再輸入另一串字(B)
-  4. 按undo把(B)消乾淨
-  5. 再按一次undo，會發現(A)跑回來了，因為他undo了你在2.時所作的undo
-  6. 再按一次undo，又回到最一開始的0.[空白buffer無法再undo]
+  0.[空白buffer狀態]
+  1.輸入一串字(A)
+  2.按undo把(A)消乾淨[回到0.的空白buffer狀態，無法再undo]
+  3.再輸入另一串字(B)
+  4.按undo把(B)消乾淨
+  5.再按一次undo，會發現(A)跑回來了，因為他undo了你在2.時所作的undo
+  6.再按一次undo，又回到最一開始的0.[空白buffer無法再undo]
 #+END_EXAMPLE
 
 重點在步驟 =5.= 

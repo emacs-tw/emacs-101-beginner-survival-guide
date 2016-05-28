@@ -69,7 +69,7 @@ Emacs 就是成千上萬個 Lisp function 跟一堆 variable 所構成， 並靠
    如果你是不小心編輯到檔案內容了，按 =C-/= 或 =C-_= 可以復原（Undo）。
 
 #+BEGIN_QUOTE
-Emacs 內建的 Undo 跟一般的理解不一樣, 他也可以是 Redo. 參考 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Undo.html]]
+Emacs 內建的 Undo 跟一般你在其他應用程式中所知道的 Undo 不一樣，而且不太好理解。可以參考 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Undo.html]] ，詳情[[03-熟悉基本按鍵(key-binding).org][稍後]]會再解釋。
 #+END_QUOTE
 
 ** Buffer 與 Frame、Window 到底差在哪裡？（務必弄清）
