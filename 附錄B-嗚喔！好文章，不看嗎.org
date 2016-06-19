@@ -1,0 +1,41 @@
+* 附錄B-嗚喔！好資源，不看嗎
+以下整理一些在您讀完Emacs 101後，值得您看看的Emacs相關的中文Blog與文章：
+
+* 幾個 Emacser 的 Blog
+- [[http://coldnew.github.io/tags/emacs/][coldnew's blog]]
+- [[https://kuanyui.github.io/tags/emacs/][東北角的小徑]]
+- [[https://chriszheng.science/categories/Emacs%E5%B0%8F%E6%8A%80%E5%B7%A7/][M-x Chris-An-Emacser - 一个Emacs爱好者的闲言碎语]]
+
+* Emacs 一般使用
+
+** Org-mode
+Org-mode 是 Emacs 內建的一個強大到包山包海的筆記軟體。除了筆記本身，還包含GTD、出版、製作網站等等功能。
+
+- [[http://coldnew.github.io/COSCUP2013_org-mode/slide.html][Org-mode：Emacs 下的瑞士軍刀]]
+- [[https://kuanyui.github.io/2014/05/10/emacs-org-mode-xelatex-output-chinese-pdf/][Emacs + Org-mode 8.x + XeLaTeX 輸出中文 PDF 文件]]
+- [[http://coldnew.github.io/blog/2013/07-13_07e15/][在 org-mode 中使用 Graphviz 畫關係圖]]
+- [[http://coldnew.github.io/blog/2013/07-14_a5b3f/][在 org-mode 中顯示圖片]]
+- [[http://coldnew.github.io/blog/2013/11-16_d2f3a/][解決 org-mode 表格內中英文對齊的問題]]
+- [[http://coldnew.github.io/blog/2013/12-17_03349/][去除 org-mode 輸出 HTML 時產生多餘的空格]]
+- [[http://coldnew.github.io/blog/2013/07-13_5b094/][使用 gnupg 加密你的 org-mode 文章]]
+
+** Dired 
+Dired 是 Emacs 內建的一個強大且高自訂性的檔案管理員。
+
+- [[https://kuanyui.github.io/2014/06/21/dired-tutorial-and-essential-configs/][必備的 Dired 設定與簡易教學]]
+
+** 加密
+- [[http://coldnew.github.io/blog/2013/07-13_e2ccd/][在 emacs 中使用 EasyPG 加密文章]]
+
+* 程式開發相關
+** Python
+- [[http://codingpy.com/article/emacs-the-best-python-editor/][Emacs：最好的Python编辑器？]]
+
+* Emacs Lisp 開發相關
+這裡是「開發 Emacs 外掛」等等相關文章。
+
+- [[https://kuanyui.github.io/2014/01/27/write-a-major-mode/][如何製作一個 Major Mode]]
+- [[https://kuanyui.github.io/2014/01/15/defface-simple-note/][Emacs 的 defface 與 propertizing text]]
+- [[http://coldnew.github.io/blog/2015/01/03_emacsdynamic/][淺談 emacs25 的 dynamic modules 功能]]
+
+- [[http://coldnew.github.io/blog/2012/12-15_2b30d/][使用 Generic Mode 在 emacs 下輕鬆建立新語言的語法上色]]

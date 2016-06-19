@@ -10,15 +10,15 @@
 
 因此， *如果你要貢獻這本 Emacs 101，也請不要專門開個篇章探究某個特定外掛怎麼用。* 但歡迎把這類文章寫在自己的 Blog，然後把文章連結放入 Emacs 101 的 =附錄 B= 中，至於更新的責任就交給各篇文章作者了。
 
--- kuanyui
+  -- [[https://github.com/kuanyui][kuanyui]] [[file:pic/author.jpg]]
 #+END_QUOTE
 
 * 授權
-Emacs 101 採用 CC-0 授權釋出，屬公有領域。
+本書 Emacs 101 採用 CC-0 授權釋出，屬公有領域。請自行取用並不要拿來做壞事。
 
 歡迎任何人丟 pull request 來參與撰寫、修正。
 
 * 貢獻者
-- [[https://kuanyui.github.io/][kuanyui]]
-- [[https://github.com/jminh][jminh]]
-- [[https://coldnew.github.io/][coldnew]]
+- [[https://kuanyui.github.io/][@kuanyui]]
+- [[https://github.com/jminh][@jminh]]
+- [[https://coldnew.github.io/][@coldnew]]
