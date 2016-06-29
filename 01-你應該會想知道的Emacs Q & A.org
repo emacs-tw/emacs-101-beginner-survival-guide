@@ -85,7 +85,7 @@
 
 #+BEGIN_QUOTE
 如果你是使用 Vim 的 programmer，你可能不會每天開 Vim 寫程式；\\
-是如果你是 Emacser，你每天都會把 Emacs 開著放在桌面上。
+如果你是 Emacser，你每天都會把 Emacs 開著放在桌面上。
 #+END_QUOTE
 
 ** 據說一直壓 Ctrl 很容易受傷？
