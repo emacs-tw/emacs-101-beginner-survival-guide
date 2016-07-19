@@ -139,6 +139,39 @@ Emacs 內建的 Undo 跟一般你在其他應用程式中所知道的 Undo 不�
 用 Frame 存著 Window layout 也就算了，為什麼還要設計 Buffer 這種東西搞得那麼複雜？其實這種特性非常好用也非常常用，由於 Frame 與 Buffer 的概念是分開的，所以可以 *開多個 Frame，且每個 Frame 都顯示同個 Buffer* ，代表你可以同時開多個 Frame，同時看「一個檔案的不同部份」，不管是寫文章或寫程式時都非常方便。
 #+END_QUOTE
 
+** 什麼是 Mode？Major-mode 跟 Minor-mode 又差在哪？
+前面提到，Emacs 是一個 Lisp 環境，我們可以拿他來做各種任務。
+
+我們會開很多不同的 buffer 來做不同的任務，例如我可能一個 buffer 在寫 Python 程式碼，另一個 buffer 在查 Python 的文件，另一個 buffer 拿來瀏覽專案目錄管理檔案，另一個 buffer 顯示 ag 的搜尋結果，最後一個 buffer 拿來偷偷分心上 IRC。因為每個 buffer 的任務不同，沒辦法用統一的 Lisp 環境設定直接拿來做這些任務，所以呢，mode 的用途就是「為各種不同的任務，創造適合該任務的環境」。
+
+拿寫 Python 用的 =python-mode= 當例子好了，當你在 buffer 中使用 =M-x python-mode= 啟動該 mode 後， =python-mode= 就會做出像是下面這些行為
+- 把 buffer local 變數 =tab-width= 設定為 =8= （一個 tab 有多少空格寬）
+- 把 buffer local 變數 =comment-start= 設定為 =#= （comment 的開頭字元）
+- 設定 =indent-line-function= 來指定當使用者按 =[TAB]= 鍵時，該怎麼縮排？
+- 設定好 Python 的 syntax highlight 等等規則。（ =font-lock= ）
+- 讀取 =python-mode-map= ，看看有哪些 key-binding 可以按。（這部份稍後會詳細介紹）
+- 執行 =python-mode-hook= 內的 hooks（看不懂沒關係，這部份稍後也會詳細介紹）
+- ......etc
+
+被這樣一設定，這個 buffer 就會變身成適合編輯 Python 的「環境」。這就是 mode 的用途。
+
+*** Major-mode
+Major mode 大致可以（非正式地）亂分成兩種類型：
+
+1. 程式語言編輯： =python-mode=, =ruby-mode=, =haskell-mode=, =c++-mode=, =sql-mode= ...
+2. 工具、應用程式類： =dired-mode= (檔案管理員), =erc-mode= (IRC client),  =term-mode= (terminal emulator) ...
+
+一個 buffer 只能同時啟用一個 major mode，無法兩者同時處於啟用狀態，因為每個 major-mode 所需的環境通常都是互相衝突的。想像一下，你要在一個 buffer 中同時編輯 Python 與 Ruby 程式碼，這種事顯然是不合理的，例如 syntax highlight 到底該用 Python 還是 Ruby 的規則呢？
+
+#+BEGIN_QUOTE
+不過現實世界是很複雜的，像是 HTML code 裡面常常就會插入 JS，這種情況下有個非常知名的 Emacs 外掛叫做 =mmm-mode= 就是在解決這種事情，你可以在單一 buffer 中同時啟動好幾個 major-mode，這樣就可以同時顯示諸如 HTML/CSS/JS 的 syntax highlight 之類的，但我不會說明如何使用，等你讀完整本 Emacs 101 後再自己去看 =mmm-mode= 的文件自己安裝設定吧，讀完 Emacs 101 你自己就看得懂那些文件了。
+#+END_QUOTE
+
+*** Minor-mode
+Major mode 沒有辦法同時啟動多個，但 minor mode 就可以同時啟動好幾個，你要幾個都可以。例如： =pangu-mode= (自動在中文跟英文之間插入空格)、 =rainbow-delimiters-mode= （即時把 buffer 中不同深度的括號上不同顏色）、 =rainbow-mode= （即時將 buffer 中所有包含 Hex/RGB color code 的顏色顯示出來）等等，這些功能顯然是不會互相衝突的。
+
+minor-mode 基本上是不會衝突的，但有時有哲相同功能的 minor mode 同時打開時行為可能就會很怪。例如你同時開兩個自動幫你補上右括號的 minor mode 之類的。這點就只能自行注意。
+
 ** 什麼是 Kill-ring？
 
 其實 Kill-ring 就是現在大家常說的剪貼簿（clipboard）啦。

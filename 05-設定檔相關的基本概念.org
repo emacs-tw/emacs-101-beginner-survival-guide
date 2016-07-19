@@ -47,7 +47,7 @@ Emacs 是個非常吃重設定檔的編輯器，這一篇會為您解答最常�
       - 例如可以查詢 =major-mode= 這個變數的值，以得知目前的 major-mode 實際上的 symbol 名稱（ *在設定 key-binding 和 hook 時需要用到這個值* ）
 
 #+BEGIN_QUOTE
-Symbol 是 Lisp、Ruby、Erlang 等語言中有的一種資料型態，現在不懂也沒關係，我們現在只是要弄設定檔。。
+Symbol 是 Lisp、Ruby、Erlang 等語言中有的一種資料型態，現在不懂也沒關係，我們現在只是要弄設定檔。
 #+END_QUOTE
 
 *** Global key
@@ -76,6 +76,10 @@ Symbol 是 Lisp、Ruby、Erlang 等語言中有的一種資料型態，現在不
     mode 名稱叫 =twittering-mode= ，他的 key-map 就是 =twittering-mode-map= 。這是規則，記下來就對了。
 
     Key 的設定是 *新的會直接覆蓋舊的* ，在 init.el 有時要注意這點，否則會發現為何自己的 global-key 設定沒有生效，才發現自己原來之前設定過同樣設定。（因為 Emacs Lisp 是直譯式，init.el 的設定是從第一行一行一行執行到檔案尾端，所以後面的設定會蓋掉前面的。例如你改了兩次的 =C-@= 就會發生這種情形）
+
+#+BEGIN_QUOTE
+當一個按鍵同時被設為 global key 與 local key 時，local key 會被優先採用。
+#+END_QUOTE
 
 ** 自動啟動
 

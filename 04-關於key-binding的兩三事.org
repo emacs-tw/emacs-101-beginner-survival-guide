@@ -39,7 +39,8 @@
 
 讓我們斷開鎖鏈，斷開魂結，斷開 key-binding 的一切牽連：
 #+BEGIN_SRC elisp
-(global-set-key (kbd "C-c m m") 'moedict)
+(global-unset-key (kbd "C-c m")) ; 清除剛才我們設定錯的 C-c m ，這樣所有 C-c m 開頭的綁定都會被清除
+(global-set-key (kbd "C-c m m") 'moedict) ; 重新綁定
 (global-set-key (kbd "C-c m r") 'moedict/region)
 #+END_SRC
 這樣寫就沒問題啦。
@@ -92,7 +93,7 @@
 
 因此， =C-u= 也跟 =C-x= 和 =C-c= 一樣，你無法單獨使用。
 
-Emacs 101 一開始，不是有提過「了解 Emacs 其實是個 Lisp 環境，對於理解 Emacs 的行為是很重要的」嗎？這裡你就可以明白為什麼了。實際上，Emacs 中有內建一個全域變數叫做 =current-prefix-arg= 。當我們按一下 =C-u= 時， =current-prefix-arg= 會變成 =(4)= ，按兩下會變成 =(16)= ，再按一次會變 =(64)= ...以此類推，所以很多 function 會利用這一點，在 function 中檢查目前 =current-prefix-arg== 的值，來達成「除了本身的功能外額外的功能」。
+Emacs 101 一開始，不是有提過「了解 Emacs 其實是個 Lisp 環境，對於理解 Emacs 的行為是很重要的」嗎？這裡你就可以明白為什麼了。實際上，Emacs 中有內建一個全域變數叫做 =current-prefix-arg= 。當我們按一下 =C-u= 時， =current-prefix-arg= 會變成 =(4)= ，按兩下會變成 =(16)= ，再按一次會變 =(64)= ...以此類推，所以很多 function 會利用這一點，在 function 中檢查目前 =current-prefix-arg= 的值，來達成「除了本身的功能外額外的功能」。
 
 我們已經知道 =C-x C-e= 可以 eval Lisp 運算式，並在 minibuffer 中顯示結果。然而如果前面加一個 =C-u= prefix 的話，就能把結果插入目前游標位置，而不只是顯示在 minibuffer 中。
 
