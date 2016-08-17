@@ -1,0 +1,204 @@
+#+BEGIN_QUOTE
+如果你都用 GUI 版的 Emacs，這一頁對你沒有用，請直接跳過。生命是很寶貴的不要浪費時間在這頁上。
+#+END_QUOTE
+
+你現在既然不怕死地在看這一行，那就代表你已經踏入 Emacs 最無聊最煩人的部份之一，就是如何解決終端機中的 Emacs 所遇到的一堆殘障現象。
+
+* 靠悲喔一堆按鍵在終端機下失效啦
+
+先不要緊張，「失效」其實有時不是你想像的那種失效，有時是可以解決的（當然有時也不行...）。接下來依序教你如何嘗試解決方法的步驟：
+
+** 1. 一大堆 =C-M-= 開頭的 Emacs 抓不到啦！
+Terminal 中，Emacs 可以抓到 =C-x= ，也可以抓到 =M-x= ，但就是抓不到 =C-M-x= ，怎麼辦呢？
+
+其實 =ESC= 鍵等同於 =M-= ，所以當你要按 =C-M-s= 時，你可以先按一下 =ESC= 再按 =C-s= ，就等同於 =C-M-s= 了！
+
+** 2. Org-mode 裡很多鍵不能用！
+Org-mode 在設計時有考慮到這問題，所以有設計了許多在終端機裡也能用的替代按鍵，可以參考 [[http://orgmode.org/manual/TTY-keys.html][TTY Keys]]。
+
+覺得很難記？嗯...那就自己重新綁一下按鍵吧，不然就乖乖用 GUI 版 Emacs。
+
+** 3. Super Key 完全無效！
+=Super= 鍵（就是常說的 =Win= 鍵）是在 X11 裡定義的，除非經過一些特殊設定，不然 tty 或 terminal 基本上都無法辨識這個鍵，我自己是沒去折騰這個，因為太麻煩。如果你堅持要用，詳情可以查一下 StackOverflow，有人問過。
+
+** 按鍵相關的問題排除步驟
+如果你遇到在 GUI 版 Emacs 中可以使用、但終端機版 Emacs 抓不到的 key-binding 時，可以依照你的個性消極來遵循下列兩種方式來排除問題：
+
+*** 消極方法
+
+1. =C-h f= 直接查那個 function 是否本來就還有其他按法。
+2. 土法煉鋼 =M-x=
+3. 大絕招：不要用 =emacs -nw= ，直接用 GUI 版。
+
+*** 積極方法
+
+**** 釐清按鍵訊號的責任歸屬
+
+我們都知道拆機車要先拆座墊，所以我們也要先確認 Emacs 是不是真的沒抓到按鍵。
+
+這個步驟是為了釐清：按鍵抓不到，到底是 Emacs 的錯，還是你的終端機的錯。
+
+這裡就拿 =C-數字鍵= 來當例子好了，在終端機下，你應該完全無法讓 Emacs 吃到 =C-數字鍵= 這個鍵盤輸入（至少我還沒遇過能正確抓到的終端環境），如何證明？ *開個終端機版的 Emacs，嘗試做下列步驟：*
+
+1. 先按 =C-h k= （還記得嗎？這是用來檢查一個 key-binding 到底是啥的）
+2. 再按 =C-數字鍵=
+3. 跳出一個 window，內容大致如下 *（下面這是 =C-1= 的輸出結果）* ：
+
+   #+BEGIN_EXAMPLE
+     1 runs the command self-insert-command, which is an interactive
+     built-in function in `C source code'.
+
+     It is bound to many ordinary text characters.
+
+     (self-insert-command N)
+
+     :around advice: `ad-Advice-self-insert-command'
+
+     Insert the character you type.
+     Whichever character you type to run this command is inserted.
+     The numeric prefix argument N says how many times to repeat the insertion.
+     Before insertion, `expand-abbrev' is executed if the inserted character does
+     not have word syntax and the previous character in the buffer does.
+     After insertion, the value of `auto-fill-function' is called if the
+     `auto-fill-chars' table has a non-nil value for the inserted character.
+     At the end, it runs `post-self-insert-hook'.
+
+     [back]   
+   #+END_EXAMPLE
+
+
+你只要注意第一行就好：
+
+: 1 runs the command self-insert-command, which is...(以下略)
+
+注意行首的那個 =1= 。什麼意思呢？
+
+這意思就是鍵盤按下了 =C-1= ，但實際上 Emacs 吃到的按鍵就是 =1= 而已，而不是 =C-1= ，簡單來說，你按 =C-1= 時，Emacs 根本就沒有吃到那個 =Ctrl= 鍵。很好笑吧。
+
+對於這症頭，Emacs 完全是無辜的 --- 因為這個按鍵訊號根本就沒有傳到 Emacs 手上，而是中途不知道在哪被吃掉了。
+
+不信的話，你再開 GUI 版的 Emacs，重複上述步驟，看他會顯示什麼：
+
+#+BEGIN_EXAMPLE
+C-1 runs the command digit-argument, which is an interactive compiled
+Lisp function in `simple.el'.
+#+END_EXAMPLE
+
+對不對？GUI 版本就有正確抓到 =C-1= 。
+
+來整理一下， =C-數字鍵= 會被解讀成哪些鬼東西（以什麼 mode 都沒啟動的 =fundamental-mode= 為例）
+：
+
+#+BEGIN_QUOTE
+以下測試環境為 =Lilyterm= + =xterm-256color= + =tmux=
+#+END_QUOTE
+
+| 手指在鍵盤按下 | 終端機版 Emacs 實際所抓到的 | 實際被執行的指令         |
+|----------------+-----------------------------+--------------------------|
+| ~C-1~          | ~1~                         | ~self-insert-command~    |
+| ~C-2~          | ~C-@~                       | ~set-mark-command~       |
+| ~C-3~          | ~ESC~                       | (被終端機轉成 ~ESC~ 鍵)  |
+| ~C-4~          | ~C-\~                       | toggle-input-method      |
+| ~C-5~          | (完全抓不到)                | (完全抓不到)             |
+| ~C-6~          | ~C-^~                       | (無預設 bind 到任何指令) |
+| ~C-7~          | ~C-_~                       | ~undo~                   |
+| ~C-8~          | ~DEL~                       | (被終端機轉成 ~DEL~ 鍵)  |
+| ~C-9~          | ~9~                         | ~self-insert-command~    |
+| ~C-0~          | ~0~                         | ~self-insert-command~    |
+
+#+BEGIN_QUOTE
+順帶一題， ~self-insert-command~ 是個很特殊的 function，他的功能就是「在 buffer 中輸出 *這個鍵本身* 的字元」。
+#+END_QUOTE
+
+現在你應該懂了，我們是沒辦法在終端機版的 Emacs 中，綁出 =C-2= 這類 key-binding 的。如果你硬要 =C-2= 其實也是可以，就是直接從終端機實際所抓到的 =C-@= 下手，像是 =(global-set-key (kbd "C-@") 'my-command)= ，但顯然的，以這裡的例子為例，這是非常糟糕的作法，因為變成你自己閹掉 =C-@= 原本該有的功能。綁到 =1= 顯然就更智障，因為這代表你從此無法輸入 =1= 了。
+
+至於 =C-5= 這個情形則是完全無法綁，因為終端機裡根本連吃都吃不到這個鍵。
+
+總之我們現在已經知道，在終端機下就是別動 =C-數字鍵= 的歪腦筋。不過這種情形也有例外。例如我曾經遇過某一版的 =tmux= 中， =M-b=, =M-f= 都失效，因為它把 =M-b= 讀成 =M-[ d= 這種意味不明的東西，這種情形其實可以完全不管他，就算看不懂 =M-[ d= 到底是什麼鬼按鍵也沒關係，反正就是直接照抄按鍵寫設定：
+
+#+BEGIN_SRC elisp
+(global-set-key (kbd "M-[ c") 'forward-word)  ;; 鍵盤實際按下 M-f
+(global-set-key (kbd "M-[ d") 'backward-word) ;; 鍵盤實際按下 M-b
+#+END_SRC
+
+大概就是這樣。所以我自己在 =tmux= 裡用 Emacs 時就有搞過一堆類似設定：
+
+#+BEGIN_SRC elisp
+;;解決 tmux 下無法切換 buffer 以及一些 key-binding 的問題
+(global-set-key (kbd "C-x M-[ d") 'previous-buffer)
+(global-set-key (kbd "C-x M-[ c") 'next-buffer)
+(global-set-key (kbd "M-[ c") 'forward-word)
+(global-set-key (kbd "M-[ d") 'backward-word)
+(global-set-key (kbd "C-c M-[ d") 'backward-sexp) 
+(global-set-key (kbd "C-c M-[ c") 'forward-sexp)
+(global-set-key (kbd "C-c M-[ a") 'backward-up-list)
+(global-set-key (kbd "C-c M-[ b") 'down-list)
+#+END_SRC
+
+**** 自己重新給 command 綁定成終端機下能用的 key-binding
+還有一種更直接的辦法是開 GUI 版， =C-h k= 查詢你想執行的那個 command 的 key-binding 是綁到哪個 function，再自己自訂一個 CLI 版下能用的 key-binding。
+
+
+* 跟 X window 交換剪貼簿
+這是夭壽煩人的東西。
+
+直接抓我設定檔裡的這個 xclip 版本（新版 1.3 我這裡是無法正常運作）：
+https://github.com/kuanyui/.emacs.d/blob/master/lisps/xclip-1.0.el
+
+丟到 =~/.emacs.d/lisps/= 裡後，設定檔加上：
+
+#+BEGIN_SRC elisp
+;; xclip-mode
+(load "~/.emacs.d/lisps/xclip-1.0.el")
+(define-minor-mode xclip-mode
+  "Minor mode to use the `xclip' program to copy&paste."
+  :global t
+  (if xclip-mode
+      (turn-on-xclip)
+    (turn-off-xclip)))
+(xclip-mode t)
+#+END_SRC
+
+不過一旦 =xclip-mode= 啟用，雖然能夠跟 X window 交換剪貼簿了沒錯啦... 但所有 =C-y= 動作都會變得超級遲緩。因為 =xclip-mode= 是每次剪貼都要開一個 =xclip= ，而只靠 Emacs Lisp 摳外部 process 的速度一直都是慢到靠北，我也不知該怎麼辦。
+
+Emacs CLI 下要跟 X window 的剪貼簿相通問題基本上就是一沱爛屎坑，我已經沒興趣再花時間找更好的解法了。如果你有更好的方法請提供。
+
+#+BEGIN_QUOTE
+Emacs 25 應該是已經可以透過 dynamic module 來根本性的解決這個白爛問題了，不過...等 Emacs 25 stable released 了再來說吧。
+
+Emacs 的開發版本非常不靠譜，跟 Archlinux 用起來感覺很像，一下這裡爆一下那裡爆，更新完再換個地方爆爆爆，整天更新 Emacs 就飽了（只差 Emacs 不會有傳教士嗆你「因為你不懂 Emacs」），我自己嘗試用過一段時間後就放棄了，一律只用 stable。所以我現在（[2016-08-18 木]）還在用 24.5.1。
+
+-- kuanyui
+#+END_QUOTE
+* Tmux 裡使用 Emacs
+主要還是 Key-binding 的問題，解法上面已經講過，請自行詳讀。
+
+tmux 我是把 prefix key 設定成 =M-B= (=Shift + Alt + b=)，這是我目前找到非常罕見幾乎不會跟任何 key-binding 衝突，又能正常在終端機下使用的 key-binding，請好好珍惜 XD
+
+然後 kill-window 我改成 =prefix + k= ，比較符合 Emacs 在 kill buffer (=C-x k=) 時的使用習慣。
+
+編輯 =~/.tmux.conf= ，不存在請自行建立。
+
+#+BEGIN_SRC sh
+unbind C-b
+unbind M-C-b
+set -g prefix M-B
+
+#下面兩種自己挑一種用
+set -g default-terminal "screen-256color"
+#set -g default-terminal "xterm-256color"
+
+bind-key k confirm-before -p "kill-window #W? (y/n)" kill-window
+#+END_SRC
+
+=~/.zshrc= (或 =~/.bashrc= )也記得自己加 =TERM=xterm-256color= 之類的設定。
+
+#+BEGIN_QUOTE
+打一下廣告，如果你覺得 Emacs 預設顏色樣式實在太醜，又找不到終端機下能使用的 Theme 的話，可以參考 [[https://github.com/kuanyui/moe-theme.el][moe-theme.el]] ，能正常在 256 色下使用且分辨清晰喔～因為這一開始就是專門為 256 色終端機設計的。
+
+[[https://raw.githubusercontent.com/kuanyui/moe-theme.el/master/pics/moe-theme.png]]
+
+-- kuanyui
+#+END_QUOTE
+
+

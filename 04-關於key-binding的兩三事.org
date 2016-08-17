@@ -1,4 +1,15 @@
 自訂快速鍵前，尤其自訂遇到問題時，務必先詳讀此篇概念。
+
+#+BEGIN_QUOTE
+章節順序安排無法避免地有點矛盾：這一章請跟第五章的設定檔部份一起參照閱讀。我再想想要怎麼排會更好。
+
+-- kuanyui
+#+END_QUOTE
+
+* TTY / Terminal / Console 中使用 Emacs 發現按鍵一堆問題？
+
+這部份太長太雞掰了，對於跟我一樣神經病喜歡用終端機板Emacs的人，請見 [[file:附錄B-終端機下的Emacs.org][附錄B-終端機下的Emacs.org]]。
+
 * 不成文的 key-binding 慣例
 一開始你應該會覺得 Emacs 的 key-binding 很難記，怎麼各種 mode 都有不同按鍵。然而其實有很多常見功能是有慣例可尋的。以下舉出幾個範例：
 
@@ -59,10 +70,10 @@
 #+BEGIN_QUOTE
 我自己在設定快速鍵時常利用單字的第一個字母作為設定的規則，可以讓這種組合技變得很好記憶。例如我這樣設定我的 Magit (Git 的 Emacs 版前端)：
 
-#+BEGIN_SRC elisp
-(global-set-key (kbd "C-x g s") 'magit-status)
-(global-set-key (kbd "C-x g l") 'magit-log)
-#+END_SRC
+  #+BEGIN_SRC elisp
+    (global-set-key (kbd "C-x g s") 'magit-status)
+    (global-set-key (kbd "C-x g l") 'magit-log)
+  #+END_SRC
 
 這樣我就可以按 =C-x g s= 來看 =git status= ，按 =C-x g l= 來看 =git log= 。
 
@@ -143,41 +154,6 @@ Emacs 裡面也可以這樣，其實就是透過 =C-u= prefix。當命令並沒�
    "記下C-z a，並等待\n使用者輸入下一按鍵" -> "持續檢查下去..."
    }
    #+END_SRC
-
-* TTY / Terminal / Console 中的 Key-binding 有問題？
-
-#+BEGIN_QUOTE
-因為我自己都是在 Tmux 中使用 Emacs，為此，我寫過一篇文章在詳細講這部份。有興趣的人請參考： [[https://kuanyui.github.io/2013/11/26/emacs-with-tmux/][Emacs & Tmux 折騰筆記 | 東北角的小徑]]
-
--- kuanyui
-#+END_QUOTE
-
-換到文字界面的 Emacs 後，會發現有部份原本可以使用的 key-binding 突然變得不能用了，尤其是最複雜的 Org-mode（例如 =Shift+[Arrow]= 、 =Ctrl+[0-9]= ），因為這些按鍵終端機是抓不到的。
-
-** 一大堆 =C-M-= 開頭的 Emacs 抓不到啦！
-Terminal 中，Emacs 可以抓到 =C-x= ，也可以抓到 =M-x= ，但就是抓不到 =C-M-x= （這不是 Emacs 的錯。確認方法是先按 =C-h k= 再按 =C-M-x= 你會發現 Emacs 毫無反應，因為這個按鍵訊號完全沒有成功傳給 Emacs），怎麼辦呢？
-
-其實 =ESC= 鍵等同於 =M-= ，所以當你要按 =C-M-s= 時，你可以先按一下 =ESC= 再按 =C-s= ，就等同於 =C-M-s= 了！
-
-#+BEGIN_QUOTE
-那 Ctrl + 數字怎麼辦？我也不知道。
-
--- kuanyui
-#+END_QUOTE
-
-** Org-mode
-Org-mode 在設計時有考慮到這問題，所以有設計了許多在終端機裡也能用的替代按鍵，可以參考 [[http://orgmode.org/manual/TTY-keys.html][TTY Keys]]。
-
-** Super Key
-=Super= 鍵（就是常說的 =Win= 鍵）是在 X11 裡定義的，除非經過一些特殊設定，不然 tty 或 terminal 都無法辨識這個鍵，我自己是沒去折騰這個，因為太麻煩。如果你堅持要用，詳情可以查一下 StackOverflow，有人問過。
-
-** 其他
-遇到其他之前在 GUI 版可以使用、但終端機抓不到的 key-binding 時，基本上你有幾種選擇：
-
-1. =C-h f= 直接查那個 function 是否本來就還有其他按法。
-2. 開 GUI 版， =C-h k= 查詢你平常按的那個 key-binding 是綁到哪個 function，再自己自訂一個 CLI 版下能用的 key-binding。
-3. 土法煉鋼 =M-x=
-4. 大絕招：不要用 =emacs -nw= ，直接用 GUI 版。
 
 * 應該直接習慣 =C-p= / =C-n= / =C-f= / =C-b= 的游標移動方法嗎?
 #+BEGIN_QUOTE
