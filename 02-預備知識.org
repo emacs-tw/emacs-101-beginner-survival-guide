@@ -170,7 +170,7 @@ Major mode 大致可以（非正式地）亂分成兩種類型：
 *** Minor-mode
 Major mode 沒有辦法同時啟動多個，但 minor mode 就可以同時啟動好幾個，你要幾個都可以。例如： =pangu-mode= (自動在中文跟英文之間插入空格)、 =rainbow-delimiters-mode= （即時把 buffer 中不同深度的括號上不同顏色）、 =rainbow-mode= （即時將 buffer 中所有包含 Hex/RGB color code 的顏色顯示出來）等等，這些功能顯然是不會互相衝突的。
 
-minor-mode 基本上是不會衝突的，但有時有哲相同功能的 minor mode 同時打開時行為可能就會很怪。例如你同時開兩個自動幫你補上右括號的 minor mode 之類的。這點就只能自行注意。
+minor-mode 基本上是不會衝突的，但有時有著相同功能的 minor mode 同時打開時行為可能就會很怪。例如你同時開兩個自動幫你補上右括號的 minor mode 之類的。這點就只能自行注意。
 
 ** 什麼是 Kill-ring？
 
