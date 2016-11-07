@@ -136,7 +136,7 @@ Emacs 內建的 Undo 跟一般你在其他應用程式中所知道的 Undo 不�
  
 
 #+BEGIN_QUOTE
-用 Frame 存著 Window layout 也就算了，為什麼還要設計 Buffer 這種東西搞得那麼複雜？其實這種特性非常好用也非常常用，由於 Frame 與 Buffer 的概念是分開的，所以可以 *開多個 Frame，且每個 Frame 都顯示同個 Buffer* ，代表你可以同時開多個 Frame，同時看「一個檔案的不同部份」，不管是寫文章或寫程式時都非常方便。
+為什麼還要設計 Buffer 這種東西搞得那麼複雜？其實這種特性非常好用也非常常用，由於 Window 與 Buffer 的概念是分開的，所以可以 *開多個 Window，且每個 Window 都顯示同個 Buffer* ，代表你可以同時開多個 Window，同時看「一個檔案的不同部份」，不管是寫文章或寫程式時都非常方便。
 #+END_QUOTE
 
 ** 什麼是 Mode？Major-mode 跟 Minor-mode 又差在哪？
