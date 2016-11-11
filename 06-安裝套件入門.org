@@ -12,13 +12,13 @@
 透過 =package.el= 安裝的套件會被放在 =~/.emacs.d/elpa/= 下。如果你用 git 管理你的 Emacs 設定檔，建議直接把 =~/.emacs.d/elpa/= 也一起放進去，先不要考慮什麼為了省空間而用 Emacs Lisp 寫個自動從網路上抓 packages 的 function 之類的，因為很容易 dependancies 爆掉，與其那麼麻煩不如先全部放。
 
 *** 設定 MELPA
-Emacs 預設只有設定 GNU ELPA，這裡推薦可以加入 MELPA repository，這應該是目前最大的 Emacs package repository：
+Emacs 預設只有設定 GNU ELPA，這裡推薦可以加入 MELPA repository，這應該是目前最大的 Emacs package repository，方法也很簡單，在 =~/.emacs.d/init.el= 中加入下面這幾行就好：
 
 #+BEGIN_SRC elisp
 ;; package.el 相關設定
 (require 'package)
 (package-initialize)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 #+END_SRC
 
@@ -44,6 +44,16 @@ Emacs 預設只有設定 GNU ELPA，這裡推薦可以加入 MELPA repository，
 如果只按 =i= 來個別升級套件的話，這樣該套件的舊版的只會被標記成 =obsolete= （遺棄），當升級該套件後出問題，可以很容易的把新版 =u= 移除掉， =obsolete= 則可以補回原本的位置繼續用。
 
 -- kuanyui
+
+#+END_QUOTE
+#+BEGIN_QUOTE
+
+也有人用 =M-x package-install <RET>= ，再輸入套件名稱來安裝。
+
+順帶一提，如果發現找不到你要的套件的話，可以先檢查是不是有個 =~/.emacs= 在那邊騙你，有的話就把他的東西都抓進 =~/.emacs.d/init.el= ——當然要看一下哪些要留哪些要丟啦——然後下 =M-x package-refresh-contents <RET>= 再重新搜一次應該就有了。會特別提是因為我自己莫名被雷過，找了好久才發現。Orz
+
+-- wildsky
+
 #+END_QUOTE
 
 ** 手動安裝
