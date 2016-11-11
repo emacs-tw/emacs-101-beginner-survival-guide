@@ -18,7 +18,7 @@ Emacs 預設只有設定 GNU ELPA，這裡推薦可以加入 MELPA repository，
 ;; package.el 相關設定
 (require 'package)
 (package-initialize)
-(add-to-list 'package-archives '("melpa" . "http://melpa.milkbox.net/packages/") t)
+(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (add-to-list 'package-archives '("melpa-stable" . "http://stable.melpa.org/packages/") t)
 #+END_SRC
 
