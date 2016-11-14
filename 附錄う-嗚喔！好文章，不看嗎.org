@@ -27,6 +27,9 @@ Dired 是 Emacs 內建的一個強大且高自訂性的檔案管理員。
 ** 加密
 - [[http://coldnew.github.io/blog/2013/07-13_e2ccd/][在 emacs 中使用 EasyPG 加密文章]]
 
+** 收發 email
+- [[https://coldnew.github.io/blog/2016/01-02_mu4e/][在 emacs 下使用 mu4e 收發郵件]]
+
 * 程式開發相關
 ** Python
 - [[http://codingpy.com/article/emacs-the-best-python-editor/][Emacs：最好的Python编辑器？]]
