@@ -6,6 +6,10 @@
 - [[https://kuanyui.github.io/tags/emacs/][東北角的小徑]]
 - [[https://chriszheng.science/categories/Emacs%E5%B0%8F%E6%8A%80%E5%B7%A7/][M-x Chris-An-Emacser - 一个Emacs爱好者的闲言碎语]]
 
+* Emacs 學習
+
+- [[http://book.emacs-china.org][Master Emacs in 21 Days]]
+
 * Emacs 一般使用
 
 ** Org-mode
