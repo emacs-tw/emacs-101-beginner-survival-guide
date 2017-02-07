@@ -9,29 +9,22 @@
 [[https://www.gnu.org/software/emacs/][在 GNU Emacs 官方首頁]] https://www.gnu.org/software/emacs/
 會找到 如何下載 Emacs 的指示。
 
-對於 Windows，官方已經準備好可執行檔，
-你只要下載最新穩定版本的壓縮檔，
-解壓縮後，找到 bin/runemacs，點兩下就能啟動 emacs。
+目前 GNU 已經開始提供 64 位元的 Emacs，同時這份 Emacs 25.1 也包含了對 GnuTLS 的支援，在安裝額外套件、從 Github 複製時皆能正常運作。
 
-** emacs-w64
+你只要下載最新穩定版本的壓縮檔，解壓縮後，找到 bin/runemacs，點兩下就能啟動 emacs。
 
-另外 [[https://github.com/syl20bnr/spacemacs][spacemacs]] [[https://github.com/syl20bnr/spacemacs#windows][推薦]] 在 windows 下使用 [[http://emacsbinw64.sourceforge.net/][emacs-w64]]。
-
-這個非 GNU 官方編譯版本 [[http://emacsbinw64.sourceforge.net/][emacs-w64]]。
-多處理了一些事，像是 Enable GnuTLS。
-如果你想要使用 spacemacs 或是 prelude 之類預先訂製過的環境，
-使用 emacs-w64 就不會遇到 enable GnuTLS 的問題。
 
 ** Emacs 設定檔擺放位置
 
 對於 Linux 與 OS X，emacs 的設定檔(=.emacs.d=)是放在 =~/= (家目錄)下的，前面也有介紹過，這沒什麼問題。
 
-然而 windows，我們需要向 Emacs 確認實際的設定檔位置。
+在 Windows，預設的位置是 =C:\users\<user>\AppData\Roaming= ，使用上相當不方便。請通過控制台，搜尋「環境變數」，添加變數 =HOME= 並指定到 =C:\users\<user>= 。如此一來，就能方便的存取 =Documents= 或 =Downloads= 取得跟  Linux/macOS 一樣的使用體驗了
 
-打開 =*scratch*= 或任何一個 buffer，輸入 =user-emacs-directory= 後按 =C-x C-e= ，顯示在下方 minibuffer 的路徑就是你的設定檔目錄，而這目錄所在位置就是 =~/= 了。
+** 編譯工具
 
-以我使用的電腦為例 =~/= 目錄是 =c:/Users/ming/AppData/Roaming=
+部分的 Emacs 套件需要使用 make、autoconf、texinfo 等工具產生文件或執行特殊編譯。另外，Windows 也沒有 Git 可用。推薦安裝 [[https://msys2.github.io][MSYS2]] https://msys2.github.io 。安裝完畢後，請把 =C:\msys2\bin= 和 =C:\msys2\user\bin= 以如同添加 =HOME= 的環境變數的步驟添加到 Windows =PATH= 列表內。
 
+如果有缺乏的工具，可以直接 =M-x eshell= 執行 =pacman -S <package>= 安裝即可。
 
 ** 檔案編碼 換行符號
 
