@@ -18,7 +18,7 @@
 
 對於 Linux 與 OS X，emacs 的設定檔(=.emacs.d=)是放在 =~/= (家目錄)下的，前面也有介紹過，這沒什麼問題。
 
-在 Windows，預設的位置是 =C:\users\<user>\AppData\Roaming= ，使用上相當不方便。請通過控制台，搜尋「環境變數」，添加變數 =HOME= 並指定到 =C:\users\<user>= 。如此一來，就能方便的存取 =Documents= 或 =Downloads= 取得跟  Linux/macOS 一樣的使用體驗了
+在 Windows，預設的位置是 =C:\Users\<user>\AppData\Roaming= ，使用上相當不方便。請通過控制台，搜尋「環境變數」，添加變數 =HOME= 並指定到 =C:\Users\<user>= 。如此一來，就能方便的存取 =Documents= 或 =Downloads= 取得跟  Linux/macOS 一樣的使用體驗了
 
 ** 編譯工具
 
