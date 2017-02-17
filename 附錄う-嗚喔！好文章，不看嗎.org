@@ -9,7 +9,7 @@
 * Emacs 學習
 
 - [[http://book.emacs-china.org][Master Emacs in 21 Days]]
-
+- [[https://scarletsky.github.io/2016/01/22/spacemacs-usage/][spacemacs使用總結]]
 * Emacs 一般使用
 
 ** Org-mode
