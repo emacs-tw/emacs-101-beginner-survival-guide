@@ -45,6 +45,7 @@ Emacs 是個非常吃重設定檔的編輯器，這一篇會為您解答最常�
     - 使用 =C-h m= 查詢目前的 buffer 下、啟動了哪一個 major-mode、哪些 minor-modes、以及所有可用的 key-bindings。
     - 使用 =C-h v= 查詢某個 variable 的值：
       - 例如可以查詢 =major-mode= 這個變數的值，以得知目前的 major-mode 實際上的 symbol 名稱（ *在設定 key-binding 和 hook 時需要用到這個值* ）
+    - 按任意 prefix key 後再按下 =C-h= ，可以得知目前 buffer 下，以該prefix key為開頭的所有可用的key-bindings。
 
 #+BEGIN_QUOTE
 Symbol 是 Lisp、Ruby、Erlang 等語言中有的一種資料型態，現在不懂也沒關係，我們現在只是要弄設定檔。

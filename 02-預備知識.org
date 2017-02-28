@@ -72,6 +72,40 @@ Emacs 就是成千上萬個 Lisp function 跟一堆 variable 所構成， 並靠
 Emacs 內建的 Undo 跟一般你在其他應用程式中所知道的 Undo 不一樣，而且不太好理解。可以參考 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Undo.html]] ，詳情[[03-熟悉基本按鍵(key-binding).org][稍後]]會再解釋。
 #+END_QUOTE
 
+** 有沒有什麼方法查詢function的key-binding啊？
+
+只要是 =M-x= 呼叫得出的 function，你都可以透過各種方法來查詢他的key-binding:
+
+    - 使用 =C-h f= 查詢某 function 的用途、文件與該 function 所有的 key-binding 等資訊。
+    - 使用 =C-h m= 查詢目前的 buffer 下、啟動了哪一個 major-mode、哪些 minor-modes、以及所有可用的 key-bindings。
+    - 按任意 prefix key 後再按下 =C-h= ，可以得知目前 buffer 下，以該prefix key為開頭的所有可用的key-bindings。例如按下 =C-x C-h= 你可以看到類似這樣的東西：
+
+#+BEGIN_EXAMPLE
+Global Bindings Starting With C-x:
+key             binding
+---             -------
+
+C-x C-@         mc/edit-lines
+C-x C-b         ibuffer
+C-x C-c         save-buffers-kill-terminal
+C-x C-d         list-directory
+C-x C-e         eval-last-sexp
+C-x C-f         ??
+C-x TAB         indent-rigidly
+C-x C-j         dired-jump
+C-x C-k         kmacro-keymap
+C-x C-l         downcase-region
+C-x RET         Prefix Command
+C-x C-n         set-goal-column
+C-x C-o         delete-blank-lines
+C-x C-p         mark-page
+C-x C-q         read-only-mode
+C-x C-r         helm-recentf
+.....(以下省略)
+#+END_EXAMPLE
+
+    - 也可以倒過來查：使用 =C-h k= 、再按下任意 key-binding，可以查詢其 key-binding 在目前 buffer 下所綁定到的 function。
+
 ** Buffer 與 Frame、Window 到底差在哪裡？（務必弄清）
 
 注意，這幾個東西的概念完全不同；
