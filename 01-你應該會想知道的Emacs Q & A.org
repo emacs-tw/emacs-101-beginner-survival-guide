@@ -106,6 +106,13 @@ v- 自訂排版的簡報
 -- coldnew
 #+END_QUOTE
 
+#+BEGIN_QUOTE
+個人蠻推薦將 CapsLock 直接變成 Ctrl ， 讓 Shift+CapsLock 變成原本大寫切換的功能。
+因為 CapsLock 長這麼大顆、離你的小拇指比較近，而且你整天根本不會按到幾次。
+
+-- iblis
+#+END_QUOTE
+
 ** 一定要先學會 Emacs Lisp 或什麼語言嗎？
 一樣，看你期望讓 Emacs 做哪些事。
 
