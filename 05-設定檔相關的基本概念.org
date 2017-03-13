@@ -10,9 +10,9 @@ Emacs 是個非常吃重設定檔的編輯器，這一篇會為您解答最常�
 #+BEGIN_QUOTE
 建議把一切 Emacs 相關設定分門別類整理好存放在 =.emacs.d= 中，盡量不要全部擠到 =.emacs.d/init.el= ，因為整理起來會很麻煩。
 
-可以參考 [[https://github.com/kanru/.emacs.d][kanru]] 與 [[https://github.com/kuanyui/.emacs.d][kuanyui]] 的 =.emacs.d= 目錄結構來整理。
+可以參考 [[https://github.com/kanru/.emacs.d][kanru]] 與 [[https://github.com/kuanyui/.emacs.d][kuanyui]] (不才在下) 的 =.emacs.d= 目錄結構來整理。
 
--- kuanyui
+-- ono hiroko
 #+END_QUOTE
 
 *** 但 Windows 下， =~/= 的實際目錄到底在哪裡？」 
@@ -48,7 +48,7 @@ Emacs 是個非常吃重設定檔的編輯器，這一篇會為您解答最常�
     - 按任意 prefix key 後再按下 =C-h= ，可以得知目前 buffer 下，以該prefix key為開頭的所有可用的key-bindings。
 
 #+BEGIN_QUOTE
-Symbol 是 Lisp、Ruby、Erlang 等語言中有的一種資料型態，現在不懂也沒關係，我們現在只是要弄設定檔。
+Symbol 是 Lisp、Ruby 等語言中有的一種資料型態，目前不要深究也沒關係，我們現在只是要弄設定檔。
 #+END_QUOTE
 
 *** Global key
