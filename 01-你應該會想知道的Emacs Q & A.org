@@ -133,7 +133,7 @@ v- 自訂排版的簡報
 3. 可純鍵盤操作，出門沒帶滑鼠也不覺得少了什麼。
 4. 有純 CLI 界面，遠端 ssh 操作或 tty 也完全沒問題。
 5. 很多 UNIX 工具也是採用 Emacs-flavored 的 key-binding，尤其是 GNU 出品的。例如  =info= 、 =less= 、甚至  =bash= / =zsh=  的預設操作方式其實就是模仿 Emacs 的。
-6. 歷史悠久，所以很多你想得到、想不到的方便功能幾乎都有人做過。舉凡一套完整的 Terminal Emulator、[[http://kuanyui.github.io/2014/06/21/dired-tutorial-and-essential-configs/][檔案管理員]]、[[https://magit.vc/manual/magit.html][Git的前端]]  [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Serial-Terminal.html][Serial Terminal]]到 [[https://github.com/hayamiz/twittering-mode][Twitter 的 client]]。
+6. 歷史悠久，所以很多你想得到、想不到的方便功能幾乎都有人做過。舉凡一套完整的 Terminal Emulator、[[http://kuanyui.github.io/2014/06/21/dired-tutorial-and-essential-configs/][檔案管理員]]、[[https://magit.vc/manual/magit.html][Git的前端]] 、 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Serial-Terminal.html][Serial Terminal]]到 [[https://github.com/hayamiz/twittering-mode][Twitter 的 client]]。
 7. Emacs Lisp 是個頗為完整的語言，還可以順便學 Lisp。拿來做一些常用的文字處理功能甚至拋棄式程式都相當方便，隨時覺得什麼文字編輯操作不順手就順手寫一個，不需要再弄什麼外部程式，例如我自己就常常拿它來：
    - [[https://github.com/kuanyui/writing-utils.el/blob/master/page-title.el][在貼上網址後，自動去抓網頁的標題加上去。]]
    - [[https://github.com/kuanyui/writing-utils.el/blob/master/flickr.el][貼上 Flickr 網址後，直接去抓圖片的 raw link。]]
