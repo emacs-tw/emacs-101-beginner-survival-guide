@@ -53,13 +53,13 @@ Symbol 是 Lisp、Ruby、Erlang 等語言中有的一種資料型態，現在不
 
 *** Global key
 
-    假如我覺得 =C-z= （在終端機下是暫停 Emacs）實在很沒有屁用還常常按錯，想把他改成「選取文字」（set-mark-command，原本只有綁到 =C-@= ），可以這樣做：
+    假如我覺得 =C-z= （在 console 下的作用是把 Emacs 移到背景執行）實在沒啥用還常常按錯，想把他改成「選取文字」（set-mark-command，原本只有綁到 =C-@= ），可以這樣做：
 
     #+BEGIN_SRC elisp
     (global-set-key (kbd "C-z") 'set-mark-command)
     #+END_SRC
 
-    你也可以只是把 C-z 取消成沒有用的鍵（但這樣很浪費捏）：
+    你也可以只是把 C-z 取消成沒有用的鍵，讓他變成一個 "prefix key"（詳情請見第四章）：
 
     #+BEGIN_SRC elisp
     (global-unset-key (kbd "C-z"))     
