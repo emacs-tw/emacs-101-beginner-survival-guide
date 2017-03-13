@@ -48,7 +48,7 @@ Emacs 是個非常吃重設定檔的編輯器，這一篇會為您解答最常�
     - 按任意 prefix key 後再按下 =C-h= ，可以得知目前 buffer 下，以該prefix key為開頭的所有可用的key-bindings。
 
 #+BEGIN_QUOTE
-Symbol 是 Lisp、Ruby 等語言中有的一種資料型態，目前不要深究也沒關係，我們現在只是要弄設定檔。
+Symbol 是 Lisp、Ruby、Julia 等語言中有的一種資料型態，目前不要深究也沒關係，我們現在只是要弄設定檔。
 #+END_QUOTE
 
 *** Global key
