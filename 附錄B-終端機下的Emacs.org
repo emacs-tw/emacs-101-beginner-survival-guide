@@ -169,7 +169,7 @@ Emacs 25 應該是已經可以透過 dynamic module 來根本性的解決這個�
 
 Emacs 的開發版本非常不靠譜，跟 Archlinux 用起來感覺很像，一下這裡爆一下那裡爆，更新完再換個地方爆爆爆，整天更新 Emacs 就飽了（值得慶幸的是不會有 Emacs 傳教士嗆你「因為你不懂 Emacs」），我自己嘗試用過一段時間後就放棄了，一律只用 stable。所以我現在（[2016-08-18 木]）還在用 24.5.1。
 
--- kuanyui
+-- ono hiroko
 #+END_QUOTE
 
 * Tmux 裡使用 Emacs
@@ -200,7 +200,7 @@ bind-key k confirm-before -p "kill-window #W? (y/n)" kill-window
 
 [[https://raw.githubusercontent.com/kuanyui/moe-theme.el/master/pics/moe-theme.png]]
 
--- kuanyui
+-- ono hiroko
 #+END_QUOTE
 
 

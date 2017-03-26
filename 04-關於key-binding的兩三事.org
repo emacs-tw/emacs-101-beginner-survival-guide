@@ -3,7 +3,7 @@
 #+BEGIN_QUOTE
 章節順序安排無法避免地有點矛盾：這一章請跟第五章的設定檔部份一起參照閱讀。我再想想要怎麼排會更好。
 
--- kuanyui
+-- ono hiroko
 #+END_QUOTE
 
 * TTY / Terminal / Console 中使用 Emacs 發現按鍵一堆問題？
@@ -77,7 +77,7 @@
 
 這樣我就可以按 =C-x g s= 來看 =git status= ，按 =C-x g l= 來看 =git log= 。
 
--- kuanyui
+-- ono hiroko
 #+END_QUOTE
 
 *** 自訂 Prefix key
@@ -120,7 +120,7 @@ Emacs 裡面也可以這樣，其實就是透過 =C-u= prefix。當命令並沒�
 
 不過我覺得這樣很難按，其實我都是按 =Esc N= 再按指令，跟 =C-u N= 的效果完全相同。
 
--- kuanyui
+-- ono hiroko
 #+END_QUOTE
 
 ** COMMENT Should be hidden
@@ -160,6 +160,6 @@ Emacs 裡面也可以這樣，其實就是透過 =C-u= prefix。當命令並沒�
 我個人覺得這根本難按死了！我自己是直接按方向鍵的。
 原 Vimmer 可能就會覺得手指移動到鍵盤右下角很麻煩吧。試試 =Evil= （在 Emacs 中使用 Vi 操作方式）也許你會喜歡。
 
--- kuanyui
+-- ono hiroko
 #+END_QUOTE
 

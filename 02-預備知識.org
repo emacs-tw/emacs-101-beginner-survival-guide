@@ -145,7 +145,7 @@ C-x C-r         helm-recentf
 #+BEGIN_QUOTE
 其實會有 Buffer 這麼奇怪的詞完全是歷史因素，因為 Vi 與 Emacs 發明時的 70 年代，大家都還在用 =ed= 之類的行編輯器在編輯檔案，還沒有這種「輸入什麼東西、即時就可以在螢幕上見到修正」的編輯器，所以才會把編輯區叫做 Buffer。在那時這種功能可是創新的呢。
 
--- kuanyui
+-- ono hiroko
 #+END_QUOTE
 
 *** 操作方式
