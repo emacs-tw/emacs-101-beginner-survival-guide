@@ -1,6 +1,9 @@
 * 附錄う-嗚喔！好資源，不看嗎
 以下整理一些在您讀完Emacs 101後，值得您看看的Emacs相關的中文Blog與文章：
 
+* 未分類
+- https://github.com/lujun9972/emacs-document 這個 repo 中有許多中文 Emacs 文章
+
 * 幾個 Emacser 的 Blog
 - [[http://coldnew.github.io/tags/emacs/][coldnew's blog]]
 - [[https://kuanyui.github.io/tags/emacs/][東北角的小徑]]
