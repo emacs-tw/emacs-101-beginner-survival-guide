@@ -49,7 +49,7 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 
 可以再根據自己的需要修改。如果看不懂這在幹麻請先耐下性子，後續章節會提到要怎麼看懂並修改這類玩意。
 
--- kuanyui
+-- ono hiroko
 #+END_QUOTE
 
 *** Window 相關
@@ -72,7 +72,7 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 
 這樣就可以用 =Alt+Shift+s/z/x/c= 來向上/下/左/右切換 window，而且在標準 qwerty 鍵盤上可以單手操作。如果你有其他更偏好的 key-binding 請自行修改。
 
--- kuanyui
+-- ono hiroko
 #+END_QUOTE
 
 **** Frame
@@ -95,7 +95,7 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 
 同理，編輯日文時，Emacs 只會按照平假名/片假名/漢字來「斷詞」。
 
--- kuanyui
+-- ono hiroko
 #+END_QUOTE
 
 - =M-g M-g= 跳到第 N 行。
@@ -124,7 +124,7 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 #+BEGIN_QUOTE
 這幾個玩意在臨時需要下指令時非常方便，其中最常用的應該是 =M-!= ，我常常拿它來下諸如 =git init=, =git clone=, =mkdir= 等指令，而不用另外開個 console。
 
--- kuanyui
+-- ono hiroko
 #+END_QUOTE
 
 ** Kill-ring 相關
@@ -152,7 +152,7 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 
 我個人覺得最神奇的，就是在我用 Emacs 一段時間後，赫然發現 *「Bash 和 Zsh 中是可以使用 kill-ring 的！」* 試試看就知道我在說什麼了，真的非常方便。尤其如果你已經很熟悉 Emacs 的操作，那往後在使用 Bash/Zsh 時你會發現比以往更如魚得水。
 
--- kuanyui
+-- ono hiroko
 #+END_QUOTE  
   
 ** Undo/Redo
@@ -184,7 +184,7 @@ Vim 聽說也是這樣，所以 Vimmer 應該能了解。
 
 順帶一提， =undo-tree.el= 中有提供一個 command 叫做 =undo-tree-redo= ，它的功能就是你想要的那個 redo，你可以把這 command 給綁到你要的 key-binding 上。我自己平常就是用這個來做 redo 的，這樣就不用先按 =C-g= 就能 Redo 了。
 
--- kuanyui
+-- ono hiroko
 #+END_QUOTE
 
 ** 特殊編輯功能
@@ -195,7 +195,7 @@ Vim 聽說也是這樣，所以 Vimmer 應該能了解。
   #+BEGIN_QUOTE
   注意，你可以用 =C-@= 選取一段文字後，再按下 =M-;= ，這樣就可以將整個選取的範圍給註解掉。試試看就知道我在說什麼了。
 
--- kuanyui
+-- ono hiroko
   #+END_QUOTE
 - =C-M-\= 立刻自動縮排
 - =M-q= 將目前整個段落每 70 字元換行。
@@ -210,7 +210,7 @@ Vim 聽說也是這樣，所以 Vimmer 應該能了解。
 
 因為這個大小寫轉換是從目前游標開始算起，所以請搭配前面提到過的 =M-b= 來使用。例如 =M-b M-u= 就可以把目前單字轉成全大寫。
 
--- kuanyui
+-- ono hiroko
 #+END_QUOTE
 *** 交換
 - =C-t= 前後字元交換。
@@ -219,7 +219,7 @@ Vim 聽說也是這樣，所以 Vimmer 應該能了解。
 #+BEGIN_QUOTE
 規則很難解釋，自己多試用幾次看看就會懂了。熟悉後我發現這個功能出乎意料的實用。
 
--- kuanyui
+-- ono hiroko
 #+END_QUOTE
 
 

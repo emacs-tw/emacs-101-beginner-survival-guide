@@ -122,7 +122,7 @@ Emacs 有內建一個 Emacs Lisp debugger 叫做 =edebug= ，最常見的用法�
 
 #+BEGIN_QUOTE
 到目前為止嘗試了不少 Emacs 外掛，我發現我自己是不太偏好「聰明過頭」了的設計...例如 helm, ido, icicles, auto-indent 這類的。 
--- kuanyui
+-- ono hiroko
 #+END_QUOTE
 
 * RegExp

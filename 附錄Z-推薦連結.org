@@ -1,10 +1,16 @@
-* 附錄う-嗚喔！好資源，不看嗎
+* 嗚喔！好資源，不看嗎
 以下整理一些在您讀完Emacs 101後，值得您看看的Emacs相關的中文Blog與文章：
+
+* 未分類
+- https://github.com/lujun9972/emacs-document 這個 repo 中有許多中文 Emacs 文章
 
 * 幾個 Emacser 的 Blog
 - [[http://coldnew.github.io/tags/emacs/][coldnew's blog]]
 - [[https://kuanyui.github.io/tags/emacs/][東北角的小徑]]
 - [[https://chriszheng.science/categories/Emacs%E5%B0%8F%E6%8A%80%E5%B7%A7/][M-x Chris-An-Emacser - 一个Emacs爱好者的闲言碎语]]
+
+* 未分類
+- https://github.com/lujun9972/emacs-document 這個 repo 中有不少中文 Emacs 文章可以參考
 
 * Emacs 學習
 
@@ -23,7 +29,7 @@ Org-mode 是 Emacs 內建的一個強大到包山包海的筆記軟體。除了�
 - [[http://coldnew.github.io/blog/2013/12-17_03349/][去除 org-mode 輸出 HTML 時產生多餘的空格]]
 - [[http://coldnew.github.io/blog/2013/07-13_5b094/][使用 gnupg 加密你的 org-mode 文章]]
 
-** Dired 
+** Dired
 Dired 是 Emacs 內建的一個強大且高自訂性的檔案管理員。
 
 - [[https://kuanyui.github.io/2014/06/21/dired-tutorial-and-essential-configs/][必備的 Dired 設定與簡易教學]]

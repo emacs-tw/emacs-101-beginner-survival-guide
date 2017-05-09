@@ -74,20 +74,32 @@ v- 自訂排版的簡報
 
   是有不少新手包，據說幾乎不用自己寫什麼設定，不過我有強迫症會覺得髒髒的所以從來沒用過。
 
-  -- kuanyui
+  有套設定包叫做 [[https://github.com/syl20bnr/spacemacs][Spacemacs]] ，據身邊不少用 Emacs 的朋友說做得相當不錯，已經讓 Emacs 作到幾乎開箱即可用，不過我目前還沒去嘗試過就是了。有興趣的可以自行看看。
+
+  -- ono hiroko
 #+END_QUOTE
 
 ** Emacs 很肥啟動很慢？
  有什麼關係，反正 Emacs 一啟動後根本就不關的。
 
- 不過啟動速度慢也有很容易的解決方案，後面再提。
-
-  不要拿 Vim 的使用邏輯放在 Emacs 上，兩者設計理念差太多了。Vim 一開始就是要做編輯器，但 Emacs 一開始是想做個 Lisp 環境。
+ Vim 可能就常常開開關關，但不要拿 Vim 的使用邏輯放在 Emacs 上，兩者設計理念差太多了。Vim 一開始就是要做編輯器，但 Emacs 一開始是想做個 Lisp 環境。
 
 #+BEGIN_QUOTE
 如果你是使用 Vim 的 programmer，你可能不會每天開 Vim 寫程式；\\
 如果你是 Emacser，你每天都會把 Emacs 開著放在桌面上。
 #+END_QUOTE
+
+#+BEGIN_QUOTE
+ 如果你還是覺得啟動速度太慢，也是有幾種解決方案：
+
+ 1. 使用 [[https://github.com/jwiegley/use-package][use-package]] 來代替設定檔中的 =require= ，他能夠惰性地載入 package。
+ 2. 用 Emacs daemon，讓系統常駐一個 Emacs。
+
+ 由於兩者我目前都沒有使用過，所以也不方便介紹，有興趣的人可以自行 Google。
+
+ -- ono hiroko
+#+END_QUOTE
+
 
 ** 據說一直壓 Ctrl 很容易受傷？
 #+BEGIN_QUOTE
@@ -96,7 +108,7 @@ v- 自訂排版的簡報
 
 然而有個事實是， *Emacs 在設計時的 1970 年代，鍵盤上的 Ctrl 是在現今鍵盤的 Caps Lock 處** ，而確實我聽過周圍的 Emacs 使用者都會把 Ctrl 跟 Caps Lock 給調換過來，他們也表示比較舒服。所以如果你也遇到小指不舒服的狀況確實可以試試。
 
--- kuanyui
+-- ono hiroko
 #+END_QUOTE
 
 #+BEGIN_QUOTE
@@ -104,6 +116,13 @@ v- 自訂排版的簡報
 我使用 emacs 7 年後開始發現小拇指有點點不太舒服，所以就將 Ctrl 和 CapsLock 交換了。不過其實我覺得 CapsLock 比較好按就是了 ~
 
 -- coldnew
+#+END_QUOTE
+
+#+BEGIN_QUOTE
+個人蠻推薦將 CapsLock 直接變成 Ctrl， 讓 Shift+CapsLock 變成原本大寫切換的功能。
+因為 CapsLock 長這麼大顆、離你的小拇指比較近，而且你整天根本不會按到幾次。
+
+-- iblis
 #+END_QUOTE
 
 ** 一定要先學會 Emacs Lisp 或什麼語言嗎？
@@ -116,30 +135,35 @@ v- 自訂排版的簡報
 然而如果你想讓 Emacs 完全聽你的話，當個 Emacs 魔法師、寫你需要的外掛的話，當然就要學 Lisp 了。後面會提到入門方法。
 
 
-* 優缺點整理
+* 優缺點
+#+BEGIN_QUOTE
+筆者從學生時代每天用 Emacs 到現在工作依舊每天用也已經五年多，應該還算有一點資格分享一下這個...，此部份有許多個人觀點與個人使用經驗心得，我無法完全客觀地描述，故請容許我用第一人稱敘述。請審慎採信。
+
+  -- ono hiroko
+#+END_QUOTE
 ** 優點
-  既然已經有那麼多其他 editors 了，請給我一些非用 Emacs 不可的理由？
 
 1. Org-mode, Dired 這兩個功能至今依舊打趴其他所有編輯器。
    - 尤其 Org-mode 是至今我心目中無人能敵的超變態的筆記 + GTD + 出版軟體。（這是我當初學 Emacs 而不是 Vim 的主要理由之一）
 2. 學一套，幾乎什麼平台都能用。
-3. 可純鍵盤操作，出門沒帶滑鼠也不覺得少了什麼。
-4. 有純 CLI 界面，遠端 ssh 操作或 tty 也完全沒問題。
-5. 很多 UNIX 工具也是採用 Emacs-flavored 的 key-binding，尤其是 GNU 出品的。例如  =info= 、 =less= 、甚至  =bash= / =zsh=  的預設操作方式其實就是模仿 Emacs 的。
-6. 歷史悠久，所以很多你想得到、想不到的方便功能幾乎都有人做過。舉凡一套完整的 Terminal Emulator、[[http://kuanyui.github.io/2014/06/21/dired-tutorial-and-essential-configs/][檔案管理員]]、[[https://magit.vc/manual/magit.html][Git的前端]]  [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Serial-Terminal.html][Serial Terminal]]到 [[https://github.com/hayamiz/twittering-mode][Twitter 的 client]]。
-7. Emacs Lisp 是個頗為完整的語言，還可以順便學 Lisp。拿來做一些常用的文字處理功能甚至拋棄式程式都相當方便，隨時覺得什麼文字編輯操作不順手就順手寫一個，不需要再弄什麼外部程式，例如我自己就常常拿它來：
+3. 有 CLI 界面，可純鍵盤操作，遠端 ssh 操作或 tty 也完全沒問題。
+4. 很多 UNIX 工具也是採用 Emacs-flavored 的 key-binding，尤其是 GNU 出品的。例如  =info= 、 =less= 、甚至  =bash= / =zsh=  的預設操作方式其實就是模仿 Emacs 的。
+5. 歷史悠久，所以很多你想得到、想不到的方便功能幾乎都有人做過。舉凡一套完整的 Terminal Emulator、[[http://kuanyui.github.io/2014/06/21/dired-tutorial-and-essential-configs/][檔案管理員]]、[[https://magit.vc/manual/magit.html][Git 的前端]] 、 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Serial-Terminal.html][Serial Terminal]]到 [[https://github.com/hayamiz/twittering-mode][Twitter 的 client]]。
+6. Emacs Lisp 是個頗為完整的語言，還可以順便學 Lisp。拿來做一些常用的文字處理功能甚至拋棄式程式都相當方便，隨時覺得什麼文字編輯操作不順手就順手寫一個，不需要再弄什麼外部程式，例如我自己就常常拿它來：
    - [[https://github.com/kuanyui/writing-utils.el/blob/master/page-title.el][在貼上網址後，自動去抓網頁的標題加上去。]]
    - [[https://github.com/kuanyui/writing-utils.el/blob/master/flickr.el][貼上 Flickr 網址後，直接去抓圖片的 raw link。]]
    - [[https://github.com/kuanyui/moedict.el][查《萌典》。]]
    - [[https://github.com/kuanyui/ta.el][快速修改「她他它祂牠」這種同音字]]
    - [[https://github.com/kuanyui/hexo.el][用 Emacs 管理 Hexo 寫的 Blog]]
-8. 免費又 Open Source，不用擔心被專有軟體綁住，這是個學一次就可以用一輩子的編輯器。
+7. 免費又 Open Source，不用擔心被專有軟體綁住，這是個學一次就可以用一輩子的編輯器。
 
 ** 缺點
-Emacs 的劣勢是：
+Emacs 的一些缺點：
 
-1. 要花時間搞弄設定檔（不過前面也提過了，這點見仁見智）
-2. Emacs 在尺寸上比 Vim 肥很多。更加上設定檔的關係，不方便放進隨身碟裡到處帶著走。
-3. Ctrl、Alt 鍵磨損的速度相當快。
-4. 幾乎所有主機上都有 Vim（再怎樣也有 Vi），但不一定會有 Emacs。
-5. 參加 COSCUP 時說自己用 Emacs 會被別人用像是在看瀕臨絕種的動物的眼神看待。
+1. 要花時間搞弄設定檔，或者另外抓別人做好的設定包，並不像 VisualStudio Code 那樣開箱即可用。
+2. 不要看了一些網路上的文章拼命吹噓說 Emacs 是地表最強的 IDE 什麼的就相信了，即使「理論上」Emacs 做得到某某功能到但不代表真的有人做，或者真的做得很好。例如至少我自己現在寫 Qt C++ 或 QML 時還是乖乖開 Qt Creator。為什麼？你用一次就知道了啦...（Qt 已經寫到成精、連自動補全都不需要的人除外）。
+3. Emacs Lisp 先天的 single-threaded 限制，效率本身並不優秀（自己在寫 LESS 時開 company-mode 發現還蠻容易卡住的...這部份我沒有特別深入底層是怎麼回事，也許問題不在 single-threaded？）。
+4. Emacs 在尺寸上比 Vim 肥很多。更加上設定檔的關係，不方便放進隨身碟裡到處帶著走。
+5. 幾乎所有主機上都有 Vim（再怎樣也有 Vi），但不一定會有 Emacs。
+6. 雖然說歷史悠久套件豐富，但其實有一些很必要的套件用起來令人訝異地還是覺得處於半完成狀態。例如 jade-mode 跟 pug-mode 兩個目前用起來都蠻雷的。mmm-mode 就不用說了，很必要但目前用起來感覺最糟糕但又沒有其他更好代用品的 Emacs 套件（因為經常出問題我甚至直接綁了 =f5= 專門重新啟動 mmm-mode...）。
+7. +參加 COSCUP 甚至面試時說自己用 Emacs 會被別人用像是在看瀕臨絕種的動物的眼神看待（沒有開玩笑）。+

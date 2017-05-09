@@ -25,7 +25,7 @@ Emacs 預設只有設定 GNU ELPA，這裡推薦可以加入 MELPA repository，
 #+BEGIN_QUOTE
 我自己是一般情況用 =melpa= 套件比較多也比較新，當單一套件出問題時才改用 =melpa-stable= 。例如 =web-mode= 我就是用 stable 的，因為他新版常常爆炸。
 
--- kuanyui
+-- ono hiroko
 #+END_QUOTE
 
 
@@ -43,7 +43,7 @@ Emacs 預設只有設定 GNU ELPA，這裡推薦可以加入 MELPA repository，
 
 如果只按 =i= 來個別升級套件的話，這樣該套件的舊版的只會被標記成 =obsolete= （遺棄），當升級該套件後出問題，可以很容易的把新版 =u= 移除掉， =obsolete= 則可以補回原本的位置繼續用。
 
--- kuanyui
+-- ono hiroko
 
 #+END_QUOTE
 #+BEGIN_QUOTE
@@ -84,5 +84,5 @@ Emacs 預設只有設定 GNU ELPA，這裡推薦可以加入 MELPA repository，
 
 更細節的部份我也不懂，希望我沒講錯 orz。
 
--- kuanyui
+-- ono hiroko
 #+END_QUOTE

@@ -10,9 +10,9 @@ Emacs 是個非常吃重設定檔的編輯器，這一篇會為您解答最常�
 #+BEGIN_QUOTE
 建議把一切 Emacs 相關設定分門別類整理好存放在 =.emacs.d= 中，盡量不要全部擠到 =.emacs.d/init.el= ，因為整理起來會很麻煩。
 
-可以參考 [[https://github.com/kanru/.emacs.d][kanru]] 與 [[https://github.com/kuanyui/.emacs.d][kuanyui]] 的 =.emacs.d= 目錄結構來整理。
+可以參考 [[https://github.com/kanru/.emacs.d][kanru]] 與 [[https://github.com/kuanyui/.emacs.d][kuanyui]] (不才在下) 的 =.emacs.d= 目錄結構來整理。
 
--- kuanyui
+-- ono hiroko
 #+END_QUOTE
 
 *** 但 Windows 下， =~/= 的實際目錄到底在哪裡？」 
@@ -45,20 +45,21 @@ Emacs 是個非常吃重設定檔的編輯器，這一篇會為您解答最常�
     - 使用 =C-h m= 查詢目前的 buffer 下、啟動了哪一個 major-mode、哪些 minor-modes、以及所有可用的 key-bindings。
     - 使用 =C-h v= 查詢某個 variable 的值：
       - 例如可以查詢 =major-mode= 這個變數的值，以得知目前的 major-mode 實際上的 symbol 名稱（ *在設定 key-binding 和 hook 時需要用到這個值* ）
+    - 按任意 prefix key 後再按下 =C-h= ，可以得知目前 buffer 下，以該prefix key為開頭的所有可用的key-bindings。
 
 #+BEGIN_QUOTE
-Symbol 是 Lisp、Ruby、Erlang 等語言中有的一種資料型態，現在不懂也沒關係，我們現在只是要弄設定檔。
+Symbol 是 Lisp、Ruby、Julia 等語言中有的一種資料型態，目前不要深究也沒關係，我們現在只是要弄設定檔。
 #+END_QUOTE
 
 *** Global key
 
-    假如我覺得 =C-z= （在終端機下是暫停 Emacs）實在很沒有屁用還常常按錯，想把他改成「選取文字」（set-mark-command，原本只有綁到 =C-@= ），可以這樣做：
+    假如我覺得 =C-z= （在 console 下的作用是把 Emacs 移到背景執行）實在沒啥用還常常按錯，想把他改成「選取文字」（set-mark-command，原本只有綁到 =C-@= ），可以這樣做：
 
     #+BEGIN_SRC elisp
     (global-set-key (kbd "C-z") 'set-mark-command)
     #+END_SRC
 
-    你也可以只是把 C-z 取消成沒有用的鍵（但這樣很浪費捏）：
+    你也可以只是把 C-z 取消成沒有用的鍵，讓他變成一個 "prefix key"（詳情請見第四章）：
 
     #+BEGIN_SRC elisp
     (global-unset-key (kbd "C-z"))     
