@@ -23,8 +23,8 @@
       - =C-x C-f= 表示按住 =Ctrl= 後，再按 =xf= 。
       - =C-x k= 表示按了 =C-x= 後，放開 ，再按一下 =k=
       - =C-x RET= 表示按了 =C-x= 後，放開，再按一下 =Enter=
-    - =C-x=, =C-c=, =C-u= 這三者是前綴(prefix)組合鍵，有特殊意義，你不能單獨使用（例如你無法把某個功能綁到只按一個 =C-x= 就能達成，它會報錯）。
-            例如開檔 =C-x C-f= 、存檔 =C-x C-s= 、離開 Emacs =C-x C-c=
+    - =C-x=, =C-c=, =C-u= 這三者是前綴 (prefix，稍後詳述) 組合鍵，你不能單獨使用（例如你無法把某個功能綁到只按一個 =C-x= 就能達成，它會報錯）
+      - 例如開檔 =C-x C-f= 、存檔 =C-x C-s= 、離開 Emacs =C-x C-c=
     - =M-x= 是直接呼叫「指令名稱」。或者精確的說，「函數」(function)
     - =C-u= 是給命令加上參數時在使用的，初學不需要知道這個，以後再說 XD
 
@@ -77,8 +77,8 @@ Emacs 內建的 Undo 跟一般你在其他應用程式中所知道的 Undo 不�
 
 只要是 =M-x= 呼叫得出的 function，你都可以透過各種方法來查詢他的key-binding:
 
-    - 使用 =C-h f= 查詢某 function 的用途、文件與該 function 所有的 key-binding 等資訊。
-    - 使用 =C-h m= 查詢目前的 buffer 下、啟動了哪一個 major-mode、哪些 minor-modes、以及所有可用的 key-bindings。
+    - 使用 =C-h f= 查詢某 function 的用途、文件與該 function *在目前的 buffer 中* 所 bind 到的 key-binding 等資訊。
+    - 使用 =C-h m= 查詢 *在目前的 buffer 中* 、啟動了哪一個 major-mode、哪些 minor-modes、以及所有可用的 key-bindings。
     - 按任意 prefix key 後再按下 =C-h= ，可以得知目前 buffer 下，以該prefix key為開頭的所有可用的key-bindings。例如按下 =C-x C-h= 你可以看到類似這樣的東西：
 
 #+BEGIN_EXAMPLE
@@ -168,7 +168,7 @@ C-x C-r         helm-recentf
       - 切換到不同的 Frame： =C-x 5 o=
       - 將目前以外的 Frame 關掉: =C-x 5 1=
       - 新增 Frame: =C-x 5 2=
- 
+
 
 #+BEGIN_QUOTE
 為什麼還要設計 Buffer 這種東西搞得那麼複雜？其實這種特性非常好用也非常常用，由於 Window 與 Buffer 的概念是分開的，所以可以 *開多個 Window，且每個 Window 都顯示同個 Buffer* ，代表你可以同時開多個 Window，同時看「一個檔案的不同部份」，不管是寫文章或寫程式時都非常方便。

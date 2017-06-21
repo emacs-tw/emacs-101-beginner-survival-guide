@@ -1,4 +1,4 @@
-自訂快速鍵前，尤其自訂遇到問題時，務必先詳讀此篇概念。
+Key-binding（通常翻譯成「按鍵綁定」，或你可能比較熟悉的「快速鍵」） 是操作 Emacs 最重要的管道。使用快速鍵、自訂快速鍵前，尤其自訂遇到問題時，務必先詳讀此篇概念。
 
 #+BEGIN_QUOTE
 章節順序安排無法避免地有點矛盾：這一章請跟第五章的設定檔部份一起參照閱讀。我再想想要怎麼排會更好。
@@ -6,31 +6,59 @@
 -- ono hiroko
 #+END_QUOTE
 
-* TTY / Terminal / Console 中使用 Emacs 發現按鍵一堆問題？
+* 快速鍵綁定 Key-binding
 
-這部份太長太雞掰了，對於跟我一樣神經病喜歡用終端機板Emacs的人，請見 [[file:附錄B-終端機下的Emacs.org][附錄B-終端機下的Emacs.org]]。
+只要是 =M-x= 呼叫得出的 function，你都可以重新綁定成你自己喜歡的按鍵，稱作 *key-binding* 。分成兩種，一種是全域 Global-key，一種是 mode 自訂的 Local-key。
 
-* 不成文的 key-binding 慣例
-一開始你應該會覺得 Emacs 的 key-binding 很難記，怎麼各種 mode 都有不同按鍵。然而其實有很多常見功能是有慣例可尋的。以下舉出幾個範例：
+    - 使用 =C-h f= (f 代表 function) 查詢某 function 的用途、文件與該 function 所有的 key-binding 等資訊。
+    - 使用 =C-h k= (k 代表 key-binding)、再按下任意 key-binding，可以查詢其 key-binding 在目前 buffer 下所綁定到的 function。
+    - 使用 =C-h m= (m 代表 mode) 查詢目前的 buffer 下、啟動了哪一個 major-mode、哪些 minor-modes、以及所有可用的 key-bindings。
+    - 使用 =C-h v= (v 代表 variable) 查詢某個 variable 的值：
+      - 例如可以查詢 =major-mode= 這個變數的值，以得知目前的 major-mode 實際上的 symbol 名稱（ *在設定 key-binding 和 hook 時需要用到這個值* ）
+    - 按任意 prefix key 後再按下 =C-h= ，可以得知目前 buffer 下，以該prefix key為開頭的所有可用的key-bindings。
 
-| 按鍵      | 功能                         | 範例                                            |
-|-----------+------------------------------+-------------------------------------------------|
-| =q=       | 關閉 buffer                  | Dired, Package, IBuffer, Magit                  |
-| =g=       | 畫面重新整理/更新            | Dired, Package, IBuffer, Magit                  |
-| =^=       | 回到上一層目錄               | Dired, Info,                                    |
-|-----------+------------------------------+-------------------------------------------------|
-| =D=       | 刪除                         | Dired, Package, IBuffer                         |
-| =d=       | 標記為刪除（但尚未真的刪除） | Dired, Package, IBuffer                         |
-| =x=       | 將標記為刪除的項目刪掉       | Dired, Package, IBuffer                         |
-| =m=       | 標記項目                     | Dired, IBuffer                                  |
-| =u=       | 取消標記項目                 | Dired, IBuffer                                  |
-|-----------+------------------------------+-------------------------------------------------|
-| =C-c C-c= | 編譯/執行                    | python-mode, lisp-mode, haskell-mode            |
-|           | 套用編輯/送出                | Magit, Message, twittering-mode                 |
-| =C-c C-z= | 開一個 interpreter           | python-mode, ruby-mode, lisp-mode, haskell-mode |
+#+BEGIN_QUOTE
+Symbol 是 Lisp、Ruby、Julia 等語言中有的一種資料型態，目前不要深究也沒關係，我們現在只是要弄設定檔。
+#+END_QUOTE
+
+** Global key
+
+   假如我覺得 =C-z= （在 console 下的作用是把 Emacs 移到背景執行）實在沒啥用還常常按錯，想把他改成「選取文字」（set-mark-command，原本只有綁到 =C-@= ），可以這樣做：
+
+   #+BEGIN_SRC elisp
+   (global-set-key (kbd "C-z") 'set-mark-command)
+   #+END_SRC
+
+   你也可以只是把 C-z 取消成沒有用的鍵，讓他變成一個 "prefix key"（詳情請見第四章）：
+
+   #+BEGIN_SRC elisp
+   (global-unset-key (kbd "C-z"))
+   #+END_SRC
+
+** Local key
+
+    不管是 Major 或 Minor mode，都有自己的 local key (keymap)。Local-key 只在你指定的 mode 下有用。
+    例如，你希望在 Twitter 的 Emacs client =Twittering-mode= 下，按大寫 =U= 可以顯示自己的 timeline，可以使用 =define-key= ：
+
+    #+BEGIN_SRC elisp
+    (define-key twittering-mode-map (kbd "U") ’ twittering-user-timeline)
+    #+END_SRC
+
+    *各個 mode 儲存 key-bindings 的變數一律是 「該 mode 的正式名稱 + =-map= 」* 。例如名稱叫 =twittering-mode=  的 major mode，他的 key-map 就是 =twittering-mode-map= 。這是規則，記下來就對了。
+
+    #+BEGIN_QUOTE
+    查 mode 的正式名稱最快的方式：
+    - =C-h v= =major-mode= 可以查詢目前 buffer 下 major mode 的正式名稱
+    - =C-h v= =minor-mode-list= 查詢目前 buffer 下所有啟動的 minor mode 的正式名稱
+    #+END_QUOTE
+
+    Key 的設定是 *新的會直接覆蓋舊的* ，在 init.el 有時要注意這點，否則會發現為何自己的 global-key 設定沒有生效，才發現自己原來之前設定過同樣設定。（因為 Emacs Lisp 是直譯式，init.el 的設定是從第一行一行一行執行到檔案尾端，所以後面的設定會蓋掉前面的。例如你改了兩次的 =C-@= 就會發生這種情形）
 
 * 設定按鍵的規則
 設定按鍵時有一些注意事項：
+
+** 小心 local key-binding 優先於 global key-binding
+在同個 buffer 下，當一個 key-binding 同時被設為 global key 與 local key 時，local key 會被優先採用。
 
 ** 小心後者設定會蓋掉前者。
 假如你在設定檔裡面放入：
@@ -40,7 +68,7 @@
 #+END_SRC
 你會發現最後 =C-r= 執行的是第二行的 =recentf-open-files= 。所以當你納悶為何定義快速鍵沒用時，檢查一下是否重複設定了。
 
-** 小心 Amibigious 
+** 小心 Amibigious
 來看範例，假如你在設定檔裡放入這兩行：
 #+BEGIN_SRC elisp
 (global-set-key (kbd "C-c m") 'moedict)
@@ -80,7 +108,7 @@
 -- ono hiroko
 #+END_QUOTE
 
-*** 自訂 Prefix key
+*** 如何自訂 Prefix key
 
 如果我們要「組合技」，就一定要prefix key。因為所有組合技的開頭一定是一個prefix key。（否則就會直接執行該按鍵的命令了）
 
@@ -100,7 +128,7 @@
 
 ** Prefix Argument (=C-u=, Universal Argument)
 
-=C-u= prefix 在 Emacs 裡稱作 *universal-argument* ，又常稱為 *prefix argument* ，很多指令在呼叫前，先按一下 =C-u= ，會提供 *與預設行為相關、但不完全相同的功能。* 
+=C-u= prefix 在 Emacs 裡稱作 *universal-argument* ，又常稱為 *prefix argument* ，很多指令在呼叫前，先按一下 =C-u= ，會提供 *與預設行為相關、但不完全相同的功能。*
 
 因此， =C-u= 也跟 =C-x= 和 =C-c= 一樣，你無法單獨使用。
 
@@ -155,6 +183,25 @@ Emacs 裡面也可以這樣，其實就是透過 =C-u= prefix。當命令並沒�
    }
    #+END_SRC
 
+* 不成文的 key-binding 慣例
+一開始你應該會覺得 Emacs 的 key-binding 很難記，怎麼各種 mode 都有不同按鍵。然而其實有很多常見功能是有慣例可尋的。以下舉出幾個範例：
+
+| 按鍵      | 功能                         | 範例                                            |
+|-----------+------------------------------+-------------------------------------------------|
+| =q=       | 關閉 buffer                  | Dired, Package, IBuffer, Magit                  |
+| =g=       | 畫面重新整理/更新            | Dired, Package, IBuffer, Magit                  |
+| =^=       | 回到上一層目錄               | Dired, Info,                                    |
+|-----------+------------------------------+-------------------------------------------------|
+| =D=       | 刪除                         | Dired, Package, IBuffer                         |
+| =d=       | 標記為刪除（但尚未真的刪除） | Dired, Package, IBuffer                         |
+| =x=       | 將標記為刪除的項目刪掉       | Dired, Package, IBuffer                         |
+| =m=       | 標記項目                     | Dired, IBuffer                                  |
+| =u=       | 取消標記項目                 | Dired, IBuffer                                  |
+|-----------+------------------------------+-------------------------------------------------|
+| =C-c C-c= | 編譯/執行                    | python-mode, lisp-mode, haskell-mode            |
+|           | 套用編輯/送出                | Magit, Message, twittering-mode                 |
+| =C-c C-z= | 開一個 interpreter           | python-mode, ruby-mode, lisp-mode, haskell-mode |
+
 * 應該直接習慣 =C-p= / =C-n= / =C-f= / =C-b= 的游標移動方法嗎?
 #+BEGIN_QUOTE
 我個人覺得這根本難按死了！我自己是直接按方向鍵的。
@@ -163,3 +210,6 @@ Emacs 裡面也可以這樣，其實就是透過 =C-u= prefix。當命令並沒�
 -- ono hiroko
 #+END_QUOTE
 
+* TTY / Terminal / Console 中使用 Emacs 發現按鍵一堆問題？
+
+這部份太長太雞掰了，對於跟我一樣神經病喜歡用終端機板Emacs的人，請見 [[file:附錄B-終端機下的Emacs.org][附錄B-終端機下的Emacs.org]]。
