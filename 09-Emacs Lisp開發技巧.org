@@ -72,10 +72,10 @@ Emacs Lisp 中可以使用 =macroexpand= 來展開一個 macro，以 =defun= 為
 Emacs 有內建一個 Emacs Lisp debugger 叫做 =edebug= ，最常見的用法是拿來給一個 function 除錯：
 
 1. 游標移動到一個 =(defun ...)= 的結尾
-2. =M-x edebug-defun= 
+2. =M-x edebug-defun=
 3. 在下一次執行該 function 時，該 function 將會變成一個一個 sexp 按順序執行。
    - 按 =SPC= 來執行下一個 sexp
-   - 按 =q= 離開 =edebug= 
+   - 按 =q= 離開 =edebug=
 4. 再次用一般方法 eval (=C-x C-e=) 該 function，即會恢復回正常狀態。
 
 ** 顯示所有錯誤訊息
@@ -109,7 +109,7 @@ Emacs 有內建一個 Emacs Lisp debugger 叫做 =edebug= ，最常見的用法�
 
 * Paren
 
-- 務必設定括號突顯；「 *沒有這個你根本不可能寫 Lisp* 」，語出 Paul Graham。
+- 務必設定括號突顯；「 *沒有這個你根本不可能寫 Lisp* 」，語出 [[http://acl.readthedocs.io/en/latest/zhTW/ch2.html#lisp-reading-lisp][Paul Graham (ANSI Common Lisp 第二章)]]。
 
 #+BEGIN_SRC elisp
   (show-paren-mode t)
@@ -121,7 +121,7 @@ Emacs 有內建一個 Emacs Lisp debugger 叫做 =edebug= ，最常見的用法�
 -  有個終極的 Lisp 括號編輯工具叫做 =paredit= ，需另外安裝，熟悉的話可以使編輯括號變得更有效率，[[http://youtu.be/D6h5dFyyUX0][操作起來就跟變魔術一樣]]。 似乎有很多人喜歡用這個，只是不好學。我自己是沒在用，詳情可自行 Google。
 
 #+BEGIN_QUOTE
-到目前為止嘗試了不少 Emacs 外掛，我發現我自己是不太偏好「聰明過頭」了的設計...例如 helm, ido, icicles, auto-indent 這類的。 
+到目前為止嘗試了不少 Emacs 外掛，我發現我自己是不太偏好「聰明過頭」了的設計...例如 helm, ido, icicles, auto-indent 這類的。
 -- ono hiroko
 #+END_QUOTE
 
@@ -132,6 +132,3 @@ Emacs 有內建一個 Emacs Lisp debugger 叫做 =edebug= ，最常見的用法�
 另外，大中小括弧，還有 pipe =|= 全部都得 escape 掉，不然會被解釋成普通文字而沒有任何 regexp 上的特殊意義。（我不知道為什麼 Emacs Lisp 的 regexp 要這樣設計） 以 Python 為例，我們在要 group match 時原本是寫成 =(.+?)= ，在 Emacs Lisp 中就得寫成 =\\(.+?\\)= （之前就是不知道這點，浪費了很多時間和腦細胞），
 
 -  要寫 Emacs 的 Regexp 時，務必嘗試看看  =M-x re-builder=  ，即時比對 pattern 非常方便。
-
-
-
