@@ -75,11 +75,12 @@ Emacs 內建的 Undo 跟一般你在其他應用程式中所知道的 Undo 不�
 
 #+BEGIN_QUOTE
 除了檔案內容可以 undo，window 的操作（就是 =C-x 0=  =C-x 1=  =C-x 2=  =C-x 3= 那些東西啦）也可以！啟用 Emacs 內建的 =winner.el=:
-#+BEGIN_QUOTE
+#+BEGIN_SRC lisp
 ;; Make window state undo-able
 (require 'winner)
 (winner-mode 1)
-#+END_QUOTE
+#+END_SRC
+
 現在可以用 =C-c C-right/left= 來 undo / redo 你的 window 狀態。
 #+END_QUOTE
 
@@ -172,6 +173,9 @@ C-x C-r         helm-recentf
       - 將目前以外的所有 Window 關掉： =C-x 1=
       - 將目前的 Window 分成上下兩塊： =C-x 2=
       - 將目前的 Window 分成左右兩塊： =C-x 3=
+#+BEGIN_QUOTE
+為什麼還要設計 Buffer 這種東西搞得那麼複雜？其實這種特性非常好用也非常常用，由於 Window 與 Buffer 的概念是分開的，所以可以 *開多個 Window，且每個 Window 都顯示同個 Buffer* ，代表你可以同時開多個 Window，同時看「一個檔案的不同部份」，不管是寫文章或寫程式時都非常方便。
+#+END_QUOTE
 
 **** Frame
     - 關掉目前 Frame: =C-x 5 0= ，跟 Window 一樣，關掉 Frame 並不會把 Buffer 一起關掉，因為 Frame 本身只是用來存 Window 的 layout 而已。關了 Frame 也只是把這個 Window layout 扔掉。
@@ -180,7 +184,9 @@ C-x C-r         helm-recentf
       - 新增 Frame: =C-x 5 2=
 
 #+BEGIN_QUOTE
-為什麼還要設計 Buffer 這種東西搞得那麼複雜？其實這種特性非常好用也非常常用，由於 Window 與 Buffer 的概念是分開的，所以可以 *開多個 Window，且每個 Window 都顯示同個 Buffer* ，代表你可以同時開多個 Window，同時看「一個檔案的不同部份」，不管是寫文章或寫程式時都非常方便。
+有一點要注意：因為我很少用 GUI 版，我後來才發現 GUI 和 console 版的 Frame 行為不同， GUI下 =C-x 5 2= 其實會新開一個 Emacs 視窗...我自己是不喜歡這樣，我是不知道有沒有辦法讓 GUI 下的frame 行為跟 console 下一樣啦。[[https://emacs.stackexchange.com/questions/34576/how-to-use-multiple-frame-c-x-5-2-within-only-one-systems-window-in-gui-ema][我問過這個問題不過好像無解]]， 除非用第三方package像是elscreen來達成類似的事情（我試用了一下， elscreen 做的事情跟 frame 有 87% 像，在GUI下也可以保持單一主視窗，而且還多一個可以開關的tab bar來切換frame）。
+
+-- ono hiroko
 #+END_QUOTE
 
 ** 什麼是 Mode？Major-mode 跟 Minor-mode 又差在哪？
