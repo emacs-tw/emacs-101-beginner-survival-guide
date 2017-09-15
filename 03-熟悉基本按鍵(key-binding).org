@@ -83,7 +83,7 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 - =C-x 5 o= 切換到不同的 Frame
 
 #+BEGIN_QUOTE
-我用了快五年 Emacs 才發現這幾個命令有多麼實用！我現在甚至讓 F11, F12 專門拿來切換 Frame：
+我用了快五年 Emacs 才發現這幾個 Frame 相關命令有多麼實用（不知道這啥的話請重看第二章，詳細解釋Buffer/Window/Frame的差異）！我現在甚至讓 F11, F12 專門拿來切換 Frame：
 #+BEGIN_SRC lisp
 (global-set-key (kbd "<f11>") (lambda () (interactive) (other-frame 1)))
 (global-set-key (kbd "<f12>") (lambda () (interactive) (other-frame -1)))

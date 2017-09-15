@@ -63,7 +63,7 @@ Emacs 就是成千上萬個 Lisp function 跟一堆 variable 所構成， 並靠
 當你清楚意識並理解到這點後，往後很多 Emacs 的行為你會豁然開朗，尤其是你在學 Emacs Lisp 時，這是很重要的概念。這也是一個蠻實用的特性，因為你可以極為容易地寫出一些臨時需要的 function 做出一些快速的編輯功能。
 
 
-** 我剛剛不知動到什麼操作了，要怎麼退出？
+** 我剛剛不知動到什麼操作了，要怎麼取消？
 
    操作遇到問題想取消，狂按幾下 =C-g= 就對了，就像你在 Bash/Zsh 下狂按 =C-c= 一樣。
 
@@ -71,6 +71,16 @@ Emacs 就是成千上萬個 Lisp function 跟一堆 variable 所構成， 並靠
 
 #+BEGIN_QUOTE
 Emacs 內建的 Undo 跟一般你在其他應用程式中所知道的 Undo 不一樣，而且不太好理解。可以參考 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Undo.html]] ，詳情[[03-熟悉基本按鍵(key-binding).org][稍後]]會再解釋。
+#+END_QUOTE
+
+#+BEGIN_QUOTE
+除了檔案內容可以 undo，window 的操作（就是 =C-x 0=  =C-x 1=  =C-x 2=  =C-x 3= 那些東西啦）也可以！啟用 Emacs 內建的 =winner.el=:
+#+BEGIN_QUOTE
+;; Make window state undo-able
+(require 'winner)
+(winner-mode 1)
+#+END_QUOTE
+現在可以用 =C-c C-right/left= 來 undo / redo 你的 window 狀態。
 #+END_QUOTE
 
 ** 有沒有什麼方法查詢function的key-binding啊？
@@ -168,7 +178,6 @@ C-x C-r         helm-recentf
       - 切換到不同的 Frame： =C-x 5 o=
       - 將目前以外的 Frame 關掉: =C-x 5 1=
       - 新增 Frame: =C-x 5 2=
-
 
 #+BEGIN_QUOTE
 為什麼還要設計 Buffer 這種東西搞得那麼複雜？其實這種特性非常好用也非常常用，由於 Window 與 Buffer 的概念是分開的，所以可以 *開多個 Window，且每個 Window 都顯示同個 Buffer* ，代表你可以同時開多個 Window，同時看「一個檔案的不同部份」，不管是寫文章或寫程式時都非常方便。
