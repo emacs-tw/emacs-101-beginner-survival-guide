@@ -101,6 +101,11 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 - =M-g M-g= 跳到第 N 行。
 - =M-<= 跳到文件最頂端。
 - =M->= 跳到文件最尾端。
+**** Programming 相關游標移動
+這兩個比較特殊的游標移動，你可以自己試試看不同程式語言的 mode 中這些代表什麼意思，蠻常用到的。
+
+- =C-M-b= 跳到上一個 S-expression / 上一個 token
+- =C-M-f= 跳到下一個 S-expression / 下一個 token
 
 *** 畫面捲動
 - =C-v= 向下捲動一頁
@@ -128,21 +133,21 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 #+END_QUOTE
 
 ** Kill-ring 相關
-   
+
 *** 刪除（Kill）
-- =C-k= 從目前游標 kill 到行尾（並將被 kill 掉的部份丟入 kill-ring） 
+- =C-k= 從目前游標 kill 到行尾（並將被 kill 掉的部份丟入 kill-ring）
 - =M-k= 從目前游標 kill 到一句話的尾端。
 
 - =C-d= kill 目前游標下的字元
 - =M-d= 從目前游標 kill 到下一個 空格 or 標點符號 or 行尾
-  
+
 *** 選取區域操作
-    
+
 - =C-@= 標記選取範圍。
 - =C-x C-x= 跳到選取範圍的開頭/尾端。
 - =M-w= 複製目前選取區域。
 - =C-w= 剪下目前選取區域。
-  
+
 *** 貼上（Yank）
 - 按 =C-y= 可以把最近一次被 Kill 掉的文字從 Kill-ring 給「拉 (Yank) 」出來。
 - 再按 N 下 =M-y= 可以把前 N 次被 Kill 掉的文字從 Kill-ring 中「拉」出來。
@@ -153,8 +158,8 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
 我個人覺得最神奇的，就是在我用 Emacs 一段時間後，赫然發現 *「Bash 和 Zsh 中是可以使用 kill-ring 的！」* 試試看就知道我在說什麼了，真的非常方便。尤其如果你已經很熟悉 Emacs 的操作，那往後在使用 Bash/Zsh 時你會發現比以往更如魚得水。
 
 -- ono hiroko
-#+END_QUOTE  
-  
+#+END_QUOTE
+
 ** Undo/Redo
 - =C-/= 或 =C-_= : 復原（Undo）。
 - 先按 =C-g= 再按 undo：Redo。
@@ -176,7 +181,7 @@ Emacs = Esc + Meta + Alt + Ctrl + Super
   6.再按一次undo，又回到最一開始的0.[空白buffer無法再undo]
 #+END_EXAMPLE
 
-重點在步驟 =5.= 
+重點在步驟 =5.=
 
 Vim 聽說也是這樣，所以 Vimmer 應該能了解。
 
@@ -203,8 +208,8 @@ Vim 聽說也是這樣，所以 Vimmer 應該能了解。
 *** 英文大小寫
 - =M-l= 單字轉成全小寫。
 - =M-u= 單字轉成全大寫。
-- =M-c= 單字轉首字大寫。 
-  
+- =M-c= 單字轉首字大寫。
+
 #+BEGIN_QUOTE
 這個功能看似雞肋，不過我還蠻常用的。
 
@@ -215,17 +220,9 @@ Vim 聽說也是這樣，所以 Vimmer 應該能了解。
 *** 交換
 - =C-t= 前後字元交換。
 - =M-t= 前後單字交換。
-  
+
 #+BEGIN_QUOTE
 規則很難解釋，自己多試用幾次看看就會懂了。熟悉後我發現這個功能出乎意料的實用。
 
 -- ono hiroko
 #+END_QUOTE
-
-
-
-** Lisp 相關
-如果你常寫 Lisp，記住這個還蠻好用的。
-
-- =C-M-f= 跳到下一個 S-expression
-- =C-M-b= 跳到前一個 S-expression
