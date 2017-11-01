@@ -33,7 +33,7 @@ Emacs 已經有三、四十年的歷史，累積了成千上萬個套件，該�
 
 
 #+BEGIN_QUOTE
-從前有一個人原本用 Emacs，但後來卻跑去用 Vim 了，原因是他搞丟了他的 Emacs 設定檔 ，那個人叫做 Tim O'Reilly...
+從前有一個人原本用 Emacs，但後來卻跑去用 Vim 了，原因是他搞丟了他的 Emacs 設定檔 ，那個人叫做 Tim O'Reilly... [出處](http://archive.oreilly.com/pub/a/oreilly/ask_tim/1999/unix_editor.html)
 #+END_QUOTE
 
 設定檔是每個 Emacser 最重要的寶物，記得備份千萬不要搞丟了，或者可以的話把整個 =.emacs.d= 給版本控制然後丟到 Github 最好！
