@@ -92,3 +92,11 @@ Emacs 是個非常吃重設定檔的編輯器，這一篇會為您解答最常�
 #+BEGIN_QUOTE
 順帶一提， =prog-mode= 是 programming 相關的絕大部分 major-mode 的 parent mode（例如 =python-mode= , =perl-mode=, =ruby-mode= ...等等都是屬於 =prog-mode= ，他們都會繼承 =prog-mode= 的設定），所以你可以使用 =(add-hook  'prog-mode-hook ...)= 之類的方式來自訂你想要的東西，而不用分別自訂各種程式語言的 mode，各種 mode 會自己繼承設定。
 #+END_QUOTE
+
+#+BEGIN_QUOTE
+除了各個 minor-mode / major-mode 可以加 hook 外，Emacs 還有一些標準 hooks (Standard Hooks) 也是很常用到的（ =add-hook= 用法完全同上），例如：
+- 檔案儲存前/後的 =before-save-hook= 與 =after-save-hook=
+- 關閉 buffer 前的 =kill-buffer-hook=
+- 離開 Emacs 前的 =kill-emacs-hook=
+[[https://www.gnu.org/software/emacs/manual/html_node/elisp/Standard-Hooks.html][Standard hooks 的完整列表請參閱官方文件]]。
+#+END_QUOTE

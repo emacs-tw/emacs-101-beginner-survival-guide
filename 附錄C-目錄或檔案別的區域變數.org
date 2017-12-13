@@ -1,0 +1,277 @@
+* 附錄 C-目錄或檔案別的區域變數
+這本書不斷強調「Emacs 是一個剛好具有文字編輯功能的 Lisp 環境」，以及「變數」對這個 Lisp 環境的影響。在 Emacs 中，除了最底層的 C 寫的部份外，其餘一切設定都是透過修改各種 variables 來達到。
+
+前面講到，我們可以透過各種 =add-hook= 與各個 mode 自身的 hook，來在啟動 mode 時做出一些特殊的自訂一行為，然而 mode 的 hook 只能根據 mode 的不同來做出自訂。
+
+其實，Emacs 也能夠把設定檔寫在特定目錄、甚至檔案內，當你用 Emacs 打開該目錄/檔案時，自動執行那些設定。
+
+你可能聽過 [[http://editorconfig.org/][.editorconfig]] ，這是一個跨 editor 的通用「規範」:
+
+#+BEGIN_QUOTE
+1. 首先你的編輯器 / IDE 必須先安裝 EditorConfig 的外掛。
+2. 在你的軟體專案目錄中加入特殊的 =.editorconfig= 設定檔，可以設定諸如 Python 要用空格還是 tab 來縮排、檔案要用什麼 encoding、[[https://zh.wikipedia.org/wiki/%E6%8F%9B%E8%A1%8C][斷行要用 Unix-style 還是 Windows-style]] 等等。
+2. 以後只要打開含有 =.editorconfig= 的子目錄中的檔案，編輯器就會根據設定檔中的設定做出不同行為。
+#+END_QUOTE
+
+Emacs 自身也有類似 EditorConfig 這樣的機制，缺點當然是只有 Emacs 自己支援，不過優點是你可以做出 EditorConfig 做不到的事情 --- 修改 Emacs 的 local variable。
+
+有兩種機制，以下分別簡述：
+
+** Directory Local Variables
+#+BEGIN_QUOTE
+詳細說明可以看官方文件：[[https://www.gnu.org/software/emacs/manual/html_node/emacs/Directory-Variables.html][Directory Variables - GNU Emacs Manual]]
+#+END_QUOTE
+
+直接看範例。假設在 =~/hello/= 目錄中加入一個檔案叫做 =.dir-locals.el= ，內容如下
+
+#+BEGIN_SRC elisp
+(   ;; nil 表示不理會 mode，所有 buffer 都通用
+    (nil . ((indent-tabs-mode . t)  ; 把變數 indent-tabs-mode 設定為 t，（作用是縮排會用 tab 而不是 space）
+            (fill-column . 80)))  ; 把變數 fill-column 設定為 80（作用是 M-q 會在每一行的第 80 字元處換行）
+
+    ;; js2-mode 顧名思義，就是只有 js2-mode 時才會套用以下設定。
+    (js2-mode . ((js2-strict-missing-semi-warning . nil)))  ; （作用是讓 js2-mode 不要檢查分號）
+)
+#+END_SRC
+
+#+BEGIN_QUOTE
+你可能會好奇上面那堆 =.= 是什麼鬼，那個是 Lisp 語言中叫做 =dotted pair= 的標記語法，跟 Emacs 本身沒啥關係，雖然你不太需要知道，但想了解的人可以去學 Lisp。
+#+END_QUOTE
+
+然後， 試著 =C-x C-f= 到 =~/hello/= 或其底下的任何檔案或子目錄，你會看到 Emacs 跑出類似這樣的畫面：
+
+#+BEGIN_EXAMPLE
+The local variables list in /Users/onohiroko/hello/
+contains values that may not be safe (*).
+
+Do you want to apply it?  You can type
+y  -- to apply the local variables list.
+n  -- to ignore the local variables list.
+!  -- to apply the local variables list, and permanently mark these
+      values (*) as safe (in the future, they will be set automatically.)
+
+  * js2-strict-missing-semi-warning : nil
+#+END_EXAMPLE
+
+這個意思是說，Emacs 發現 =/Users/onohiroko/hello/= 有 =.dir-locals.el= 這個檔案，裡面有設定 local variable，其中有些「可能有安全性風險的變數設定」，問你是否真的要套用這些變數？這裡按下 =!= ，「套用且記住這個選擇」。
+
+#+BEGIN_QUOTE
+說是可能有安全性風險，但...其實現在看起來大多只是寫第三方 package 的人沒在特別標註哪寫 variable 是 safe 而已，如果那是你自己設定的那就放心按下 =!= 吧。
+#+END_QUOTE
+
+以後，用 Emacs 打開 =~/hello/= 底下的任何檔案與目錄都會自動套用上述 =nil= 中的變數設定、 如果其中的檔案還有啟動 =js2-mode= 的話，還會額外套用 =(js2-strict-missing-semi-warning . nil)= 這條變數設定。
+
+#+BEGIN_QUOTE
+寫在 =.dir-locals.el=  中的設定，預設都是套用至該目錄以及所有子目錄（會 recursive）。如果你不要 recursive、只想套用到 =.dir-locals.el= 所在的那一層就好，只要在 variables 列表中加上 =(subdirs . nil)=，像這樣：
+#+BEGIN_SRC elisp
+  (
+   (nil . ((subdirs . nil)
+           (indent-tabs-mode . t)
+           (fill-column . 80)))
+   )
+#+END_SRC
+#+END_QUOTE
+
+
+然而這種列表寫法只能設定「靜態」的變數，也就是說無法用 =((nil . ((fill-column . (* 7 7)))))= 這種寫法把 =fill-column= 設定成七七四十九。要做到這樣的話，就必須用 =eval=:
+
+#+BEGIN_SRC elisp
+(
+   (nil . ((indent-tabs-mode . t)
+           (eval . (setq fill-column (* 8 8)))))
+)
+#+END_SRC
+
+這樣就可以自由寫出各種具有彈性的設定了。甚至也可以做出啟動 mode 這種事情：
+
+#+BEGIN_SRC elisp
+;; progn 是 Lisp 語言內的東西，跟 Emacs 無關，不應該在這裡解釋，如果你真的想了解，請讀 ANSI Common Lisp
+(
+   (nil . ((indent-tabs-mode . t)
+           (eval . (progn
+                       (setq fill-column (* 8 8))
+                       (hl-line-mode 1)        ; 啟動 hl-line-mode
+                       (company-mode -1)))))   ; 關掉 company-mode
+)
+#+END_SRC
+
+
+#+BEGIN_QUOTE
+剛才跳出那個畫面，按了 =!= 後到底會發生什麼事？如果你現在跑去看 =~/.emacs.d/init.el= ，你就會發現多了一串長得類似這樣的鬼東西：
+#+BEGIN_SRC elisp
+(custom-set-variables
+ ;; custom-set-variables was added by Custom.
+ ;; If you edit it by hand, you could mess it up, so be careful.
+ ;; Your init file should contain only one such instance.
+ ;; If there is more than one, they won't work right.
+ '(safe-local-variable-values
+   (quote
+    (
+     (js2-strict-missing-semi-warning)))))
+#+END_SRC
+
+簡單講就是...把 =js2-strict-missing-semi-warning= 這個變數標記為「安全」啦，以後 Emacs 再遇到你在其他 directory 設定這個變數，他就不會再提出上面那樣的警告。
+
+也就是說，用一用，你就會發現 .init.el 裡面這個清單越來越長、長到比公立高中運動會時校長和國民黨黨部主委等等長官的致詞還長、長到比罷免黃國昌的宣傳車用大聲公撥送的的低能弱智又機掰的罷免理由還長、長到比蔡英文辯論時的低能空話還長、長到比賴功德的幹話還長的噁心東西。例如我有段時間一直在搞弄該死的 Python venv 支援，用到了 =eval= 。從小爸媽都告訴我們 eval 是很 evil 的果然不錯，這個清單就變成下面這個樣子：
+
+#+BEGIN_SRC elisp
+ '(safe-local-variable-values
+   (quote
+    ((eval progn
+           (setq python-environment-virtualenv
+                 (quote
+                  ("virtualenv" "--quiet")))
+           (setq python-environment-directory
+                 (concat
+                  (file-truename
+                   (locate-dominating-file default-directory "./venv/"))
+                  "venv/"))
+           (setq jedi:environment-root
+                 (concat
+                  (file-truename
+                   (locate-dominating-file default-directory "./venv/"))
+                  "venv/"))
+           (setq jedi:server-command
+                 (concat
+                  (file-truename
+                   (locate-dominating-file default-directory "./venv/"))
+                  "venv/bin/jediepcserver"))
+           (setq flycheck-python-flake8-executable
+                 (concat
+                  (file-truename
+                   (locate-dominating-file default-directory "./venv/"))
+                  "venv/bin/flake8")))
+     (eval progn
+           (setq python-environment-default-root-name ".")
+           (setq python-environment-directory
+                 (concat
+                  (file-truename
+                   (locate-dominating-file default-directory "./venv/"))
+                  "venv/"))
+           (setq jedi:environment-root
+                 (concat
+                  (file-truename
+                   (locate-dominating-file default-directory "./venv/"))
+                  "venv/"))
+           (setq jedi:server-command
+                 (concat
+                  (file-truename
+                   (locate-dominating-file default-directory "./venv/"))
+                  "venv/bin/jediepcserver"))
+           (setq flycheck-python-flake8-executable
+                 (concat
+                  (file-truename
+                   (locate-dominating-file default-directory "./venv/"))
+                  "venv/bin/flake8")))
+     (eval progn
+           (setq python-environment-directory
+                 (concat
+                  (file-truename
+                   (locate-dominating-file default-directory "./venv/"))
+                  "venv/"))
+           (setq jedi:environment-root
+                 (concat
+                  (file-truename
+                   (locate-dominating-file default-directory "./venv/"))
+                  "venv/"))
+           (setq jedi:server-command
+                 (concat
+                  (file-truename
+                   (locate-dominating-file default-directory "./venv/"))
+                  "venv/bin/jediepcserver"))
+           (setq flycheck-python-flake8-executable
+                 (concat
+                  (file-truename
+                   (locate-dominating-file default-directory "./venv/"))
+                  "venv/bin/flake8")))
+     (eval progn
+           (setq python-environment-directory
+                 (concat
+                  (file-truename
+                   (locate-dominating-file default-directory "./venv/"))
+                  "venv/"))
+           (setq jedi:environment-root
+                 (concat
+                  (file-truename
+                   (locate-dominating-file default-directory "./venv/"))
+                  "venv/"))
+           (setq jedi:server-command
+                 (concat
+                  (file-truename
+                   (locate-dominating-file default-directory "./venv/"))
+                  "venv/bin/flake8"))
+           (setq flycheck-python-flake8-executable
+                 (concat
+                  (file-truename
+                   (locate-dominating-file default-directory "./venv/"))
+                  "venv/bin/flake8")))
+     (eval progn
+           (setq python-environment-directory
+                 (file-truename "./venv/"))
+           (setq jedi:environment-root
+                 (file-truename "./venv/"))
+           (setq jedi:server-command
+                 (file-truename "./venv/bin/jediepcserver"))
+           (setq flycheck-python-flake8-executable
+                 (concat
+                  (file-truename
+                   (locate-dominating-file default-directory "./venv/"))
+                  "venv/bin/flake8")))
+     (eval progn
+           (setq python-environment-directory
+                 (file-truename "./venv/"))
+           (setq jedi:environment-root
+                 (file-truename "./venv/"))
+           (setq flycheck-python-flake8-executable
+                 (concat
+                  (file-truename
+                   (locate-dominating-file default-directory "./venv/"))
+                  "venv/bin/flake8"))))))
+#+END_SRC
+不用我解釋，你看就知道 Emacs 到底是怎麼處理 =.dir-locals.el= 裡的 =eval= 了，這是超級噁爛的東西。
+
+順帶一提，這是不要把設定檔本體寫在 =.init.el= 的原因之一，全部東西塞 =.init.el= 實在太噁心了， =.init.el= 裡面最好只寫 =(require 'my-xxx-config)= 。如果你不知道我在說什麼，[[https://github.com/kuanyui/.emacs.d][請參考我的設定檔]] ，看 =.init.el= 和 =rc/= 整個架構怎麼安排的。
+
+-- onohiroko
+#+END_QUOTE
+
+#+BEGIN_QUOTE
+內建命令 =add-dir-local-variable= 可以互動式的產生 =.dir-locals.el= ，但老實說...我不會用這個，你可以自己摸摸看要怎麼用，也許你會覺得好用？
+#+END_QUOTE
+
+** File Local Variables
+
+#+BEGIN_QUOTE
+還有一些細節請自行讀官方文件： [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Specifying-File-Variables.html#Specifying-File-Variables][Specifying File Variables - GNU Emacs Manual]]
+#+END_QUOTE
+
+剛才是整個目錄套用，也可以單一當案套用。
+
+單一檔案套用雖然可以指定 major-mode ，但就不支援 eval 了。
+
+這就比較單純一點了。分成兩種寫法，選一種就可以了：
+
+1. 在檔案的 *第一行* 寫 =-*- mode: modename; var: value; ... -*-= （當然這就有可能讓 Shell Script 的 shebang 炸掉，關於這點 Emacs 似乎允許這種情況讓你寫到第二行，但我沒這樣做過。）
+2. 在檔案任何地方加上如下的段落，Emacs 會去抓 =Local Variables:= 到 =End:= 之間的所有設定：
+  #+BEGIN_EXAMPLE
+   Local Variables:
+   var-name: value
+   ...
+   End:
+  #+END_EXAMPLE
+
+可以放在註解裡面，像是 C 你就把它包在 =/*  */= 裡
+#+BEGIN_SRC c
+     /* Local Variables:  */
+     /* mode: c           */
+     /* fill-column: 49   */
+     /* comment-column: 0 */
+     /* End:              */
+#+END_SRC
+
+
+#+BEGIN_QUOTE
+一樣也有內建命令幫你做這些事情：
+- =add-file-local-variable-prop-line=
+- =add-file-local-variable=
+#+END_QUOTE
