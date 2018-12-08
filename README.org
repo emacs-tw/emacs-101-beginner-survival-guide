@@ -3,26 +3,32 @@
 
 #+BEGIN_QUOTE
 ** 一些懺悔
+這是寫完這本小書的三年後對於這本書的懺悔。
+
 用了也六年的 Emacs、寫過十幾個 Emacs 外掛，我想現在的我應該有點資格說這些話。
 
-不瞞各位說，我自己用 Emacs 的機會越來越少了。原因無他，就是以寫程式會最常用到的自動補全來說，Emacs 實在非常糟糕。
+不瞞各位說，我自己用 Emacs 的機會越來越少了。原因無他，就是 Emacs 在寫程式這點確實比不上 VSCode 了，跳到 VSCode 兩個月後，我的日常工作 Emacs 只做寫程式以外的任務（Magit, serial-term 之類的），而且完全不會懷念用 Emacs 寫程式。
 
-在你決定學習 Emacs 之前，就讓我幹譙一下 Emacs，目前在 Emacs 裡面搞過 C++, Python, JavaScript, TypeScript 的自動補全與重構（其實搞過的開發環境不只這幾種語言，但這幾種語言我都有寫了一定的時間比較理解），都很難搞，而且最終弄出來的效果也都沒有 Qt Creator / PyCharm / VSCode 好，不是常常罷工、甚至根本卡頓到不堪用。就算只是想寫個 web，vue, scss, pug / jade 和 stylus 這幾個需要的 major-mode 我都直接自幹要不然就是 hack 過， 現有的都超難用要不然就是 bug 滿天飛,搞了兩三年發現用 VSCode 隨便滑鼠點一點裝好 plugins 還不用動設定的開發環境都比 Emacs 土炮出來的進步幾光年
+在你決定學習 Emacs 之前，就讓我幹譙一下 Emacs，目前在 Emacs 裡面搞過 C++, Python, JavaScript, TypeScript 的自動補全與重構（其實搞過的開發環境不只這幾種語言，但這幾種語言我都有寫了一定的時間比較理解），都很難搞，而且最終弄出來的效果也都沒有 Qt Creator / PyCharm / VSCode 好（大概差了八九六四個光年吧），不是常常罷工、甚至根本卡頓到不堪用。就算只是想寫個 web，vue, scss, pug / jade 和 stylus 這幾個需要的 major-mode 我都直接自幹要不然也 hack 過，現有的都超難用要不然就是 bug 滿天飛，搞了兩三年發現用 VSCode 隨便滑鼠點一點裝好 plugins 還不用動設定的開發環境都比目前Emacs上各式現有package與自己土炮出來的好用太多...
 
-就算以上都順利裝好、TypeScript 支援就是沒 VSCode 強大（lsp-mode 是完全跑不起來，eglot-mode 則是極度卡頓、一直把你的按鍵輸入吃掉挑戰你的 EQ 底線）、C/C++ 支援就是沒有 QtCreator 或 VisualStudio 那樣的行雲流水（更別說現在有 clang 語意分析加持的 QtCreator 跟那好用到爆的 UI 搭配），至於 Python....動態型別的程式語言都該立刻丟掉。你可能會說這些本來就不是編輯器該做的事情、Emacs 不是 IDE...但畢竟我是要工作寫程式不是在玩遊戲啊，工作效率才是最重要的，我根本不想管 Emacs 定位是編輯器還是 IDE。
+就算以上都順利裝好、TypeScript 支援就是沒 VSCode 強大（lsp-mode 是完全跑不起來，eglot-mode 則是極度卡頓、一直把你的按鍵輸入吃掉挑戰你的 EQ 底線）、C/C++ 支援就是沒有 QtCreator 或 VisualStudio 那樣的行雲流水（更別說現在有 clang 語意分析加持的 QtCreator 跟那好用到爆的 UI 搭配）。你可能會說這些本來就不是編輯器該做的事情、Emacs 不是 IDE...但畢竟我是要工作寫程式不是在玩遊戲啊，工作效率才是最重要的，我根本不想管 Emacs 定位是編輯器還是 IDE。
 
 就算只是編輯器好了，舉個實際例子：我常常在寫 pug/jade，但現有的 jade-mode 和 pug-mode 都充滿缺陷到讓人訝異（因為在這之前我沒有寫過這類型的 major-mode， 後來頭洗下去研究才發現這兩個 mode 的作者根本連 syntax-table / =modify-syntax-entry= 的參數意義都理解得一塌糊塗），因為實在受不了所以花費了幾個禮拜寫了 [[https://github.com/kuanyui/yajade-mode.el#known-bugs][yajade-mode]] （同時也寫了 [[https://github.com/kuanyui/cakecrumbs.el][cakecrumbs.el]] 來輔助），沒寫不知道，一寫才發現原來 Emacs 對 syntax 的支援是如此...簡陋，以至於後來發現除非你真的像 =js2-mode= 那樣自己寫 lexer / parser 自己上色，否則 pug/jade 的支援就是無解。
+
+後來試試 VSCode，一裝好，嗎呀 code 不用外掛就可以折疊耶、哇 TypeScript 補全超聰明還會自動 import 耶、哇寫 Vue 時編輯器可以直接理解 <script> 裡面的 TypeScript 語意耶，媽呀找Reference的UI也太方便了吧......
 
 #+BEGIN_QUOTE
 因為這是屬於很細節的東西，有興趣的人再讀這塊。要為一個程式語言寫 major-mode，除了自己自幹 lexer / parser 自己上色外，Emacs 內建提供兩條路：
 
 1. syntax-table，C 實做，只能作到最簡單最基礎的文法支援，例如一個 symbol 可以包含哪些字元、左右括號分別是哪些字元、標示註解用的開頭與結尾的字元（限制各 2 字元）、quote 成對匹配（而且 quote 成對匹配只能多行，所以你就會明白為什麼 js-mode 的 string 為何完全不理會 string 中間有斷行）、quote 內的 escape 字元等等），讀一下文件就會明白，這些支援完全是為了 Common Lisp / Emacs Lisp 的語法打造。
-2. font-lock，ELisp 實做，可以餵 Regexp 讓 Emacs「讀懂」比較複雜的 syntax，補足 syntax-table 做不到的範圍。理論上也可以餵 callback function 來作到 regular language 做不到的事情，但實際上，這 callback 設計得非常難寫（可能是為了效率考量，他不是要你傳 position 進去，而是 font-lock 打算自己吃 last matched data...。但耗費的時間越多，對 Emacs 的效能問題越提不起興趣去理解...對不起這點是我我能力不足），即使寫出來了，syntax highlight 還是一下要動一下不動（像我常常在貼的 Emacs 上色錯誤大多都是那些問題）。
+2. font-lock，ELisp 實做，可以餵 Regexp 讓 Emacs「讀懂」比較複雜的 syntax，補足 syntax-table 做不到的範圍。理論上也可以餵 callback function 來作到 regular language 做不到的事情，但實際上，這 callback 設計得非常難寫（可能是為了效率考量，他不是要你傳 position 進去，而是 font-lock 打算自己吃 last matched data...。但耗費的時間越多，對 Emacs 的效能問題越提不起興趣去理解...對不起這點是我我能力不足），即使寫出來了，syntax highlight 還是一下要動一下不動（Emacs 經常遇到 syntax highlight 上色錯誤大多都是那些問題）。
 #+END_QUOTE
 
-後來試試 VSCode，一裝好，嗎呀 code 不用外掛就可以折疊耶、哇 TypeScript 補全超聰明還會自動 import 耶、哇寫 Vue 時編輯器可以直接理解 <script> 裡面的 TypeScript 語意耶、哇 Re
+當然 Emacs 是自由軟體，我也很想打造更多好東西讓 Emacs 更加好用，讓我開發時更輕鬆愉快，但發現...付出的時間龐大不說，而且 VSCode 一裝好、很多預設值就做得比你搞老半天做得還好上幾個光年了。不信的話，可以看看 [[https://github.com/kuanyui/.emacs.d][我的 Emacs 設定檔]] ，看我花費了多少時間給各種語言寫一堆 hack 僅僅只是讓他做出例如啟動 LSP client 這樣的基本任務，但一試用 VSCode 後發現預設值就做得超好（而且不少是現有的Emacs理論上無解的東西，像 mmm-mode， 你要在Emacs裡愉快的寫Vue + TypeScript基本上不可能。），我根本是在浪費自己的生命。
 
-當然 Emacs 是自由軟體，我也很想打造更多好東西讓 Emacs 更加好用，讓我開發時更輕鬆愉快，但發現...付出的時間龐大不說，而且 VSCode 一裝好、很多預設值就做得比你搞老半天做得還好上幾個光年了。不信的話，可以看看 [[https://github.com/kuanyui/.emacs.d][我的 Emacs 設定檔]] ，看我花費了多少時間給各種語言寫一堆 hack 僅僅只是讓他做出例如啟動 LSP client 這樣的基本任務，但一試用 VSCode 後發現預設值就做得超好，我根本是在浪費自己的生命。
+好啦不想再抱怨了，總之我在這裡已經把我用了這麼多年的心得講在前面了，是否要繼續學下去你自行決定。
+
+-- ono hiroko
 #+END_QUOTE
 
 ** 前言
