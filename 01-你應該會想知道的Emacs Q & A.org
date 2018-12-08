@@ -39,6 +39,12 @@ Emacs 雖然適合包辦許多任務，但也不要把 Emacs 想得太萬能。�
 什麼時候不該用 Emacs？這裡有幾個例子：
 
 - Qt 開發 -- 這是我個人的經驗，Qt Creator 寫 Qt/C++ 程式比 Emacs 方便太多了，從自動補完到重構都是 Emacs  完全比不上的。
+- 想要各種語言的自動補全與重構等 IDE 等級的功能。
+  - C / C++ ，尤其是 Qt，乖乖用 Qt Creator
+  - TypeScript 乖乖用 VSCode。
+  - Vue + TypeScript 乖乖用 VSCode。
+  - 以上都是我浪費了不知幾十個小時最後得出的結論。這是2018年11月得出的結論，也許未來的 Emacs 在這方面會大有進步吧。
+
 - 看圖
   + 慢
   + 大圖捲動困難。
@@ -143,9 +149,9 @@ v- 自訂排版的簡報
 #+END_QUOTE
 ** 優點
 
-1. Org-mode, Dired 這兩個功能至今依舊打趴其他所有編輯器。
-   - 尤其 Org-mode 是至今我心目中無人能敵的超變態的筆記 + GTD + 出版軟體。（這是我當初學 Emacs 而不是 Vim 的主要理由之一）
-2. 學一套，幾乎什麼平台都能用。
+1. 學一套，幾乎什麼平台都能用。
+2. Org-mode, Dired 這兩個功能至今依舊打趴其他所有編輯器。
+   - 尤其 Org-mode 是至今我心目中無人能敵的筆記 + GTD + 出版軟體。（這是我當初學 Emacs 而不是 Vim 的主要理由之一）如果你用 Android 也可以參考一下 Orgzly。
 3. 有 CLI 界面，可純鍵盤操作，遠端 ssh 操作或 tty 也完全沒問題。
 4. 很多 UNIX 工具也是採用 Emacs-flavored 的 key-binding，尤其是 GNU 出品的。例如  =info= 、 =less= 、甚至  =bash= / =zsh=  的預設操作方式其實就是模仿 Emacs 的。
 5. 歷史悠久，所以很多你想得到、想不到的方便功能幾乎都有人做過。舉凡一套完整的 Terminal Emulator、[[http://kuanyui.github.io/2014/06/21/dired-tutorial-and-essential-configs/][檔案管理員]]、[[https://magit.vc/manual/magit.html][Git 的前端]] 、 [[https://www.gnu.org/software/emacs/manual/html_node/emacs/Serial-Terminal.html][Serial Terminal]]到 [[https://github.com/hayamiz/twittering-mode][Twitter 的 client]]。
