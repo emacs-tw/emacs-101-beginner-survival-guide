@@ -44,7 +44,7 @@ Symbol 是 Lisp、Ruby、Julia 等語言中有的一種資料型態，目前不�
     (define-key twittering-mode-map (kbd "U") ’ twittering-user-timeline)
     #+END_SRC
 
-    *各個 mode 儲存 key-bindings 的變數一律是 「該 mode 的正式名稱 + =-map= 」* 。例如名稱叫 =twittering-mode=  的 major mode，他的 key-map 就是 =twittering-mode-map= 。這是規則，記下來就對了。
+    *各個 mode 儲存 key-bindings 的變數一律是 「該 mode 的正式名稱 +* =-map= *」* 。例如名稱叫 =twittering-mode=  的 major mode，他的 key-map 就是 =twittering-mode-map= 。這是規則，記下來就對了。
 
     #+BEGIN_QUOTE
     查 mode 的正式名稱最快的方式：
@@ -86,10 +86,10 @@ Symbol 是 Lisp、Ruby、Julia 等語言中有的一種資料型態，目前不�
 
 ** Prefix Key (=C-x= & =C-c=)
 =C-x= 與 =C-c= 是前綴(prefix)組合鍵，有特殊意義：
-1. *你無法單獨使用 Prefix key（例如你無法把某個功能綁到只按一個 =C-x= 就能達成，當你試圖這樣綁定時它會報錯）。*
+1. *你無法單獨使用 Prefix key（例如你無法把某個功能綁到只按一個* =C-x= *就能達成，當你試圖這樣綁定時它會報錯）。*
 2. 反過來說，「預設情況下」，你也無法用這兩個以外的按鍵當作 Prefix key ，例如把某個功能綁定到 =C-s C-k= 或 =C-d m= 。
 
-3. 靠著 Prefix key，你可以綁任意「深度」的 combo「組合技」、「連續技」，例如只要你爽（或者夠無聊），你也可以把查[[https://github.com/kuanyui/moedict.el][萌典]] 的命令綁到 =C-x 上 上 下 下 左 右 左 右 a b= ，只要他沒跟任何現有key-binding衝突即可。
+3. 靠著 Prefix key，你可以綁任意「深度」的 combo「組合技」、「連續技」，例如只要你爽（或者夠無聊），你也可以把查 [[https://github.com/kuanyui/moedict.el][萌典]] 的命令綁到 =C-x 上 上 下 下 左 右 左 右 a b= ，只要他沒跟任何現有key-binding衝突即可。
 
 #+BEGIN_SRC elisp
 (global-set-key (kbd "C-x <up> <up> <down> <down> <left> <right> <left> <right> a b") 'moedict)
