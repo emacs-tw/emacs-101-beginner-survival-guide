@@ -54,7 +54,7 @@ Emacs 是個非常吃重設定檔的編輯器，這一篇會為您解答最常�
     - =C-h v= =minor-mode-list= 查詢目前 buffer 下所有啟動的 minor mode 的正式名稱
     #+END_QUOTE
 
-    *各個 mode 儲存 hook 的變數名稱一律是 「該 mode 的正式名稱 + =-hook= 」* ，例如想要在 =python-mode= 啟動時順便打開 =highlight-symbol-mode= ：
+    *各個 mode 儲存 hook 的變數名稱一律是 「該 mode 的正式名稱 +* =-hook= *」* ，例如想要在 =python-mode= 啟動時順便打開 =highlight-symbol-mode= ：
 
 #+BEGIN_SRC elisp
     (add-hook 'python-mode-hook 'highlight-symbol-mode)
