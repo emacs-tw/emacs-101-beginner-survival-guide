@@ -12,7 +12,7 @@
 透過 =package.el= 安裝的套件會被放在 =~/.emacs.d/elpa/= 下。如果你用 git 管理你的 Emacs 設定檔，建議直接把 =~/.emacs.d/elpa/= 也一起放進去，先不要考慮什麼為了省空間而用 Emacs Lisp 寫個自動從網路上抓 packages 的 function 之類的，因為很容易 dependancies 爆掉，與其那麼麻煩不如先全部放。
 
 #+BEGIN_QUOTE
-也可以使用 =use-package= 這個插件的 =ensure= 選項來自動檢查並安裝未安裝的包。比如： =(use-package magit :ensure t)= 。
+如果你有使用 =use-package= 這個第三方外掛來管理套件，有個 =ensure= 選項可以自動檢查並安裝未安裝的套件。比如： =(use-package magit :ensure t)= 。
 
 -- 9m9
 #+END_QUOTE
