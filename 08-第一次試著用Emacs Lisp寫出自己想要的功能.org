@@ -5,7 +5,7 @@
 好啦，現在來試試，要怎麼用 Emacs Lisp 寫出一點我們想要的功能吧？
 
 * 需求
-假設我現在想要 *按一鍵（例如 =F12= ），就可以直接開啟某個檔案* ，該從何下手呢？
+假設我現在想要 *按一鍵（例如* =F12= *），就可以直接開啟某個檔案* ，該從何下手呢？
 
 * 找出需要的 API
 當你不知道該用哪個 Emacs Lisp 的 API 時，當然可以直接 Google 查像是 "emacs lisp open file" 之類的關鍵字。但我現在要講的不是這方法，而是如何利用 Emacs 內建的 API 說明文件。
@@ -116,7 +116,10 @@ command-execute: Wrong type argument: commandp, my-open-hello
 就不再囉唆長篇大論，直接來 code：
 
 #+BEGIN_SRC elisp
-(define-key python-mode-map (kbd "<f5>") 'run-buffer-with-python3-interpreter)
+(with-eval-after-load
+    'python
+  (define-key python-mode-map (kbd "<f5>")
+    'run-buffer-with-python3-interpreter))
 (defun run-buffer-with-python3-interpreter ()
   (interactive)
   (save-buffer)
@@ -134,7 +137,7 @@ command-execute: Wrong type argument: commandp, my-open-hello
 #+BEGIN_QUOTE
 你可能會問， =shell-command= 執行命令時的 =pwd= 是在哪裡？答案就是你目前的 buffer 路徑。所以這裡可以直接餵給 =python3= 相對路徑。
 
-目前 buffer 的路徑則則則是由內建變數 =default-directory= 儲存。
+目前 buffer 的路徑則是由內建變數 =default-directory= 儲存。
 #+END_QUOTE
 
 別忘記，以上你都可以自行開個檔案 =C-x C-e= 試試。
