@@ -32,9 +32,9 @@ Emacs 是史上最古老的編輯器之一，然而因為許多原因，入門�
 * 關於主觀的看法
 
 #+BEGIN_QUOTE
-雖然是放在 Emacs 台灣 的 GitHub Repo，不過本書不代表 Emacs 台灣 社群立場。
+雖然是放在 Emacs 台灣 的 GitHub Repo，不過本書不代表 Emacs 台灣 社群立場，放在社群 repo 只是方便大家共筆管理。
 
-這本書最終有 95% 左右的內容是由我（[[https://github.com/kuanyui][kuanyui]]）撰寫（雖然原本並不打算這樣的...），寫這種東西因為有太多關於 Emacs 的學習與使用心得，不可避免的一定會有很多主觀看法，所以在本書看到的任何牽涉到主觀看法的地方如未特別註明，通常就是我的個人意見，請姑且聽聽。
+這本書最終有 95% 左右的內容是由我（[[https://github.com/kuanyui][kuanyui]]）撰寫（雖然原本並不打算這樣的...），寫這種東西因為有太多關於 Emacs 的學習與使用心得，不可避免的一定會有很多主觀看法，所以在本書看到的任何牽涉到主觀看法的地方如未特別註明，通常就是我的個人意見，姑且聽聽請勿全信，因為我發現我看好的東西通常都不賣座、卻有一堆我覺得難用的東西超受歡迎， +像極了愛情+ 。
 
 -- ono hiroko
 #+END_QUOTE
@@ -49,8 +49,8 @@ StackExchange 現在有 [[https://emacs.stackexchange.com/][Emacs 專版]]，相
 
 ** IRC
 
-  這應該是目前最活躍的、也最即時的發問管道。channel 皆位於 Freenode IRC server 上：
-  - 台灣（正體中文）： =#emacs.tw=
+  這是比 StackExchange 即時一點的發問管道。channel 皆位於 Freenode IRC server 上：
+  - 台灣（台灣繁體）： =#emacs.tw=
   - 國際（英文）： =#emacs=
 
 ** SNS
@@ -60,4 +60,3 @@ StackExchange 現在有 [[https://emacs.stackexchange.com/][Emacs 專版]]，相
   - [[https://plus.google.com/u/0/communities/114815898697665598016][Google+ 國際社群]]
   - [[https://twitter.com/EmacsTW][Emacs 台灣 (@EmacsTW) | Twitter]]
   - [[https://www.reddit.com/r/emacs/][Reddit 國際社群]]
-

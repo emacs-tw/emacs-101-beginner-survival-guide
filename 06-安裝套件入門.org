@@ -2,8 +2,9 @@
 安裝第三方各式套件可說是 Emacs 的精隨，Emacs 發展到現在有成千上萬各式不同的套件，讓你擴充 Emacs 到手軟。安裝套件主要有兩種最簡單的方法，一是透過 Emacs 24 以後開始內建的 =package.el= ，二是手動安裝。以下分別介紹。
 
 #+BEGIN_QUOTE
-我個人喜歡以 package.el 為主，手動安裝為輔的方式。因為 package.el 太方便了，除非遇到 GNU ELPA 跟 MELPA 中都找不到的 package（現在很少了，MELPA 收錄得越來越多），否則根本不會想要手動安裝。
+我個人喜歡以 package.el 為主，手動安裝為輔的方式。因為 package.el 太方便了，除非遇到 GNU ELPA 跟 MELPA 中都找不到的 package（現在很少了），否則根本不會想要手動安裝。
 
+-- ono hiroko
 #+END_QUOTE
 
 ** =package.el= 與 MELPA

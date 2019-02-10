@@ -1,5 +1,9 @@
 #+BEGIN_QUOTE
 如果你都用 GUI 版的 Emacs，這一頁對你沒有用，請直接跳過。生命是很寶貴的不要浪費時間在這頁上。
+
+只能說，我自己平常現在都只用 GUI 版的 Emacs 了，只有 ssh 管 server 或者在 tty 下面才會勉強用一下 CLI。
+
+-- ono hiroko
 #+END_QUOTE
 
 你現在既然不怕死地在看這一行，那就代表你已經踏入 Emacs 最無聊最煩人的部份之一，就是如何解決終端機中的 Emacs 所遇到的一堆殘障現象。
@@ -19,7 +23,7 @@ Org-mode 在設計時有考慮到這問題，所以有設計了許多在終端�
 覺得很難記？嗯...那就自己重新綁一下按鍵吧，不然就乖乖用 GUI 版 Emacs。
 
 ** 3. Super Key 完全無效！
-=Super= 鍵（就是常說的 =Win= 鍵）是在 X11 裡定義的，除非經過一些特殊設定，不然 tty 或 terminal 基本上都無法辨識這個鍵，我自己是沒去折騰這個，因為太麻煩。如果你堅持要用，詳情可以查一下 StackOverflow，有人問過。
+=Super= 鍵（就是常說的 =Win= 鍵）是在 X11 裡定義的，除非經過一些特殊設定，不然 tty 或 terminal 基本上都無法辨識這個鍵，我自己是沒去折騰這個，因為太麻煩，我也非常不推薦你浪費時間在這上面。如果你堅持要用，詳情可以查一下 StackOverflow，有人問過。
 
 ** 按鍵相關的問題排除步驟
 
@@ -64,7 +68,7 @@ Org-mode 在設計時有考慮到這問題，所以有設計了許多在終端�
      `auto-fill-chars' table has a non-nil value for the inserted character.
      At the end, it runs `post-self-insert-hook'.
 
-     [back]   
+     [back]
    #+END_EXAMPLE
 
 
@@ -130,7 +134,7 @@ Lisp function in `simple.el'.
 (global-set-key (kbd "C-x M-[ c") 'next-buffer)
 (global-set-key (kbd "M-[ c") 'forward-word)
 (global-set-key (kbd "M-[ d") 'backward-word)
-(global-set-key (kbd "C-c M-[ d") 'backward-sexp) 
+(global-set-key (kbd "C-c M-[ d") 'backward-sexp)
 (global-set-key (kbd "C-c M-[ c") 'forward-sexp)
 (global-set-key (kbd "C-c M-[ a") 'backward-up-list)
 (global-set-key (kbd "C-c M-[ b") 'down-list)
@@ -202,5 +206,3 @@ bind-key k confirm-before -p "kill-window #W? (y/n)" kill-window
 
 -- ono hiroko
 #+END_QUOTE
-
-
