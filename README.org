@@ -9,7 +9,7 @@
 
 不瞞各位說，我自己用 Emacs 的機會越來越少了。原因無他，就是 Emacs 在寫程式這點確實比不上 VSCode 了，跳到 VSCode 三個月後，我的日常工作裡 Emacs 只拿來做寫程式以外的任務（Magit, serial-term 之類的），而且完全不會懷念用 Emacs 寫程式，轉換的陣痛期也出乎意料的小 -- VSCode 的優勢實在太多了，感謝上帝讚美拯救蒼生的微軟。
 
-在你決定學習 Emacs 之前，就讓我幹譙一下 Emacs，目前在 Emacs 裡面搞過 C++, Python, JavaScript, TypeScript 的自動補全與重構（其實搞過的開發環境不只這幾種語言，但這幾種語言我都有寫了一定的時間比較理解），都很難搞，而且最終弄出來的效果也都沒有 Qt Creator / PyCharm / VSCode 好（大概差了八九六四個光年吧），不是常常罷工、甚至根本卡頓到不堪用。就算只是想寫個 web，vue, scss, pug / jade 和 stylus 這幾個需要的 major-mode 我都直接自幹要不然也 hack 過，現有的都超難用要不然就是 bug 滿天飛，搞了兩三年發現用 VSCode 隨便滑鼠點一點裝好 plugins 還不用動設定的開發環境都比目前Emacs上各式現有package與自己土炮出來的好用太多...
+在你決定學習 Emacs 之前，就讓我幹譙一下 Emacs，目前在 Emacs 裡面搞過 C++, Python, JavaScript, TypeScript 的自動補全與重構（其實搞過的開發環境不只這幾種語言，但這幾種語言我都有寫了一定的時間比較理解），都很難搞，而且最終弄出來的效果也都沒有 Qt Creator / PyCharm / VSCode 好（大概差了八九個光年吧），不是常常罷工、甚至根本卡頓到不堪用。就算只是想寫個 web，vue, scss, pug / jade 和 stylus 這幾個需要的 major-mode 我都直接自幹要不然也 hack 過，現有的都超難用要不然就是 bug 滿天飛，搞了兩三年發現用 VSCode 隨便滑鼠點一點裝好 plugins 還不用動設定的開發環境都比目前Emacs上各式現有package與自己土炮出來的好用太多...
 
 就算以上都順利裝好、TypeScript 支援就是沒 VSCode 強大（lsp-mode 是完全跑不起來，eglot-mode 則是極度卡頓、一直把你的按鍵輸入吃掉挑戰你的 EQ 底線）、C/C++ 支援就是沒有 QtCreator 或 VisualStudio 那樣的行雲流水（更別說現在有 clang 語意分析加持的 QtCreator 跟那好用到爆的 UI 搭配）。你可能會說這些本來就不是編輯器該做的事情、Emacs 不是 IDE...但畢竟我是要工作寫程式不是在玩遊戲啊，工作效率才是最重要的，我根本不想管 Emacs 定位是編輯器還是 IDE。
 
